@@ -1,5 +1,8 @@
 package by.training.helloworld.main;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  *
  * @author Andrey Holenkov.
@@ -25,6 +28,13 @@ public final class Runner {
 	 */
 
 	public static void main(final String[] args) {
-		System.out.println("Hello");
+		final Logger rootLogger = LogManager.getRootLogger();
+		rootLogger.info("Hello");
+		
+		for (int i = 1; i<10; ++i) {
+			rootLogger.info("i = " + i);
+		}
+	//	System.out.println("Hello");
+		
 	}
 }

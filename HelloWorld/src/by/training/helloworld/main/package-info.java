@@ -1,5 +1,5 @@
 /**
-*Package info file for Runner.
+*Main package.
 */
 
 package by.training.helloworld.main;
