@@ -34,7 +34,7 @@ public final class Runner {
 		for (int i = 1; i<10; ++i) {
 			rootLogger.info("i = " + i);
 		}
-	//	System.out.println("Hello");
+		System.out.println("Hello +++=");
 		
 	}
 }
