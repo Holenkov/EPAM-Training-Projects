@@ -308,3 +308,7 @@
 2019-05-12 18:57:46.796 [main] INFO  - Employee experience should be integer. Current experience is [100, Development, Developer, Anya, Maksimova, fail, 700, 2]
 2019-05-12 18:57:46.797 [main] INFO  - Employee salary should be integer. Current salary is [100, Development, Developer, Anya, Maksimova, 3, fail, 2]
 2019-05-12 18:57:46.798 [main] INFO  - Number of finished projects should be integer[100, Development, Developer, Anya, Maksimova, 3, 700, fail]
+2019-05-12 19:00:32.648 [main] INFO  - Employee ID should be integer.  Current ID is [Development, Developer, Anya, Maksimova, 3, 700, 2, null]
+2019-05-12 19:00:32.655 [main] INFO  - Employee experience should be integer. Current experience is [100, Development, Developer, Anya, Maksimova, fail, 700, 2]
+2019-05-12 19:00:32.656 [main] INFO  - Employee salary should be integer. Current salary is [100, Development, Developer, Anya, Maksimova, 3, fail, 2]
+2019-05-12 19:00:32.657 [main] INFO  - Number of finished projects should be integer[100, Development, Developer, Anya, Maksimova, 3, 700, fail]
