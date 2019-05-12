@@ -72,9 +72,10 @@ public class RepositoryFileIO {
 			
 				}
 			}
-		} else {
+		}/* else {
+			System.out.println("Repository null");
 			return null;
-		}
+		}*/
 		
 		return objEmployees;
 	}

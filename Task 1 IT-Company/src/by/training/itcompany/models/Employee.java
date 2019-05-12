@@ -23,20 +23,18 @@ public abstract class Employee {
 	
 	public Employee() {
 	}
-	
+
 	public Employee(int id, String position, String firstName, String lastName, int experience, int salary) {
-		super();		
-		try {
-			setId(id);
-			setPosition(position);
-			setFirstName(firstName);
-			setLastName(lastName);
-			setExperience(experience);
-			setSalary(salary);
-		} catch (IllegalParameterException e) {
-			e.printStackTrace();
-		}
+		super();
+		this.id = id;
+		this.position = position;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.experience = experience;
+		this.salary = salary;
 	}
+
+
 
 	public String getPosition() {
 		return position;

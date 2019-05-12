@@ -71,9 +71,13 @@ public class EmployeesRepository implements Repository{
 	 */
 	@Override
 	public void viewRepository() {
-		System.out.println("EmployeesRepository in Repository.");
-		for (Employee employee : employees) {
-			System.out.println(employee);			
+		if (employees.size() != 0) {
+			System.out.println("Employees in Repository.");
+			for (Employee employee : employees) {
+				System.out.println(employee);			
+			}
+		} else {
+			System.out.println("Repositoty is Empty");
 		}
 		System.out.println();
 	}

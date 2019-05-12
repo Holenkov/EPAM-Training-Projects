@@ -31,11 +31,7 @@ public class Developer extends Employee{
 	public Developer(Integer id, String position, String firstName, String lastName, int experience, int salary,
 			int projectExperience) {
 		super(id, position, firstName, lastName, experience, salary);
-		try {
-			setProjectExperience(projectExperience);
-		} catch (IllegalParameterException e) {
-			e.printStackTrace();
-		}
+		this.projectExperience = projectExperience;
 	}
 	
 	

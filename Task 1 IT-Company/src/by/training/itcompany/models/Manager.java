@@ -26,7 +26,7 @@ public class Manager extends Employee{
 	public Manager(Integer id, String position, String firstName, String lastName, int experience, int salary,
 			String someTextField) {
 		super(id, position, firstName, lastName, experience, salary);
-		setSomeTextField(someTextField);
+		this.someTextField = someTextField;
 	}
 
 	public String getSomeTextField() {

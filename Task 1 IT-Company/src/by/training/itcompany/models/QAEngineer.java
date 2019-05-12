@@ -25,7 +25,7 @@ public class QAEngineer extends Employee{
 	 */
 	public QAEngineer(int id, String position, String firstName, String lastName, int experience, int salary, boolean automatedTesting) {
 		super(id, position, firstName, lastName, experience, salary);
-		setAutoTesting(automatedTesting);
+		this.automatedTesting = automatedTesting;
 	}
 
 	public boolean isAutoTesting() {
