@@ -11,7 +11,7 @@
 			<PatternLayout pattern="${patternshort}" />
 		</Console>
 		
-		<File name="TxtFile" bufferedIO="true" fileName="src/by/training/logs/text.log">
+		<File name="TxtFile" bufferedIO="true" fileName="logs/text.log">
 			<PatternLayout pattern="${patternfull}" />
 		</File>
 	</Appenders>
