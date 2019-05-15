@@ -1,4 +1,4 @@
-package by.training.itcompany.factories;
+package by.training.itcompany.factory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,16 +7,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.training.itcompany.exceptions.IllegalParameterException;
-import by.training.itcompany.models.Developer;
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.exception.IllegalParameterException;
+import by.training.itcompany.model.Developer;
+import by.training.itcompany.model.Employee;
 
 /**
  * Class, extends EmployeeFactjry class, implements EmployeeFactoryInterface,
  * with methods makeEmployee and validate.
  */
 public class DeveloperFactory extends EmployeeFactory implements Factory {
-
+	final Logger rootLogger = LogManager.getRootLogger();
 	/**
 	 * Method, creating Developer class object.
 	 *
@@ -24,11 +24,11 @@ public class DeveloperFactory extends EmployeeFactory implements Factory {
 	 *            {@code List<String>}:[id, department, position,firstName, lastName,
 	 *            experience, salary, projectExperience]
 	 * @return Developer object;
+	 * @throws IllegalParameterException 
 	 */
 	@Override
-	public Employee makeEmployee(final List<String> params) {
+	public Employee makeEmployee(List<String> params) throws IllegalParameterException {
 		List<Object> employeeParams = validate(params);
-		if (employeeParams != null) {
 			Developer employee = new Developer();
 			try {
 				employee.setId((int) employeeParams.get(0));
@@ -39,12 +39,10 @@ public class DeveloperFactory extends EmployeeFactory implements Factory {
 				employee.setSalary((int) employeeParams.get(5));
 				employee.setProjectExperience((int) employeeParams.get(6));
 			} catch (IllegalParameterException e) {
-				e.printStackTrace();
-				return null;
+				throw new IllegalParameterException(e.getMessage() + params.toString(), e);
 			}
+			
 			return employee;
-		}
-		return null;
 	}
 
 	/**
@@ -57,28 +55,25 @@ public class DeveloperFactory extends EmployeeFactory implements Factory {
 	 * @return List<Object>:[int id, String department, String position, String
 	 *         firstName, String lastName, int experience, int salary, int
 	 *         projectExperience]
+	 * @throws IllegalParameterException 
 	 */
 	@Override
-	protected List<Object> validate(final List<String> params) {
-		final Logger rootLogger = LogManager.getRootLogger();
+	protected List<Object> validate(final List<String> params) throws IllegalParameterException {
+	
 		final int NUMBER_OF_FIELDS = 8;
 		if (params.size() < NUMBER_OF_FIELDS) {
-			rootLogger.info("Not enough fields" + params);
-			return null;
+			throw new IllegalParameterException("Not enough fields" + params);
 		}
 		List<Object> employeeParams = new ArrayList<>();
-		List<Object> superEmployeeParams = super.validate(params);
-		if (superEmployeeParams != null) {
+		List<Object> superEmployeeParams;
+		
+			superEmployeeParams = super.validate(params);
 			employeeParams.addAll(superEmployeeParams);
-		} else {
-			return null;
-		}
-		int projectExperience;
+			int projectExperience;
 		try {
 			projectExperience = Integer.parseInt(params.get(7));
-		} catch (Exception e) {
-			rootLogger.info("Number of finished projects should be integer" + params);
-			return null;
+		} catch (NumberFormatException e) {
+			throw new IllegalParameterException("Employee ID should be integer.  Current ID is " + params, e);
 		}
 		employeeParams.add(projectExperience);
 		return employeeParams;

@@ -1,4 +1,4 @@
-package by.training.itcompany.enums;
+package by.training.itcompany.model;
 /**
  *
  * Enumeration for Departments.

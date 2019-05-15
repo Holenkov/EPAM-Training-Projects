@@ -2,12 +2,12 @@ package by.training.itcompany.repository;
 
 import java.util.List;
 
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.model.Employee;
 
 public interface Repository {
 	void viewRepository();
-	List<Employee> getAll();
-	void setAll(List<Employee> employees);
+	//List<Employee> getAll();
+	//void setAll(List<Employee> employees);
 	void deleteByParam(String param, List<String> params);
 	/**
 	 * Add Employee to Repository. 

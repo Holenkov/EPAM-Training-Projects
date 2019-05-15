@@ -3,11 +3,22 @@
  * id, position, firstName, lastName, experience, salary.
 */
 
-package by.training.itcompany.models;
+package by.training.itcompany.model;
 
-import by.training.itcompany.exceptions.IllegalParameterException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import by.training.itcompany.exception.IllegalParameterException;
+
 
 public abstract class Employee {
+	Logger rootLogger = LogManager.getRootLogger();
+	final int MIN_EXPERIENCE = 0;
+	final int MAX_EXPERIENCE = 50;
+	final int MIN_SALARY = 0;
+	final int MAX_SALARY = 5000;
+	
+	
 	/** Employee ID */
 	private int id;
 	/**Position of Employee */
@@ -61,8 +72,9 @@ public abstract class Employee {
 	}
 	
 	public void setExperience(int experience) throws IllegalParameterException {
-		if ((experience < 0)||(experience > 50)) 
+		if ((experience < MIN_EXPERIENCE)||(experience > MAX_EXPERIENCE)){ 
 			throw new IllegalParameterException("Something wrong with experience value. Current experience is " + experience);
+		}
 		this.experience = experience;
 	}
 	
@@ -71,8 +83,9 @@ public abstract class Employee {
 	}
 	
 	public void setSalary(int salary) throws IllegalParameterException {
-		if ((salary < 0)||(salary > 5000)) 
-			throw new IllegalParameterException("Something wrong with salary value. Current salary is " + salary);  	
+		if ((salary < MIN_SALARY)||(salary > MAX_SALARY)){
+			throw new IllegalParameterException("Something wrong with salary value. Current salary is " + salary);
+		}
 		this.salary = salary;
 	}
 
@@ -82,7 +95,9 @@ public abstract class Employee {
 
 
 	public void setId (int id) throws IllegalParameterException {
-		if (id < 0) throw new IllegalParameterException("Employee ID should be positive integer. Current ID is " + id);
+		if (id < 0) {
+			throw new IllegalParameterException("Employee ID should be positive integer. Current ID is " + id);
+		}
 		this.id = id;	
 	}
 	

@@ -1,4 +1,4 @@
-package test.itcompany.factories;
+package test.itcompany.factory;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,10 +12,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import by.training.itcompany.exceptions.IllegalParameterException;
-import by.training.itcompany.factories.DeveloperFactory;
-import by.training.itcompany.models.Developer;
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.exception.IllegalParameterException;
+import by.training.itcompany.factory.DeveloperFactory;
+import by.training.itcompany.model.Developer;
+import by.training.itcompany.model.Employee;
 
 /**
  * JUnit Test for DeveloperFactory class.
@@ -88,8 +88,14 @@ public class DeveloperFactoryTest extends Employee{
 	@Test
 	public void makeEmployeeTest (){
 		DeveloperFactory developerFactory = new DeveloperFactory();
-		Developer actual = (Developer) developerFactory.makeEmployee(new ArrayList<String>(
-				Arrays.asList(id, department, position, firstName, lastName, experience, salary, projectExperience)));
+		Developer actual = null;
+		try {
+			actual = (Developer) developerFactory.makeEmployee(new ArrayList<String>(
+					Arrays.asList(id, department, position, firstName, lastName, experience, salary, projectExperience)));
+		} catch (IllegalParameterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(expected);
 		System.out.println(actual);
 		System.out.println();

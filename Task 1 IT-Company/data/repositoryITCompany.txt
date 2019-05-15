@@ -1,5 +1,7 @@
 14;QA Department;Lead Tester;Olga;Mager;4;1400;true;
 15;QA Department;Lead Tester;Katerina;Tamanovich;5;1800s;true;
+
+15;QA Department;Lead Tester;
 16;QA Department;Junior QA Engineer;Vladimir;Okulik;1;400;false;
 17;QA Department;Junior QA Engineer;Konstantin;Orehov;2;450;false;
 18;QA Department;Middle QA Engineer;Ury;Selvich;2;800;false;

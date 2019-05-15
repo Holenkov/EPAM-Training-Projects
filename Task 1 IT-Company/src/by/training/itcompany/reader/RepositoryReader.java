@@ -1,4 +1,4 @@
-package by.training.itcompany.utils;
+package by.training.itcompany.reader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,19 +12,22 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.training.itcompany.factories.EmployeeMaker;
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.exception.IllegalParameterException;
+import by.training.itcompany.exception.NullResultException;
+import by.training.itcompany.factory.EmployeeMaker;
+import by.training.itcompany.model.Employee;
 import by.training.itcompany.repository.EmployeesRepository;
 
 /**
  *Public Util class for working with text file.
  */
 
-public class RepositoryFileIO {
+public class RepositoryReader {
+	final Logger rootLogger = LogManager.getRootLogger();
 	/**
 	 *  Constructor for Util class.
 	 */
-	public RepositoryFileIO() {
+	public RepositoryReader() {
 		
 	}
 	
@@ -35,17 +38,14 @@ public class RepositoryFileIO {
 	 *@param fileName - path to file;
 	 *@return ArrayList<Employee>
 	 */
-	public List<Employee> readFromFile(final String fileName) {
-		final Logger rootLogger = LogManager.getRootLogger();
-		
+	public List<Employee> readFromFile (final String fileName) throws NullResultException {
 		File file = new File(fileName);
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(file);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			rootLogger.info("Repository file not found");	
-			return null;
+			rootLogger.error("Repository file not found", e);	
+			throw new NullResultException("Repository file not found", e);
 		}
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		List<List<String>> stringEmployees = new ArrayList<>();
@@ -55,29 +55,33 @@ public class RepositoryFileIO {
 			while ((line = bufferedReader.readLine()) != null) {
 				employee = new ArrayList<>(Arrays.asList(line.split(";")));
 				stringEmployees.add(employee);
-
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			rootLogger.error("Error reading from Repository file", e);	
 		}
 		List<Employee> objEmployees = new ArrayList<>();
-		EmployeeMaker employeeFactory = new EmployeeMaker();
+		EmployeeMaker employeeMaker = new EmployeeMaker();
 		if (stringEmployees.size()>0) {
 			for (List<String> empl : stringEmployees) {
-				if (empl.size()>0) {
-					Employee objEmployee = employeeFactory.createEmployee(empl);
-					if (objEmployee != null) {
+					Employee objEmployee;
+					try {
+						objEmployee = employeeMaker.createEmployee(empl);
 						objEmployees.add(objEmployee);
+					} catch (IllegalParameterException e) {
+						rootLogger.error(e);	
 					}
-			
-				}
 			}
-		}/* else {
-			System.out.println("Repository null");
-			return null;
-		}*/
+		} else {
+			rootLogger.info("Repository file is empty");	
+			throw new NullResultException("Repository file is empty");
+		}
+		if (objEmployees.size()>0) {
+			return objEmployees;			
+		} else {
+			throw new NullResultException("Repository file contains incorrect data");
+		}
 		
-		return objEmployees;
+		
 	}
 	
 	

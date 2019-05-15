@@ -15,30 +15,30 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.Throwables;
 
-import by.training.itcompany.enums.Departments;
-import by.training.itcompany.exceptions.NullResultException;
-import by.training.itcompany.models.Developer;
-import by.training.itcompany.models.Employee;
-import by.training.itcompany.models.Manager;
-import by.training.itcompany.models.QAEngineer;
-import by.training.itcompany.utils.RepositoryFileIO;
+import by.training.itcompany.exception.NullResultException;
+import by.training.itcompany.model.Departments;
+import by.training.itcompany.model.Developer;
+import by.training.itcompany.model.Employee;
+import by.training.itcompany.model.Manager;
+import by.training.itcompany.model.QAEngineer;
+import by.training.itcompany.reader.RepositoryReader;
 
 public class EmployeesRepository implements Repository{
 	private static EmployeesRepository instance = null;
 	private List<Employee> employees;
+	final Logger rootLogger = LogManager.getRootLogger();
 
 	/** 
 	 * Private constructor.
 	 * @param fileName - path to txt file, storing Repository data.
 	 */	
 	private EmployeesRepository(String fileName) throws NullResultException {
-		final Logger rootLogger = LogManager.getRootLogger();
-		RepositoryFileIO repositoryFileIO = new RepositoryFileIO();
-		List<Employee> employees = repositoryFileIO.readFromFile(fileName);
+	
+		RepositoryReader repositoryReader = new RepositoryReader();
+		List<Employee> employees = repositoryReader.readFromFile(fileName);
 		if (employees!=null) {
 			this.employees = employees;
 		} else {
-			//rootLogger.info("Error of creating Repository");	
 			throw new NullResultException("Error of creating Repository");
 		}	
 	}
@@ -50,20 +50,14 @@ public class EmployeesRepository implements Repository{
 	 * @return Repository object if Repository created or null if Repository can not be created;
 	 */
 	public static EmployeesRepository getRepository(String fileName) {
-		EmployeesRepository tempInstance = instance;
-		if (tempInstance==null) {
-			synchronized (EmployeesRepository.class) {
-				tempInstance = instance;
-				if (tempInstance==null) {
-					try {
-						tempInstance = new EmployeesRepository(fileName);
-					} catch (NullResultException e) {
-						tempInstance = null;
-					}
-				}
+		if (instance == null) {
+			try {
+				instance = new EmployeesRepository(fileName);
+			} catch (NullResultException e) {
+				instance = null;
 			}
 		}
-		return tempInstance;
+	return instance;
 	}
 	
 	/**
@@ -81,19 +75,7 @@ public class EmployeesRepository implements Repository{
 		}
 		System.out.println();
 	}
-	/**
-	 * Return list of all Employees in Repository. 
-	 * @return List<Employee>
-	 */
-	@Override
-	public List<Employee> getAll() {
-		return employees;
-	}
-
-	@Override
-	public void setAll(List<Employee> employees) {
-		this.employees = employees;		
-	}
+	
 
 	@Override
 	public void deleteByParam(String param, List<String> params) {

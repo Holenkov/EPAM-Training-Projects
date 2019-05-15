@@ -1,6 +1,6 @@
-package by.training.itcompany.models;
+package by.training.itcompany.model;
 
-import by.training.itcompany.exceptions.IllegalParameterException;
+import by.training.itcompany.exception.IllegalParameterException;
 
 /**
  * Developer class with property projectExperience, extending Employee class with properties
@@ -8,7 +8,8 @@ import by.training.itcompany.exceptions.IllegalParameterException;
 */
 
 public class Developer extends Employee{
-	
+	final int MIN_PROJ_EXPERIENCE = 0;
+	final int MAX_PROJ_EXPERIENCE = 50;
 	
 	/** Number of finished projects*/
 	private int projectExperience;
@@ -41,8 +42,9 @@ public class Developer extends Employee{
 	}	
 
 	public void setProjectExperience(int projectExperience) throws IllegalParameterException {
-	if ((projectExperience < 0)&&(projectExperience > 50))  
+	if ((projectExperience < MIN_PROJ_EXPERIENCE)&&(projectExperience > MAX_PROJ_EXPERIENCE)){
 		throw new IllegalParameterException("Something wrong with number of projects. Current number of projects is " + projectExperience);
+	}
 		this.projectExperience = projectExperience;
 	}
 

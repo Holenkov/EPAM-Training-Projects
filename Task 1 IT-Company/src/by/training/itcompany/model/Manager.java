@@ -1,6 +1,6 @@
-package by.training.itcompany.models;
+package by.training.itcompany.model;
 
-import by.training.itcompany.exceptions.IllegalParameterException;
+import by.training.itcompany.exception.IllegalParameterException;
 
 /**
  * Manager class with property someTextField, extending Employee class with properties

@@ -1,6 +1,6 @@
-package by.training.itcompany.models;
+package by.training.itcompany.model;
 
-import by.training.itcompany.exceptions.IllegalParameterException;
+import by.training.itcompany.exception.IllegalParameterException;
 
 /**
  * QAEngineer class with property automatedTesting, extending Employee class with properties

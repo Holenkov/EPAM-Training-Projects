@@ -1,11 +1,13 @@
-package by.training.itcompany.factories;
+package by.training.itcompany.factory;
 
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.training.itcompany.enums.Departments;
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.exception.IllegalParameterException;
+import by.training.itcompany.exception.NullResultException;
+import by.training.itcompany.model.Departments;
+import by.training.itcompany.model.Employee;
 
 /**
  * 
@@ -14,6 +16,7 @@ import by.training.itcompany.models.Employee;
  */
 
 public class EmployeeMaker {
+	final Logger rootLogger = LogManager.getRootLogger();
 
 	/**
 	 * Method selects Factory depends of Parameter department.
@@ -22,20 +25,18 @@ public class EmployeeMaker {
 	 * @return Employee object or null, if Employee not created.
 	 */
 
-	public Employee createEmployee(final List<String> params) {
-		final Logger rootLogger = LogManager.getRootLogger();
+	public Employee createEmployee (final List<String> params) throws IllegalParameterException {
+	
 		Employee employee = null;
 		String department = null;
 		try {
 			department = params.get(1);
-		} catch (Exception e) {
-			rootLogger.info("Not enough parameters" + params);
-			return null;
+		} catch (IndexOutOfBoundsException e) {
+			throw new IllegalParameterException("Not enough parameters"  + params, e);
 		}
 		Departments enumDepartment = Departments.getDepartment(department);
 		if (enumDepartment == null) {
-			rootLogger.info("Wrong Department" + params);
-			return null;
+			throw new IllegalParameterException("Wrong Department" + params);			
 		}
 		switch (enumDepartment) {
 		case MANAGEMENT:
@@ -50,9 +51,6 @@ public class EmployeeMaker {
 			QAEngineerFactory qaEngineerFactory = new QAEngineerFactory();
 			employee = qaEngineerFactory.makeEmployee(params);
 			break;
-			
-		default:
-			return null;
 		}
 		return employee;
 	}

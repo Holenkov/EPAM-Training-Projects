@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.model.Employee;
 import by.training.itcompany.repository.Repository;
 
 public class TeamCreator {

@@ -1,4 +1,4 @@
-package by.training.itcompany.factories;
+package by.training.itcompany.factory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.training.itcompany.models.Employee;
+import by.training.itcompany.exception.IllegalParameterException;
+import by.training.itcompany.model.Employee;
 
 /**
  * Abstract class with implemented from EmployeeFactoryInterface method
@@ -23,7 +24,7 @@ public abstract class EmployeeFactory implements Factory {
 	 * @return Employee object;
 	 */
 	@Override
-	public abstract Employee makeEmployee(List<String> params);
+	public abstract Employee makeEmployee(List<String> params) throws IllegalParameterException;
 
 	/**
 	 * Method validates values for Employee class fields before creating
@@ -35,20 +36,19 @@ public abstract class EmployeeFactory implements Factory {
 	 * @return {@code List<Object>}:[int id, String department, String position, String
 	 *         firstName, String lastName, int experience, int salary]
 	 */
-	protected List<Object> validate(final List<String> params) {
+	protected List<Object> validate(final List<String> params) throws IllegalParameterException{
 		final Logger rootLogger = LogManager.getRootLogger();
 		final int NUMBER_OF_FIELDS = 7;
 		if (params.size() < NUMBER_OF_FIELDS) {
-			rootLogger.info("Not enough fields" + params);
-			return null;
+		//	rootLogger.info("Not enough fields" + params);
+			throw new IllegalParameterException("Not enough fields" + params);
 		}
 		int id;
 		List<Object> employeeParams = new ArrayList<>();
 		try {
 			id = Integer.parseInt(params.get(0));
-		} catch (Exception e) {
-			rootLogger.info("Employee ID should be integer.  Current ID is " + params);
-			return null;
+		} catch (NumberFormatException e) {
+			throw new IllegalParameterException("Employee ID should be integer.  Current ID is " + params, e);
 		}
 		employeeParams.add(id);
 
@@ -61,17 +61,15 @@ public abstract class EmployeeFactory implements Factory {
 		int experience;
 		try {
 			experience = Integer.parseInt(params.get(5));
-		} catch (Exception e) {
-			rootLogger.info("Employee experience should be integer. Current experience is " + params);
-			return null;
+		} catch (NumberFormatException e) {
+			throw new IllegalParameterException("Employee experience should be integer.  Current experience is " + params, e);
 		}
 		employeeParams.add(experience);
 		int salary;
 		try {
 			salary = Integer.parseInt(params.get(6));
-		} catch (Exception e) {
-			rootLogger.info("Employee salary should be integer. Current salary is " + params);
-			return null;
+		} catch (NumberFormatException e) {
+			throw new IllegalParameterException("Employee salary should be integer.  Current salary is " + params, e);
 		}
 		employeeParams.add(salary);
 

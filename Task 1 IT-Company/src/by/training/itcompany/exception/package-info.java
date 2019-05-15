@@ -2,4 +2,4 @@
 * Package with Custom Exceptions.
 */
 
-package by.training.itcompany.exceptions;
+package by.training.itcompany.exception;
