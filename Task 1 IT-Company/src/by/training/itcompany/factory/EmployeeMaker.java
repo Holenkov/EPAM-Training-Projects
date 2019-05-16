@@ -16,8 +16,6 @@ import by.training.itcompany.model.Employee;
  */
 
 public class EmployeeMaker {
-	final Logger rootLogger = LogManager.getRootLogger();
-
 	/**
 	 * Method selects Factory depends of Parameter department.
 	 * @param params  {@code List<String>}:[id, department, position,firstName, lastName,

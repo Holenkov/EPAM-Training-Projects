@@ -4,13 +4,16 @@
 	<Properties>
 		<Property name="patternfull"> %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level%logger{5} - %msg%n </Property>
 		<Property name="patternshort"> %d{HH:mm:ss.SSS} [%t] %-5level %logger{1} - %msg%n </Property>
+		<Property name="simple">%msg%n</Property>
 	</Properties>
 
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="${patternshort}" />
 		</Console>
-		
+		<Console name="ConsoleSimple" target="SYSTEM_OUT">
+			<PatternLayout pattern="${simple}" />
+		</Console>
 		<File name="TxtFile" bufferedIO="true" fileName="logs/text.log">
 			<PatternLayout pattern="${patternfull}" />
 		</File>
@@ -21,6 +24,14 @@
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="TxtFile" />
 		</Logger> -->
+		
+		<Logger name="by.training.itcompany.main.TeamCreator" additivity="false" level="info">
+			<AppenderRef ref="ConsoleSimple" />
+		</Logger>
+		<Logger name="by.training.itcompany.main.EmployeesRepository" additivity="false" level="info">
+			<AppenderRef ref="ConsoleSimple" />
+		</Logger>
+		
 
 		<!-- Root Logger -->
 		<Root level="all">

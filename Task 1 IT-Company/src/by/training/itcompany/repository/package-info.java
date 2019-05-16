@@ -1,6 +1,5 @@
 /**
-* Package contains file RepositoryITCompany.txt with information about employees and
-* Java class RepositoryITCompany.java, that take s data from RepositoryITCompany.txt.
+* Package contains Java class employeesRepository.java, that takes data from .txt file.
 */
 
 package by.training.itcompany.repository;

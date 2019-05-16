@@ -1,6 +1,7 @@
 package by.training.itcompany.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import by.training.itcompany.model.Employee;
 
@@ -23,7 +24,7 @@ public interface Repository {
 	 * "department", ["Development"], ["Management"] or ["QA Department"],
 	 * @return List<Employee>  or null if Employees not found. 
 	 */
-	List<Employee> getByParam(String param, List<String> params);
+	List<Employee> findByParam(String param, List<String> params);
 	/**
 	 * Method sorts Repository by parameters.
 	 * @param params - ArrayList<String> of Parameters, one or two parameters. Sort by: "id", "salary", "department", "experience".

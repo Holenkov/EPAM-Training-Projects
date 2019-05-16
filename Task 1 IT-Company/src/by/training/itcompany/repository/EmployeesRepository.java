@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.Throwables;
 
+import by.training.itcompany.exception.IllegalParameterException;
 import by.training.itcompany.exception.NullResultException;
 import by.training.itcompany.model.Departments;
 import by.training.itcompany.model.Developer;
@@ -26,7 +27,9 @@ import by.training.itcompany.reader.RepositoryReader;
 public class EmployeesRepository implements Repository{
 	private static EmployeesRepository instance = null;
 	private List<Employee> employees;
-	final Logger rootLogger = LogManager.getRootLogger();
+	private int maxID;
+	private final Logger rootLogger = LogManager.getRootLogger();
+	private final Logger logger = LogManager.getLogger(EmployeesRepository.class);
 
 	/** 
 	 * Private constructor.
@@ -36,11 +39,8 @@ public class EmployeesRepository implements Repository{
 	
 		RepositoryReader repositoryReader = new RepositoryReader();
 		List<Employee> employees = repositoryReader.readFromFile(fileName);
-		if (employees!=null) {
 			this.employees = employees;
-		} else {
-			throw new NullResultException("Error of creating Repository");
-		}	
+			setMaxId();
 	}
 		
 	/**Singleton for Repository.
@@ -54,11 +54,28 @@ public class EmployeesRepository implements Repository{
 			try {
 				instance = new EmployeesRepository(fileName);
 			} catch (NullResultException e) {
+				e.printStackTrace();
 				instance = null;
 			}
 		}
 	return instance;
 	}
+	
+	public static EmployeesRepository getRepository() {
+		return instance;
+	}
+	
+	private void setMaxId() {
+		int id = 1;
+		for (Employee employee : employees) {
+			int temtID = employee.getId();
+			if (temtID > id) {
+				id = temtID;
+			}
+		}
+		maxID = id;
+	}
+	
 	
 	/**
 	 * View Repository.
@@ -66,30 +83,63 @@ public class EmployeesRepository implements Repository{
 	@Override
 	public void viewRepository() {
 		if (employees.size() != 0) {
-			System.out.println("Employees in Repository.");
+			logger.info("Employees in Repository.");
 			for (Employee employee : employees) {
 				System.out.println(employee);			
 			}
 		} else {
-			System.out.println("Repositoty is Empty");
+			logger.info("Repositoty is Empty");
 		}
-		System.out.println();
+		logger.info("");
+	}
+	
+	
+	/**
+	 * Method for testing only.
+	 * @return
+	 */
+	public List<Employee> returnAll() {
+		List<Employee> retEmployees = new ArrayList<>();
+		for (Employee employee : employees) {
+			retEmployees.add(employee);
+		}
+		return retEmployees;
 	}
 	
 
 	@Override
 	public void deleteByParam(String param, List<String> params) {
-		
+		findByParam(param, params);
 		
 	}
+	
+	public void deleteByID(int id) {
+		for (int i = 0; i < employees.size(); i++) {
+			if (employees.get(i).getId()==id) {
+				employees.remove(i);
+			}
+		}
+		
+	}
+	
+
+	
 	
 	/**
 	 * Add Employee to Repository. 
 	 */
 	@Override
 	public void add(Employee employee) {
-		employees.add(employee);		
+		try {
+			employee.setId(maxID+1);
+			employees.add(employee);
+			maxID++;
+		} catch (IllegalParameterException e) {			
+			e.printStackTrace();
+		}
+	
 	}
+		
 
 	/**
 	 * Get Employees from Repository by parameter.
@@ -102,11 +152,11 @@ public class EmployeesRepository implements Repository{
 	 * @return List<Employee>  or null if Employees not found. 
 	 */
 	@Override
-	public List<Employee> getByParam (String param, List<String> params){
-		Logger rootLogger = LogManager.getRootLogger();
+	public List<Employee> findByParam (String param, List<String> params){
+		List<Employee> employees = new ArrayList<>();
 		if (params.size()<1) {
 			rootLogger.info("Employees not found, illegal parameter");
-			return null;
+			return employees;
 		}
 		switch (param) {
 		case "salary":
@@ -118,14 +168,15 @@ public class EmployeesRepository implements Repository{
 			} catch (Exception e) {
 				rootLogger.info("min, max parameters  should be integer.  Current min/max is " + params);
 				rootLogger.info("Employees not found, illegal parameter");
-				return null;
+				return employees;
 			}
 			if (max<min) {
 				rootLogger.info("max should be higher than min.  Current min/max is " + min + "/" + max);
 				rootLogger.info("Employees not found, illegal parameter");
-				return null;
+				return employees;
 			}
-			return getBySalary(min, max);
+			employees = findBySalary(min, max);
+			break;			
 			
 		case "id":
 			int id;
@@ -134,9 +185,10 @@ public class EmployeesRepository implements Repository{
 			} catch (Exception e) {
 				rootLogger.info("Employee ID should be integer.  Current ID is " + params);
 				rootLogger.info("Employees not found, illegal parameter");
-				return null;
+				return employees;
 			}
-			return getByID(id);
+			employees = findByID(id);
+			break;
 			
 		case "department":
 			String department = params.get(0);
@@ -146,33 +198,28 @@ public class EmployeesRepository implements Repository{
 			} catch (Exception e) {
 				rootLogger.info("Incorrect department.  Current department is " + params);
 				rootLogger.info("Employees not found, illegal parameter");
-				return null;
+				return employees;
 			}		
-			return getByDepartment(dpt);
-			
-		default:
-			rootLogger.info("Employees not found, illegal parameter");
-			return null;
-		}		
+			employees = findByDepartment(dpt);
+			break;
+		}	
+		if (employees.size()==0) {
+			rootLogger.info("Employees not found");
+		}
+		return employees;
 	}
 	
-	private List<Employee> getByID(int id) {
-		Logger rootLogger = LogManager.getRootLogger();
+	private List<Employee> findByID(int id) {
 		List<Employee> getEmployees = new ArrayList<>();
 		for (Employee employee : employees) {
 			if (employee.getId()==id) {
 				getEmployees.add(employee);
 			}
 		}
-		if (getEmployees.size()<1) {
-			rootLogger.info("Employees not found. ID not found");
-			return null;
-		}
 		return getEmployees;
 	}
 	
-	private List<Employee> getByDepartment(Departments department) {
-		Logger rootLogger = LogManager.getRootLogger();
+	private List<Employee> findByDepartment(Departments department) {
 		List<Employee> getEmployees = new ArrayList<>();
 		Class<?> myClass = null; 
 		switch (department) {
@@ -191,26 +238,17 @@ public class EmployeesRepository implements Repository{
 				getEmployees.add(employee);
 			}
 		}
-		if (getEmployees.size()<1) {
-			rootLogger.info("Employees not found. ID not found");
-			return null;
-		}
 		return getEmployees;
 	}
 	
-	private List<Employee> getBySalary(int min, int max) {
-		Logger rootLogger = LogManager.getRootLogger();
+	private List<Employee> findBySalary(int min, int max) {
 		List<Employee> getEmployees = new ArrayList<>();
 		for (Employee employee : employees) {
 			int salary = employee.getSalary();
 			if ((salary>min)&&(salary<max)) {
 				getEmployees.add(employee);
 			}
-		}
-		if (getEmployees.size()<1) {
-			rootLogger.info("Employees not found. ID not found");
-			return null;
-		}
+		}	
 		return getEmployees;
 	}
 	
@@ -221,28 +259,23 @@ public class EmployeesRepository implements Repository{
 	//Make parameters ENUM?
 	@Override
 	public void sortByParam(List<String> params) {
-		if (params==null) {
+		int size = params.size();
+		if ((params==null)||(size==0)) {
 			return;
 		}
-		switch (params.size()) {
-		case 1:
-			sortByOneParam(params.get(0));
-			break;
-		case 2:
-			sortByTwoParams(params.get(0), params.get(1));
-			break;
-		default:
-			break;
-		}
+		Comparator<Employee> comparator;
+		comparator = returnComparator(params.get(0));
+		if (size > 1) {
+			for (int i=1; i<=size-1; i++) {
+				comparator = comparator.thenComparing(returnComparator(params.get(i)));
+			}
+		}		
+		if (comparator!=null) {
+			employees.sort(comparator);
+		}			
+	}	
 
-		
-	}
-
-	/**
-	 * Method sorts Repository one parameter.
-	 * @param param - Sort by: "id", "salary", "department", "experience".
-	 */
-	private void sortByOneParam(String param) {
+	private Comparator<Employee> returnComparator (String param) {
 		Comparator<Employee> comparator = null;
 		switch (param) {
 		case "id":
@@ -260,75 +293,8 @@ public class EmployeesRepository implements Repository{
 		default:
 			break;
 		}
-		if (comparator!=null) {
-			employees.sort(comparator);
-		}		
+		return comparator;
 	}
-
-	/**
-	 * Method sorts Repository by two parameters.
-	 * @param param1 "salary", "department", "experience".
-	 * @param param2 "salary", "department", "experience".
-	 */
-	private void sortByTwoParams(String param1, String param2) {
-		Comparator<Employee> comparator = null;
-		switch (param1) {	
-		
-		case "department":
-			comparator = (o1, o2) -> (o1.getClass().getName()).compareTo(o2.getClass().getName());
-			switch (param2) {		
-			case "salary":
-				comparator = comparator.thenComparing(Employee::getSalary);
-				break;				
-			case "experience":
-				comparator = comparator.thenComparing(Employee::getExperience);
-				break;	
-			default:
-				break;
-				
-			}	
-			break;
-			
-		case "salary":
-			comparator = Comparator.comparing(Employee::getSalary);
-			switch (param2) {		
-			case "experience":	
-				comparator = comparator.thenComparing(Employee::getExperience);
-				break;
-			case "department":		
-				Comparator<Employee> comparator1 = (o1, o2) -> (o1.getClass().getName()).compareTo(o2.getClass().getName());
-				comparator = comparator.thenComparing(comparator1);
-				break;
-			default:
-				break;
-			}	
-			break;
-			
-		case "experience":
-			comparator = Comparator.comparing(Employee::getExperience);
-			switch (param2) {		
-			case "salary":	
-				comparator = comparator.thenComparing(Employee::getSalary);
-				break;
-			case "department":	
-				Comparator<Employee> comparator1 = (o1, o2) -> (o1.getClass().getName()).compareTo(o2.getClass().getName());
-				comparator = comparator.thenComparing(comparator1);
-				break;	
-			default:
-				break;
-			}	
-			break;
-		}		
-		if (comparator!=null) {
-			employees.sort(comparator);
-		}		
-	}
-
-
-
-
-
-
 	
 
 }

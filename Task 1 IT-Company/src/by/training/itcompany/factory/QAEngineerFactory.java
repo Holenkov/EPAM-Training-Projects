@@ -17,7 +17,6 @@ import by.training.itcompany.model.QAEngineer;
  * with methods makeEmployee and validate.
  */
 public class QAEngineerFactory extends EmployeeFactory implements Factory {
-	final Logger rootLogger = LogManager.getRootLogger();
 	/**
 	 * Method, creating QAEngineer class object.
 	 * 

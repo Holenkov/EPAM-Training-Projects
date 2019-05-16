@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,8 @@ import by.training.itcompany.model.Employee;
  * JUnit Test for DeveloperFactory class.
 */
 @RunWith(Parameterized.class)
-public class DeveloperFactoryTest extends Employee{
+public class DeveloperFactoryTest{
+	private final Logger rootLogger = LogManager.getRootLogger();
 	
 	/** Employee ID */
 	private String id;
@@ -88,17 +91,18 @@ public class DeveloperFactoryTest extends Employee{
 	@Test
 	public void makeEmployeeTest (){
 		DeveloperFactory developerFactory = new DeveloperFactory();
-		Developer actual = null;
+		Developer actual = new Developer();
 		try {
 			actual = (Developer) developerFactory.makeEmployee(new ArrayList<String>(
 					Arrays.asList(id, department, position, firstName, lastName, experience, salary, projectExperience)));
 		} catch (IllegalParameterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			actual = null;
 		}
-		System.out.println(expected);
+	/*	System.out.println(expected);
 		System.out.println(actual);
-		System.out.println();
+		System.out.println();*/
 		assertEquals(expected, actual);
 	}
 

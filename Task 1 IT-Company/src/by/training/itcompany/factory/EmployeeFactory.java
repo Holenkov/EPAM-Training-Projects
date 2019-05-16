@@ -37,10 +37,8 @@ public abstract class EmployeeFactory implements Factory {
 	 *         firstName, String lastName, int experience, int salary]
 	 */
 	protected List<Object> validate(final List<String> params) throws IllegalParameterException{
-		final Logger rootLogger = LogManager.getRootLogger();
 		final int NUMBER_OF_FIELDS = 7;
 		if (params.size() < NUMBER_OF_FIELDS) {
-		//	rootLogger.info("Not enough fields" + params);
 			throw new IllegalParameterException("Not enough fields" + params);
 		}
 		int id;

@@ -23,7 +23,7 @@ import by.training.itcompany.repository.EmployeesRepository;
  */
 
 public class RepositoryReader {
-	final Logger rootLogger = LogManager.getRootLogger();
+	private final Logger rootLogger = LogManager.getRootLogger();
 	/**
 	 *  Constructor for Util class.
 	 */
@@ -72,7 +72,6 @@ public class RepositoryReader {
 					}
 			}
 		} else {
-			rootLogger.info("Repository file is empty");	
 			throw new NullResultException("Repository file is empty");
 		}
 		if (objEmployees.size()>0) {

@@ -12,7 +12,6 @@ import by.training.itcompany.exception.IllegalParameterException;
 
 
 public abstract class Employee {
-	Logger rootLogger = LogManager.getRootLogger();
 	final int MIN_EXPERIENCE = 0;
 	final int MAX_EXPERIENCE = 50;
 	final int MIN_SALARY = 0;

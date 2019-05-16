@@ -16,8 +16,6 @@ import by.training.itcompany.model.Manager;
  * with methods makeEmployee and validate.
  */
 public class ManagerFactory extends EmployeeFactory implements Factory {
-	final Logger rootLogger = LogManager.getRootLogger();
-
 	/**
 	 * Method, creating Manager class object.
 	 * 
