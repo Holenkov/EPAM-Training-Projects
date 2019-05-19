@@ -18,7 +18,10 @@ public class WordParser extends Parser{
 	final private static Pattern pattern = Pattern.compile(WORD_REGEX);
 	private Logger rootLogger = LogManager.getRootLogger();
 	
-
+	public WordParser() {
+		rootLogger.info("New WordParser");
+	}
+	
 	@Override
 	public void parseText(String sourceText, Component component) {
 		Matcher matcher = pattern.matcher(sourceText);
@@ -31,9 +34,6 @@ public class WordParser extends Parser{
 		}
 		
 		for (String string : words) {
-		/*	rootLogger.info(string);
-			rootLogger.info("--------------------");*/
-			
 			Component wordComposite = new WordComposite();
 			component.add(wordComposite);
 			Parser parser = getNextParcer();

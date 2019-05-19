@@ -8,7 +8,13 @@ public class SentenceComposite extends TextComposite {
 		for (Component component : components) {
 			stringBuilder.append(component.toString());
 		}
-		return stringBuilder.toString();
+		//when sort paragraphs by number of sentences.
+		//return stringBuilder.toString() + System.lineSeparator();
+		
+		//when sort sentences by words length.
+		 return stringBuilder.toString() + "        ";
+		
+		//return stringBuilder.toString();
 	}
 	
 	

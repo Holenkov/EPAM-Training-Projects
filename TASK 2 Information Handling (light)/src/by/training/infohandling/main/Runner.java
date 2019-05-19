@@ -1,10 +1,13 @@
 package by.training.infohandling.main;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.training.infohandling.comparator.ParagraphBySentenceComparator;
+import by.training.infohandling.comparator.WordsByLengthComparator;
 import by.training.infohandling.exception.NullResultException;
 import by.training.infohandling.filereader.TextFileReader;
 import by.training.infohandling.model.Component;
@@ -16,6 +19,7 @@ import by.training.infohandling.parser.Parser;
 import by.training.infohandling.parser.SentenceParcer;
 import by.training.infohandling.parser.TokenParser;
 import by.training.infohandling.parser.WordParser;
+import by.training.infohandling.task.Sorter;
 import by.training.infohandling.task.TextReader;
 
 public class Runner {
@@ -33,20 +37,22 @@ public class Runner {
 		Component textComposite = new TextComposite();
 		
 		
-		Parser letterParser = new LetterParser();
-		Parser wordParser = new WordParser();
-		Parser tokenParser = new TokenParser();
-		Parser sentenceParser = new SentenceParcer();
+		
 		Parser paragraphParser = new ParagraphParser();
-		
-		paragraphParser.setNextParcer(sentenceParser);
-		sentenceParser.setNextParcer(tokenParser);
-		tokenParser.setNextParcer(wordParser);
-		wordParser.setNextParcer(letterParser);
-		
 		paragraphParser.parseText(text, textComposite);
 		TextReader textReader = new TextReader();
 		textReader.readText(textComposite);
+		
+		Sorter sorter = new Sorter();
+		
+		ParagraphBySentenceComparator comparatorPBS = new ParagraphBySentenceComparator();
+		sorter.sort(textComposite, comparatorPBS);
+		textReader.readText(textComposite);
+		
+		WordsByLengthComparator comparatorWBL = new WordsByLengthComparator();
+		sorter.sort(textComposite, comparatorWBL);
+		textReader.readText(textComposite);
+		
 		
 		
 	}

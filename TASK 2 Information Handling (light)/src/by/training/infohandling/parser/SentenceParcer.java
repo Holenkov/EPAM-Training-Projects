@@ -20,6 +20,10 @@ public class SentenceParcer extends Parser{
 	private Logger rootLogger = LogManager.getRootLogger();
 	
 
+	public SentenceParcer() {
+		rootLogger.info("New SentenceParcer");
+	}
+	
 	@Override
 	public void parseText(String sourceText, Component component) {
 		Matcher matcher = pattern.matcher(sourceText);

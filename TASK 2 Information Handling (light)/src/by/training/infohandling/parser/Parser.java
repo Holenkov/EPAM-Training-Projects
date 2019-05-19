@@ -7,6 +7,7 @@ public abstract class Parser {
 	protected Parser nextParcer;
 	
 	public abstract void parseText(String sourceText, Component component);
+	
 
 	public Parser getNextParcer() {
 		return nextParcer;

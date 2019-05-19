@@ -15,7 +15,10 @@ public class TokenParser extends Parser{
 	final private static String TOKEN_REGEX = " ";
 	private Logger rootLogger = LogManager.getRootLogger();
 	
-
+	public TokenParser() {
+		rootLogger.info("New TokenParser");
+	}
+	
 	@Override
 	public void parseText(String sourceText, Component component) {
 		List<String> tokens = new ArrayList<>();

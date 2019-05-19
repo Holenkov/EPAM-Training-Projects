@@ -9,9 +9,14 @@ public class ParagraphComposite extends TextComposite{
 		for (Component component : components) {
 			stringBuilder.append(component.toString());
 		}
+		//when sort paragraphs by number of sentences.
+//		return stringBuilder.toString() + System.lineSeparator() + System.lineSeparator();
+		
 		
 		return stringBuilder.toString() + System.lineSeparator();
 	}
+	
+	
 	
 
 

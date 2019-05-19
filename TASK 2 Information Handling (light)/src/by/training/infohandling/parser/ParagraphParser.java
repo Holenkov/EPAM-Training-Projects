@@ -18,6 +18,19 @@ public class ParagraphParser extends Parser{
 	private Logger rootLogger = LogManager.getRootLogger();
 	
 
+	public ParagraphParser() {		
+		rootLogger.info("New ParagraphParser");
+		Parser letterParser = new LetterParser();
+		Parser wordParser = new WordParser();
+		Parser tokenParser = new TokenParser();
+		Parser sentenceParser = new SentenceParcer();
+		
+		setNextParcer(sentenceParser);
+		sentenceParser.setNextParcer(tokenParser);
+		tokenParser.setNextParcer(wordParser);
+		wordParser.setNextParcer(letterParser);
+	}
+	
 	@Override
 	public void parseText(String sourceText, Component component) {
 		Matcher matcher = pattern.matcher(sourceText);
