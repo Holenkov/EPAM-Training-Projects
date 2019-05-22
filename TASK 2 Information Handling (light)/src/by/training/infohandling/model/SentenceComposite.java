@@ -12,9 +12,9 @@ public class SentenceComposite extends TextComposite {
 		//return stringBuilder.toString() + System.lineSeparator();
 		
 		//when sort sentences by words length.
-		 return stringBuilder.toString() + "        ";
+		// return stringBuilder.toString() + "     ";
 		
-		//return stringBuilder.toString();
+		return stringBuilder.toString();
 	}
 	
 	

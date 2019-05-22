@@ -1,43 +1,33 @@
 package by.training.infohandling.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.training.infohandling.exception.NullResultException;
 import by.training.infohandling.model.Component;
-import by.training.infohandling.model.SentenceComposite;
-import by.training.infohandling.model.WordComposite;
+import by.training.infohandling.model.Letter;
 
 public class WordParser extends Parser{
-
-	final private static String WORD_REGEX = "[.]{3}|[.?!:,;]";
-	final private static Pattern pattern = Pattern.compile(WORD_REGEX);
-	private Logger rootLogger = LogManager.getRootLogger();
+	final private static String TOKEN_REGEX = "";
+	private static final Logger LOGGER = LogManager.getRootLogger();
 	
 	public WordParser() {
-		rootLogger.info("New WordParser");
+		LOGGER.info("New WordParser");
 	}
 	
 	@Override
-	public void parseText(String sourceText, Component component) {
-		Matcher matcher = pattern.matcher(sourceText);
-		List<String> words = new ArrayList<>();
-		if (matcher.find()) {
-			words.add(sourceText.substring(0, matcher.start()));
-			words.add(matcher.group());
-		} else {
-			words.add(sourceText);
-		}
-		
-		for (String string : words) {
-			Component wordComposite = new WordComposite();
-			component.add(wordComposite);
-			Parser parser = getNextParcer();
-			parser.parseText(string, wordComposite);			
+	public void parseElement(String sourceText, Component component) {
+		List<String> letters = new ArrayList<>();
+			letters = Arrays.asList(sourceText.split(TOKEN_REGEX));
+			
+		for (String string : letters) {
+			Component letter = new Letter();
+			component.add(letter);
+			((Letter)letter).setLetter(string);
 		}
 	}
 

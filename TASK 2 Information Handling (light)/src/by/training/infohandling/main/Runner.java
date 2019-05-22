@@ -1,58 +1,66 @@
 package by.training.infohandling.main;
 
-import java.util.Comparator;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import by.training.infohandling.comparator.ParagraphBySentenceComparator;
+import by.training.infohandling.comparator.SentenñeBySymbolCompatator;
 import by.training.infohandling.comparator.WordsByLengthComparator;
 import by.training.infohandling.exception.NullResultException;
 import by.training.infohandling.filereader.TextFileReader;
 import by.training.infohandling.model.Component;
-import by.training.infohandling.model.Letter;
 import by.training.infohandling.model.TextComposite;
-import by.training.infohandling.parser.LetterParser;
-import by.training.infohandling.parser.ParagraphParser;
 import by.training.infohandling.parser.Parser;
-import by.training.infohandling.parser.SentenceParcer;
-import by.training.infohandling.parser.TokenParser;
-import by.training.infohandling.parser.WordParser;
+import by.training.infohandling.parser.ParserInitializer;
 import by.training.infohandling.task.Sorter;
-import by.training.infohandling.task.TextReader;
+import by.training.infohandling.task.TextCollector;
 
 public class Runner {
+	private static final Logger LOGGER = LogManager.getRootLogger();
+	final static String FILE_NAME = ".\\data\\task2text.txt";
+	
 	public static void main(String[] args) {
-		Logger rootLogger = LogManager.getRootLogger();
-		final String fileName = ".\\data\\task2text.txt";
+		
 		TextFileReader textFileReader = new TextFileReader();
 		String text = null;
 		try {
-			text = textFileReader.readText(fileName);
+			text = textFileReader.readText(FILE_NAME);
 		} catch (NullResultException e) {
 			e.printStackTrace();
 		}
-		rootLogger.info(text);
+		LOGGER.info("Source Text");
+		LOGGER.info(text);
+		
 		Component textComposite = new TextComposite();
+		Parser textParser = ParserInitializer.initializeChain();
+		textParser.parseElement(text, textComposite);
 		
-		
-		
-		Parser paragraphParser = new ParagraphParser();
-		paragraphParser.parseText(text, textComposite);
-		TextReader textReader = new TextReader();
-		textReader.readText(textComposite);
+		TextCollector textCollector = new TextCollector();
+		LOGGER.info("Collected Text");
+		LOGGER.info(textCollector.collectText(textComposite));
 		
 		Sorter sorter = new Sorter();
 		
 		ParagraphBySentenceComparator comparatorPBS = new ParagraphBySentenceComparator();
 		sorter.sort(textComposite, comparatorPBS);
-		textReader.readText(textComposite);
+		LOGGER.info("Sorted Text - Paragraphs by number of sentences");
+		LOGGER.info(textCollector.collectText(textComposite));
 		
 		WordsByLengthComparator comparatorWBL = new WordsByLengthComparator();
 		sorter.sort(textComposite, comparatorWBL);
-		textReader.readText(textComposite);
+		LOGGER.info("Sorted Text - Words by length");
+		LOGGER.info(textCollector.collectText(textComposite));
 		
+		
+		textComposite = new TextComposite();
+		textParser.parseElement(text, textComposite);
+		LOGGER.info("Collected Text");
+		LOGGER.info(textCollector.collectText(textComposite));
+		
+		char keySymbol = 'a'; 
+		SentenñeBySymbolCompatator comparatorSBS = new SentenñeBySymbolCompatator(keySymbol);
+		sorter.sort(textComposite, comparatorSBS);
+		LOGGER.info("Sorted Text - Sentences by numder of symbol " + keySymbol);
+		LOGGER.info(textCollector.collectText(textComposite));
 		
 		
 	}

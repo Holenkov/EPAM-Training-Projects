@@ -3,37 +3,40 @@ package by.training.infohandling.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract class.
+ * Field: List<Component> components
+ * Methods: add(Component component), remove(Component component), 
+ * 			getChild(int index), setChild(int index, Component component), 
+ * 			returnSize();
+ */
+
 public abstract class Component {
 	protected List<Component> components = new ArrayList<>();
-	private Components composite; 
 	
+	/** Adds Component to class field List<Component> */
 	public void add(Component component) {
 		components.add(component);		
 	}
-	
+	/** Remove Component to class field List{@code<Component>} */
 	public void remove(Component component) {
 		components.remove(component);
 	}
 	
+	/** Return Component with index index from class field List{@code<Component>} */
 	public Component getChild(int index) {
 		Component child = components.get(index);
 		return child;
 	}
 	
+	/** Put Component with index index to class field List{@code<Component>} */
 	public void setChild(int index, Component component) {
 		components.set(index, component);
 	}
 	
+	/** Return size of List class field List{@code<Component>} */
 	public int returnSize() {
 		return components.size();
-	}
-
-	public Components getComposite() {
-		return composite;
-	}
-
-	public void setComposite(Components composite) {
-		this.composite = composite;
 	}
 
 	@Override
@@ -50,7 +53,6 @@ public abstract class Component {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((components == null) ? 0 : components.hashCode());
-		result = prime * result + ((composite == null) ? 0 : composite.hashCode());
 		return result;
 	}
 
@@ -67,8 +69,6 @@ public abstract class Component {
 			if (other.components != null)
 				return false;
 		} else if (!components.equals(other.components))
-			return false;
-		if (composite != other.composite)
 			return false;
 		return true;
 	}

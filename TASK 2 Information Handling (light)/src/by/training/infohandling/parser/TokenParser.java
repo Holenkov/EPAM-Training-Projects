@@ -1,37 +1,43 @@
 package by.training.infohandling.parser;
 
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.training.infohandling.model.Component;
-import by.training.infohandling.model.TokenComposite;
+import by.training.infohandling.model.SentenceComposite;
+import by.training.infohandling.model.WordComposite;
 
 public class TokenParser extends Parser{
-	final private static String TOKEN_REGEX = " ";
-	private Logger rootLogger = LogManager.getRootLogger();
+
+	final private static String WORD_REGEX = "[.]{3}|[.?!:,;]";
+	final private static Pattern PATTERN = Pattern.compile(WORD_REGEX);
+	private static final Logger LOGGER = LogManager.getRootLogger();
 	
 	public TokenParser() {
-		rootLogger.info("New TokenParser");
+		LOGGER.info("New TokenParser");
 	}
 	
 	@Override
-	public void parseText(String sourceText, Component component) {
-		List<String> tokens = new ArrayList<>();
-		tokens = Arrays.asList(sourceText.trim().split(TOKEN_REGEX));
+	public void parseElement(String sourceText, Component component) {
+		Matcher matcher = PATTERN.matcher(sourceText);
+		List<String> words = new ArrayList<>();
+		if (matcher.find()) {
+			words.add(sourceText.substring(0, matcher.start()));
+			words.add(matcher.group());
+		} else {
+			words.add(sourceText);
+		}
 		
-		for (String string : tokens) {
-		/*	rootLogger.info(string);
-			rootLogger.info("--------------------");*/
-			
-			Component tokenComposite = new TokenComposite();
-			component.add(tokenComposite);
+		for (String string : words) {
+			Component wordComposite = new WordComposite();
+			component.add(wordComposite);
 			Parser parser = getNextParcer();
-			parser.parseText(string, tokenComposite);			
+			parser.parseElement(string, wordComposite);			
 		}
 	}
 

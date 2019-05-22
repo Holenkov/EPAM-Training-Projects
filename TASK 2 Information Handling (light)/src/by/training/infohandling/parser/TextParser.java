@@ -12,28 +12,19 @@ import org.apache.logging.log4j.Logger;
 import by.training.infohandling.model.Component;
 import by.training.infohandling.model.ParagraphComposite;
 
-public class ParagraphParser extends Parser{
+public class TextParser extends Parser{
 	final private static String PARAGRAPH_REGEX = "([.]{3}|[.?!])" + System.lineSeparator()  + "\\s*";
-	final private static Pattern pattern = Pattern.compile(PARAGRAPH_REGEX);
-	private Logger rootLogger = LogManager.getRootLogger();
+	final private static Pattern PATTERN = Pattern.compile(PARAGRAPH_REGEX);
+	private static final Logger LOGGER = LogManager.getRootLogger();
 	
 
-	public ParagraphParser() {		
-		rootLogger.info("New ParagraphParser");
-		Parser letterParser = new LetterParser();
-		Parser wordParser = new WordParser();
-		Parser tokenParser = new TokenParser();
-		Parser sentenceParser = new SentenceParcer();
-		
-		setNextParcer(sentenceParser);
-		sentenceParser.setNextParcer(tokenParser);
-		tokenParser.setNextParcer(wordParser);
-		wordParser.setNextParcer(letterParser);
+	public TextParser() {		
+		LOGGER.info("New TextParser");
 	}
 	
 	@Override
-	public void parseText(String sourceText, Component component) {
-		Matcher matcher = pattern.matcher(sourceText);
+	public void parseElement(String sourceText, Component component) {
+		Matcher matcher = PATTERN.matcher(sourceText);
 		List<String> paragraphs = new ArrayList<>();
 		int index = 0;
 		while (matcher.find()) {
@@ -42,12 +33,10 @@ public class ParagraphParser extends Parser{
 		}
 		
 		for (String string : paragraphs) {
-			/*rootLogger.info(string);
-			rootLogger.info("--------------------");*/
 			Component paragraphComposite = new ParagraphComposite();
 			component.add(paragraphComposite);
 			Parser parser = getNextParcer();
-			parser.parseText(string, paragraphComposite);			
+			parser.parseElement(string, paragraphComposite);			
 		}
 	}
 

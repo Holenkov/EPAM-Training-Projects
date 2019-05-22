@@ -6,7 +6,7 @@ import by.training.infohandling.model.Component;
 public abstract class Parser {
 	protected Parser nextParcer;
 	
-	public abstract void parseText(String sourceText, Component component);
+	public abstract void parseElement(String sourceText, Component component);
 	
 
 	public Parser getNextParcer() {

@@ -18,8 +18,7 @@ import org.apache.logging.log4j.Logger;
 import by.training.infohandling.exception.NullResultException;
 
 public class TextFileReader {
-	private final Logger rootLogger = LogManager.getRootLogger();
-	
+
 	/**
 	 * Method reads text from file. 
 	 * @param fileName - String path to file to read;
