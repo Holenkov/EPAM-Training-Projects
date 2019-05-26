@@ -9,11 +9,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.training.infohandling.model.Component;
-import by.training.infohandling.model.SentenceComposite;
 import by.training.infohandling.model.WordComposite;
 
 public class TokenParser extends Parser{
-
+	/** Regex for split token on words */
 	final private static String WORD_REGEX = "[.]{3}|[.?!:,;]";
 	final private static Pattern PATTERN = Pattern.compile(WORD_REGEX);
 	private static final Logger LOGGER = LogManager.getRootLogger();
@@ -22,8 +21,12 @@ public class TokenParser extends Parser{
 		LOGGER.info("New TokenParser");
 	}
 	
+	/**
+	 * Override method from Parser class, that parse Tokens on Words.
+	 * @return 
+	 */
 	@Override
-	public void parseElement(String sourceText, Component component) {
+	public List<String> parseElement(String sourceText, Component component) {
 		Matcher matcher = PATTERN.matcher(sourceText);
 		List<String> words = new ArrayList<>();
 		if (matcher.find()) {
@@ -39,6 +42,7 @@ public class TokenParser extends Parser{
 			Parser parser = getNextParcer();
 			parser.parseElement(string, wordComposite);			
 		}
+		return words;
 	}
 
 	

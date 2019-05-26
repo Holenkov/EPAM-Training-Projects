@@ -6,12 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import by.training.infohandling.exception.NullResultException;
 import by.training.infohandling.model.Component;
 import by.training.infohandling.model.Letter;
 
 public class WordParser extends Parser{
+	/** Regex for split word on letters */
 	final private static String TOKEN_REGEX = "";
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	
@@ -19,8 +18,12 @@ public class WordParser extends Parser{
 		LOGGER.info("New WordParser");
 	}
 	
+	/**
+	 * Override method from Parser class, that parse Words on Letters.
+	 * @return 
+	 */
 	@Override
-	public void parseElement(String sourceText, Component component) {
+	public List<String> parseElement(String sourceText, Component component) {
 		List<String> letters = new ArrayList<>();
 			letters = Arrays.asList(sourceText.split(TOKEN_REGEX));
 			
@@ -29,8 +32,7 @@ public class WordParser extends Parser{
 			component.add(letter);
 			((Letter)letter).setLetter(string);
 		}
+		return letters;
 	}
-
-	
 
 }

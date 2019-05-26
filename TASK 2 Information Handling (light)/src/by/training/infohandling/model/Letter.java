@@ -3,20 +3,26 @@ package by.training.infohandling.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Letter extends TextComposite {
+/**
+ * Final class in Component hierarchy implements Component.
+ * Contains field, that store one letter.
+ */
+
+public class Letter implements Component {
 	private static final Logger LOGGER = LogManager.getRootLogger();
+	/** Private field, contains one letter. */
 	private String letter;
-	
+
 	@Override
-	public void add(Component component) {
-		LOGGER.info("No operations");		
-	}
-	
-	@Override
-	public void remove(Component component) {
+	public void add(final Component component) {
 		LOGGER.info("No operations");
 	}
-	
+
+	@Override
+	public void remove(final Component component) {
+		LOGGER.info("No operations");
+	}
+
 	@Override
 	public Component getChild(int index) {
 		LOGGER.info("No operations");
@@ -59,6 +65,18 @@ public class Letter extends TextComposite {
 		} else if (!letter.equals(other.letter))
 			return false;
 		return true;
+	}
+
+	@Override
+	public void setChild(int index, Component component) {
+		LOGGER.info("No operations");
+		
+	}
+
+	@Override
+	public int returnSize() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

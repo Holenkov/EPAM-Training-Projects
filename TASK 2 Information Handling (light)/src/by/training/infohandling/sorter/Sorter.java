@@ -1,14 +1,15 @@
-package by.training.infohandling.task;
+package by.training.infohandling.sorter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.training.infohandling.comparator.ParagraphBySentenceComparator;
-import by.training.infohandling.comparator.SentenñeBySymbolCompatator;
-import by.training.infohandling.comparator.WordsByLengthComparator;
+
 import by.training.infohandling.model.Component;
+import by.training.infohandling.sorter.comparator.ParagraphBySentenceComparator;
+import by.training.infohandling.sorter.comparator.SentenñeBySymbolCompatator;
+import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
 
 public class Sorter implements AbstractSorter{
 	
@@ -30,7 +31,7 @@ public class Sorter implements AbstractSorter{
 		sort(component, comparator, 2);	
 	}
 	
-	public void sort(Component component, Comparator<Component> comparator, int level) {
+	private void sort(Component component, Comparator<Component> comparator, int level) {
 		if (level == 0) {
 			List<Component> components = new ArrayList<>();
 			int size = component.returnSize();

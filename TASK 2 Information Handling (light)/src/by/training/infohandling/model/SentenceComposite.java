@@ -1,7 +1,11 @@
 package by.training.infohandling.model;
 
+/**
+ * Public class extends of TextComposite.
+ * Contains ArrayList of Token Components.
+ */
 public class SentenceComposite extends TextComposite {
-	
+
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -10,12 +14,10 @@ public class SentenceComposite extends TextComposite {
 		}
 		//when sort paragraphs by number of sentences.
 		//return stringBuilder.toString() + System.lineSeparator();
-		
+
 		//when sort sentences by words length.
 		// return stringBuilder.toString() + "     ";
-		
+
 		return stringBuilder.toString();
 	}
-	
-	
 }

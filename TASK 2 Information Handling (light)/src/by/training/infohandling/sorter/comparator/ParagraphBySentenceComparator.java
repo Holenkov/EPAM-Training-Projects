@@ -1,6 +1,10 @@
-package by.training.infohandling.comparator;
+package by.training.infohandling.sorter.comparator;
 
 import java.util.Comparator;
+
+/**
+ * Comparator for sort Paragraphs by number of Sentences.
+ */
 
 import by.training.infohandling.model.Component;
 

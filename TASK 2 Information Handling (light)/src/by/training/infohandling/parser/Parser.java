@@ -1,18 +1,38 @@
 package by.training.infohandling.parser;
 
 
+import java.util.List;
 import by.training.infohandling.model.Component;
 
-public abstract class Parser {
-	protected Parser nextParcer;
-	
-	public abstract void parseElement(String sourceText, Component component);
-	
+/**
+ * Abstract class with methods parseElement(String sourceText, Component component),
+ * Parser getNextParcer(), setNextParcer(Parser nextParcer).
+ */
 
+public abstract class Parser {
+	/** Next Parser in the chain of Parsers.*/
+	protected Parser nextParcer;
+
+	/**
+	 * Method, that parse text on Components.
+	 * @param sourceText - String with sourse text.
+	 * @param component - Component, that will store collection on parsed Components.
+	 * @return List{@code<String>} contains elements of parsed Element.
+	 */
+	public abstract List<String> parseElement(String sourceText, Component component);
+
+	/**
+	 * Getter for object field nextParcer.
+	 * @return the next Parser in the chain on Parsers.
+	 */
 	public Parser getNextParcer() {
 		return nextParcer;
 	}
 
+	/**
+	 * Setter for object field nextParcer;
+	 * @param nextParcer - Parser, that should be next in the chain of Parsers.
+	 */
 	public void setNextParcer(Parser nextParcer) {
 		this.nextParcer = nextParcer;
 	}
