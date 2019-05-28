@@ -5,7 +5,7 @@ package by.training.infohandling.model;
  * Contains ArrayList of Sentence Components.
  */
 
-public class ParagraphComposite extends TextComposite{
+public class ParagraphComposite extends TextComposite {
 
 	@Override
 	public String toString() {

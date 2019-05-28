@@ -19,45 +19,38 @@ import by.training.infohandling.model.Component;
 import by.training.infohandling.model.TextComposite;
 import by.training.infohandling.parser.Parser;
 import by.training.infohandling.parser.ParserInitializer;
-
+import by.training.infohandling.parser.TextParser;
 
 @RunWith(Parameterized.class)
-public class ParserTest {
+public class TextParserTest {
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	private static final List<String> elements = Arrays.asList("text", "paragraph", "sentence", "token");
 	private String sourceText;
 	private List<String> expected;
-	private Parser parser;
 	
 	
-	public ParserTest(String sourceText, List<String> expected, Parser parser) {
+	public TextParserTest(String sourceText, List<String> expected) {
 		super();
 		this.sourceText = sourceText;
 		this.expected = expected;
-		this.parser = parser;
 	}
 
 	@Parameters
 	public static List<Object[]> paramsForTest() throws NullResultException {
 		List<Object[]> forTest = new ArrayList<>();
-		Parser nextParser = ParserInitializer.initializeChain();
 		
-		for (int i = 1; i < elements.size(); i++) {
-			String parent = elements.get(i-1);
-			String child = elements.get(i);
+			String parent = "text";
+			String child = "paragraph";
 			String dirPath = ".\\data\\test\\";
-			String sourcePath = ".\\data\\test\\source_" + parent + "_test.txt";
+			String sourcePath = dirPath + "source_" + parent + "_test.txt";
 			List<String> expectedPath = Arrays.asList(dirPath + child + "1_test.txt", 
 					dirPath + child + "2_test.txt", dirPath + child + "3_test.txt", 
 					dirPath + child + "4_test.txt", dirPath + child + "5_test.txt");
-			elementParserTest(forTest, sourcePath, expectedPath,nextParser);
-			nextParser = nextParser.getNextParcer();
-		}
+			elementParserTest(forTest, sourcePath, expectedPath);
 
 		return forTest;
 	}
 	
-	private static void elementParserTest(List<Object[]> forTest, String sourcePath, List<String> expectedPath, Parser parser) throws NullResultException {
+	private static void elementParserTest(List<Object[]> forTest, String sourcePath, List<String> expectedPath) throws NullResultException {
 		List<String> expected = new ArrayList<>();
 		TextFileReader textFileReader = new TextFileReader();
 		String sourceText = textFileReader.readText(sourcePath);
@@ -67,7 +60,7 @@ public class ParserTest {
 			text = text.substring(0, text.length()-2);
 			expected.add(text);		
 		}
-		forTest.add(new Object[]{sourceText, expected, parser});
+		forTest.add(new Object[]{sourceText, expected});
 	}
 	
 	
@@ -75,14 +68,8 @@ public class ParserTest {
 	public void parse(){
 		Component textComposite = new TextComposite();
 		List<String> actual = null;
-		Parser parser = this.parser;
+		Parser parser = ParserInitializer.getParser(new TextParser());
 		actual = parser.parseElement(sourceText, textComposite);
-		
-		for (int i = 0; i < actual.size(); i++) {
-			LOGGER.info("Expected  |" + expected.get(i));
-			LOGGER.info("Actual    |" + actual.get(i));
-		}
-		
 		
 		assertEquals(expected, actual);
 	}	

@@ -9,15 +9,12 @@ public class NullResultException extends Exception{
 
 	public NullResultException() {
 	}
-	
-	public NullResultException(String message) { 
+	public NullResultException(String message) {
 		super(message);
 	    }
-	
-	public NullResultException(String message, Throwable exception) { 
+	public NullResultException(String message, Throwable exception) {
 		super(message, exception);
 	    }
-	
-	public NullResultException(Throwable exception) { 
+	public NullResultException(Throwable exception) {
 	    }
 }

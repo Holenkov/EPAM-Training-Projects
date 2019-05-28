@@ -9,30 +9,47 @@ import org.apache.logging.log4j.Logger;
  */
 
 public class Symbol implements Component {
+	/**Logger.*/
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	/** Private field, contains one letter. */
 	private String letter;
 
+	/**
+	 * Public overrided method, no using for this class  
+	 */
 	@Override
 	public void add(final Component component) {
 		LOGGER.info("No operations");
 	}
-
+	
+	/**
+	 * Public overrided method, no using for this class  
+	 */
 	@Override
 	public void remove(final Component component) {
 		LOGGER.info("No operations");
 	}
 
+	/**
+	 * Public overrided method, no using for this class  
+	 */
 	@Override
 	public Component getChild(int index) {
 		LOGGER.info("No operations");
 		return null;
 	}
 
+	/**
+	 * Method return private field, storing one Symbol.
+	 * @return String, contains one symbol. 
+	 */
 	public String getLetter() {
 		return letter;
 	}
 
+	/**
+	 * Method set value of private field.
+	 */
 	public void setLetter(String letter) {
 		this.letter = letter;
 	}

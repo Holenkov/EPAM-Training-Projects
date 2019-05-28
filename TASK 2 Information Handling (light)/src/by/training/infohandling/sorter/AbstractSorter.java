@@ -13,5 +13,5 @@ public interface AbstractSorter{
 	 * @param component
 	 * @param comparator
 	 */
-	public <T extends Comparator<Component>> void sort(Component component, T comparator);
+	<T extends Comparator<Component>> void sort(Component component, T comparator);
 }

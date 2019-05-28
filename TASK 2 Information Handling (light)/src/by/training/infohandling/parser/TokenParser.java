@@ -14,16 +14,21 @@ import by.training.infohandling.model.WordComposite;
 public class TokenParser extends Parser{
 	/** Regex for split token on words */
 	private static final String WORD_REGEX = "[.]{3}|[.?!:,;]";
+	/** Pattern compiled from Regex. */
 	private static final Pattern PATTERN = Pattern.compile(WORD_REGEX);
+	/**  Logger.*/
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	
+
+	/**
+	 * Default constructor.
+	 */
 	public TokenParser() {
 		LOGGER.info("New TokenParser");
 	}
-	
+
 	/**
 	 * Override method from Parser class, that parse Tokens on Words.
-	 * @return 
+	 @return {@code List<String>} contains word and punctuation.
 	 */
 	@Override
 	public List<String> parseElement(String sourceText, Component component) {
@@ -35,16 +40,16 @@ public class TokenParser extends Parser{
 		} else {
 			words.add(sourceText);
 		}
-		
+
 		for (String string : words) {
 			Component wordComposite = new WordComposite();
 			component.add(wordComposite);
 			Parser parser = getNextParcer();
-			parser.parseElement(string, wordComposite);			
+			parser.parseElement(string, wordComposite);
 		}
 		return words;
 	}
 
-	
+
 
 }

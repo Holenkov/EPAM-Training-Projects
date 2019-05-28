@@ -11,15 +11,16 @@ import by.training.infohandling.model.Symbol;
 public class WordParser extends Parser{
 	/** Regex for split word on letters */
 	private static final String TOKEN_REGEX = "";
+	/** Logger */
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	
+
 	public WordParser() {
 		LOGGER.info("New WordParser");
 	}
-	
+
 	/**
 	 * Override method from Parser class, that parse Words on Letters.
-	 * @return 
+	 * @return {@code List<String>} of symbols.
 	 */
 	@Override
 	public List<String> parseElement(String sourceText, Component component) {
@@ -28,7 +29,7 @@ public class WordParser extends Parser{
 		for (String string : letters) {
 			Component letter = new Symbol();
 			component.add(letter);
-			((Symbol)letter).setLetter(string);
+			((Symbol) letter).setLetter(string);
 		}
 		return letters;
 	}

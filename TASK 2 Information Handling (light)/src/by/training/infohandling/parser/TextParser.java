@@ -16,10 +16,12 @@ import by.training.infohandling.model.ParagraphComposite;
 public class TextParser extends Parser{
 	/** Regex for split text on paragraphs */
 	private static final String PARAGRAPH_REGEX = "([.]{3}|[.?!]|([\\s]{4}))" + System.lineSeparator()  + "[\\s]{4}";
+	/** Pattern, compiled from Regex */ 
 	private static final Pattern PATTERN = Pattern.compile(PARAGRAPH_REGEX);
+	/** Logger */
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	
-	public TextParser() {		
+
+	public TextParser() {
 		LOGGER.info("New TextParser");
 	}
 	/**
@@ -34,17 +36,17 @@ public class TextParser extends Parser{
 			paragraphs.add(sourceText.substring(index, matcher.start()) + matcher.group());
 			index = matcher.end();
 		}
-		paragraphs.add(sourceText.substring(index, sourceText.length()-2));
-		
+		paragraphs.add(sourceText.substring(index, sourceText.length() - 2));
+
 		for (String string : paragraphs) {
 			Component paragraphComposite = new ParagraphComposite();
 			component.add(paragraphComposite);
 			Parser parser = getNextParcer();
-			parser.parseElement(string, paragraphComposite);			
+			parser.parseElement(string, paragraphComposite);
 		}
 		return paragraphs;
 	}
 
-	
+
 
 }

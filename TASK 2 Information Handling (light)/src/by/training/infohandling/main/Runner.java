@@ -10,6 +10,7 @@ import by.training.infohandling.model.Component;
 import by.training.infohandling.model.TextComposite;
 import by.training.infohandling.parser.Parser;
 import by.training.infohandling.parser.ParserInitializer;
+import by.training.infohandling.parser.TextParser;
 import by.training.infohandling.sorter.Sorter;
 import by.training.infohandling.sorter.comparator.ParagraphBySentenceComparator;
 import by.training.infohandling.sorter.comparator.SentenñeBySymbolCompatator;
@@ -35,7 +36,7 @@ public class Runner {
 		LOGGER.info(text);
 
 		Component textComposite = new TextComposite();
-		Parser textParser = ParserInitializer.initializeChain();
+		Parser textParser = ParserInitializer.getParser(new TextParser());
 		textParser.parseElement(text, textComposite);
 
 		TextCollector textCollector = new TextCollector();
@@ -69,8 +70,6 @@ public class Runner {
 		sorter.sort(textComposite, comparatorSBS);
 		LOGGER.info("Sorted Text - Sentences by numder of symbol " + keySymbol);
 		LOGGER.info(textCollector.collectText(textComposite));
-		
-		
 
 	}
 }
