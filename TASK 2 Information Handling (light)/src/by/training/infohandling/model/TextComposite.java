@@ -23,8 +23,7 @@ public class TextComposite implements Component{
 
 	/** Return Component with index index from class field List{@code<Component>}. */
 	public Component getChild(final int index) {
-		Component child = components.get(index);
-		return child;
+		return components.get(index);
 	}
 
 	/** Put Component with index index to class field List{@code<Component>}. */

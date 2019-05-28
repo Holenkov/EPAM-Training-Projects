@@ -12,8 +12,7 @@ public class TextCollector {
 	 * @return collected text as String.
 	 */
 	public String collectText(final Component component) {
-		String text = component.toString();
-		return text;
+		return component.toString();
 	}
 
 }

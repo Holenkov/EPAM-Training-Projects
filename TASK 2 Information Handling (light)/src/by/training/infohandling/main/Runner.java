@@ -1,10 +1,5 @@
 package by.training.infohandling.main;
 
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +21,7 @@ import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
 
 public class Runner {
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	final static String FILE_NAME = ".\\data\\task2text.txt";
+	static final String FILE_NAME = ".\\data\\task2text.txt";
 
 	public static void main(String[] args) {
 		TextFileReader textFileReader = new TextFileReader();

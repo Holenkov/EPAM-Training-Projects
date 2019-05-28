@@ -13,8 +13,8 @@ import by.training.infohandling.model.WordComposite;
 
 public class TokenParser extends Parser{
 	/** Regex for split token on words */
-	final private static String WORD_REGEX = "[.]{3}|[.?!:,;]";
-	final private static Pattern PATTERN = Pattern.compile(WORD_REGEX);
+	private static final String WORD_REGEX = "[.]{3}|[.?!:,;]";
+	private static final Pattern PATTERN = Pattern.compile(WORD_REGEX);
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	
 	public TokenParser() {

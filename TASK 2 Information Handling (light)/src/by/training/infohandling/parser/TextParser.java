@@ -15,8 +15,8 @@ import by.training.infohandling.model.ParagraphComposite;
  */
 public class TextParser extends Parser{
 	/** Regex for split text on paragraphs */
-	final private static String PARAGRAPH_REGEX = "([.]{3}|[.?!]|([\\s]{4}))" + System.lineSeparator()  + "[\\s]{4}";
-	final private static Pattern PATTERN = Pattern.compile(PARAGRAPH_REGEX);
+	private static final String PARAGRAPH_REGEX = "([.]{3}|[.?!]|([\\s]{4}))" + System.lineSeparator()  + "[\\s]{4}";
+	private static final Pattern PATTERN = Pattern.compile(PARAGRAPH_REGEX);
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	
 	public TextParser() {		

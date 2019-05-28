@@ -13,7 +13,7 @@ import by.training.infohandling.model.TokenComposite;
 
 public class SentenceParser extends Parser{
 	/** Regex for split sentence on tokens */
-	final private static String TOKEN_REGEX = " ";
+	private static final String TOKEN_REGEX = " ";
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	
 	public SentenceParser() {
@@ -26,8 +26,7 @@ public class SentenceParser extends Parser{
 	 */
 	@Override
 	public List<String> parseElement(String sourceText, Component component) {
-		List<String> tokens = new ArrayList<>();
-		tokens = Arrays.asList(sourceText.trim().split(TOKEN_REGEX));
+		List<String> tokens = Arrays.asList(sourceText.trim().split(TOKEN_REGEX));
 		
 		for (String string : tokens) {
 			Component tokenComposite = new TokenComposite();

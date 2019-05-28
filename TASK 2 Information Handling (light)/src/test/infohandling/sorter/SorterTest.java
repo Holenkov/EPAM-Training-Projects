@@ -3,17 +3,14 @@ package test.infohandling.sorter;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
 import by.training.infohandling.collector.TextCollector;
 import by.training.infohandling.exception.NullResultException;
 import by.training.infohandling.filereader.TextFileReader;
@@ -29,7 +26,6 @@ import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
 @RunWith(Parameterized.class)
 public class SorterTest {
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	private final static List<String> elements = Arrays.asList("text", "paragraph", "sentence", "token");
 	private String sourceText;
 	private String expected;
 	private Comparator<Component> comparator;

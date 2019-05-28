@@ -3,9 +3,6 @@ package by.training.infohandling.sorter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import by.training.infohandling.model.Component;
 import by.training.infohandling.sorter.comparator.ParagraphBySentenceComparator;
 import by.training.infohandling.sorter.comparator.SentenñeBySymbolCompatator;

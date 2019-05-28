@@ -15,8 +15,8 @@ import by.training.infohandling.model.SentenceComposite;
  */
 public class ParagraphParcer extends Parser{
 	/** Regex for split paragraph on sentences */
-	final private static String SENTENCE_REGEX = "([.]{3}|[.?!])\\s*";
-	final private static Pattern PATTERN = Pattern.compile(SENTENCE_REGEX);
+	private static final String SENTENCE_REGEX = "([.]{3}|[.?!])\\s*";
+	private static final Pattern PATTERN = Pattern.compile(SENTENCE_REGEX);
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
 	public ParagraphParcer() {
@@ -40,7 +40,6 @@ public class ParagraphParcer extends Parser{
 		}
 
 		for (String string : sentences) {
-			//String newString = string.replaceAll(separator, "");
 			Component sentenceComposite = new SentenceComposite();
 			component.add(sentenceComposite);
 			Parser parser = getNextParcer();

@@ -75,7 +75,6 @@ public class Symbol implements Component {
 
 	@Override
 	public int returnSize() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

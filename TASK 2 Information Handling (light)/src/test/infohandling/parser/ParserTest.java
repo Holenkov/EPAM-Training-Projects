@@ -17,7 +17,6 @@ import by.training.infohandling.exception.NullResultException;
 import by.training.infohandling.filereader.TextFileReader;
 import by.training.infohandling.model.Component;
 import by.training.infohandling.model.TextComposite;
-import by.training.infohandling.parser.ParagraphParcer;
 import by.training.infohandling.parser.Parser;
 import by.training.infohandling.parser.ParserInitializer;
 
@@ -25,7 +24,7 @@ import by.training.infohandling.parser.ParserInitializer;
 @RunWith(Parameterized.class)
 public class ParserTest {
 	private static final Logger LOGGER = LogManager.getRootLogger();
-	private final static List<String> elements = Arrays.asList("text", "paragraph", "sentence", "token");
+	private static final List<String> elements = Arrays.asList("text", "paragraph", "sentence", "token");
 	private String sourceText;
 	private List<String> expected;
 	private Parser parser;
@@ -46,27 +45,25 @@ public class ParserTest {
 		for (int i = 1; i < elements.size(); i++) {
 			String parent = elements.get(i-1);
 			String child = elements.get(i);
-			
+			String dirPath = ".\\data\\test\\";
 			String sourcePath = ".\\data\\test\\source_" + parent + "_test.txt";
-			List<String> expectedPath = Arrays.asList(".\\data\\test\\"+ child + "1_test.txt", 
-					".\\data\\test\\"+ child + "2_test.txt", ".\\data\\test\\"+ child + "3_test.txt", 
-					".\\data\\test\\"+ child + "4_test.txt", ".\\data\\test\\"+ child + "5_test.txt");
-			ElementParserTest(forTest, sourcePath, expectedPath,nextParser);
+			List<String> expectedPath = Arrays.asList(dirPath + child + "1_test.txt", 
+					dirPath + child + "2_test.txt", dirPath + child + "3_test.txt", 
+					dirPath + child + "4_test.txt", dirPath + child + "5_test.txt");
+			elementParserTest(forTest, sourcePath, expectedPath,nextParser);
 			nextParser = nextParser.getNextParcer();
 		}
 
 		return forTest;
 	}
 	
-	private static void ElementParserTest(List<Object[]> forTest, String sourcePath, List<String> expectedPath, Parser parser) throws NullResultException {
+	private static void elementParserTest(List<Object[]> forTest, String sourcePath, List<String> expectedPath, Parser parser) throws NullResultException {
 		List<String> expected = new ArrayList<>();
 		TextFileReader textFileReader = new TextFileReader();
 		String sourceText = textFileReader.readText(sourcePath);
 		String text;
 		for (String path : expectedPath) {
 			text = textFileReader.readText(path);
-		//	LOGGER.info(path);
-		//	LOGGER.info(text);
 			text = text.substring(0, text.length()-2);
 			expected.add(text);		
 		}
@@ -84,7 +81,6 @@ public class ParserTest {
 		for (int i = 0; i < actual.size(); i++) {
 			LOGGER.info("Expected  |" + expected.get(i));
 			LOGGER.info("Actual    |" + actual.get(i));
-		//	LOGGER.info((actual.get(i)).equals(expected.get(i)));
 		}
 		
 		
