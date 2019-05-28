@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
  * Contains field, that store one letter.
  */
 
-public class Letter implements Component {
+public class Symbol implements Component {
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	/** Private field, contains one letter. */
 	private String letter;
@@ -58,7 +58,7 @@ public class Letter implements Component {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Letter other = (Letter) obj;
+		Symbol other = (Symbol) obj;
 		if (letter == null) {
 			if (other.letter != null)
 				return false;

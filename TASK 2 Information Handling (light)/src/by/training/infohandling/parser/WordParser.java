@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.training.infohandling.model.Component;
-import by.training.infohandling.model.Letter;
+import by.training.infohandling.model.Symbol;
 
 public class WordParser extends Parser{
 	/** Regex for split word on letters */
@@ -28,9 +28,9 @@ public class WordParser extends Parser{
 			letters = Arrays.asList(sourceText.split(TOKEN_REGEX));
 			
 		for (String string : letters) {
-			Component letter = new Letter();
+			Component letter = new Symbol();
 			component.add(letter);
-			((Letter)letter).setLetter(string);
+			((Symbol)letter).setLetter(string);
 		}
 		return letters;
 	}

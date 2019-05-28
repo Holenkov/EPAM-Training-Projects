@@ -2,7 +2,7 @@ package by.training.infohandling.sorter.comparator;
 
 import java.util.Comparator;
 import by.training.infohandling.model.Component;
-import by.training.infohandling.model.Letter;
+import by.training.infohandling.model.Symbol;
 
 /**
  * Comparator for sort Sentences in Paragraph by number of given symbol.
@@ -27,8 +27,8 @@ public class SentenñeBySymbolCompatator implements Comparator<Component> {
 	}
 
 	private int count(final Component component, int counter) {
-		if (component instanceof Letter) {
-			if (((Letter) component).getLetter().equals(keySymbol)) {
+		if (component instanceof Symbol) {
+			if (((Symbol) component).getLetter().equals(keySymbol)) {
 				counter++;
 			}
 		} else {

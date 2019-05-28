@@ -1,5 +1,10 @@
 package by.training.infohandling.main;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -69,6 +74,8 @@ public class Runner {
 		sorter.sort(textComposite, comparatorSBS);
 		LOGGER.info("Sorted Text - Sentences by numder of symbol " + keySymbol);
 		LOGGER.info(textCollector.collectText(textComposite));
+		
+		
 
 	}
 }

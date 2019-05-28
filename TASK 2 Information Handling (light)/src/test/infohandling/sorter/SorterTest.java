@@ -1,4 +1,4 @@
-package test.infohandling.parser;
+package test.infohandling.sorter;
 
 import static org.junit.Assert.assertEquals;
 
