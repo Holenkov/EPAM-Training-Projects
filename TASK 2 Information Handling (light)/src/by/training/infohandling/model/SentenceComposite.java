@@ -6,6 +6,9 @@ package by.training.infohandling.model;
  */
 public class SentenceComposite extends TextComposite {
 
+	/**
+	 Overrided from superclass method.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -17,7 +20,6 @@ public class SentenceComposite extends TextComposite {
 
 		//when sort sentences by words length.
 		// return stringBuilder.toString() + "     ";
-
 		return stringBuilder.toString();
 	}
 }

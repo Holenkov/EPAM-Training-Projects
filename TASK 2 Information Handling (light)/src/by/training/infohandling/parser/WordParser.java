@@ -8,12 +8,18 @@ import org.apache.logging.log4j.Logger;
 import by.training.infohandling.model.Component;
 import by.training.infohandling.model.Symbol;
 
-public class WordParser extends Parser{
-	/** Regex for split word on letters */
+/**
+ * Public class extends of Parser with override method parseElement.
+ */
+public class WordParser extends Parser {
+	/** Regex for split word on letters. */
 	private static final String TOKEN_REGEX = "";
-	/** Logger */
+	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
+	/**
+	 * Constructor.
+	 */
 	public WordParser() {
 		LOGGER.info("New WordParser");
 	}
@@ -23,9 +29,9 @@ public class WordParser extends Parser{
 	 * @return {@code List<String>} of symbols.
 	 */
 	@Override
-	public List<String> parseElement(String sourceText, Component component) {
+	public List<String> parseElement(final String sourceText, final Component component) {
 		List<String> letters = Arrays.asList(sourceText.split(TOKEN_REGEX));
-			
+
 		for (String string : letters) {
 			Component letter = new Symbol();
 			component.add(letter);

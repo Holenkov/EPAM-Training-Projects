@@ -3,7 +3,6 @@ package test.infohandling.sorter;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,8 +19,7 @@ import by.training.infohandling.parser.Parser;
 import by.training.infohandling.parser.ParserInitializer;
 import by.training.infohandling.parser.TextParser;
 import by.training.infohandling.sorter.Sorter;
-import by.training.infohandling.sorter.comparator.ParagraphBySentenceComparator;
-import by.training.infohandling.sorter.comparator.SentenñeBySymbolCompatator;
+import by.training.infohandling.sorter.comparator.SentenñeBySymbolComparator;
 
 	@RunWith(Parameterized.class)
 	public class SentenceBySymbolSorterTest {
@@ -51,13 +49,13 @@ import by.training.infohandling.sorter.comparator.SentenñeBySymbolCompatator;
 		}
 
 		@Test
-		public void sort(){
+		public void sort() {
 
 			Component textComposite = new TextComposite();
 			Parser parser = ParserInitializer.getParser(new TextParser());
 			parser.parseElement(sourceText, textComposite);
 			Sorter sorter = new Sorter();
-			sorter.sort(textComposite, new SentenñeBySymbolCompatator('a'));
+			sorter.sort(textComposite, new SentenñeBySymbolComparator('a'));
 			TextCollector textCollector = new TextCollector();
 			String actual = textCollector.collectText(textComposite);
 

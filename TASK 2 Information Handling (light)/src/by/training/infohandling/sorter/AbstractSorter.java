@@ -7,9 +7,9 @@ import by.training.infohandling.model.Component;
 /**
  * Interface with method sort(Component component, T comparator).
  */
-public interface AbstractSorter{
+public interface AbstractSorter {
 	/**
-	 * Public method for sort 
+	 * Public method for sort.
 	 * @param component
 	 * @param comparator
 	 */

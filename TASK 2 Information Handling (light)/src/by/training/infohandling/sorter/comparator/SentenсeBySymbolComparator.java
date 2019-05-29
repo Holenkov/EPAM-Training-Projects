@@ -7,8 +7,8 @@ import by.training.infohandling.model.Symbol;
 /**
  * Comparator for sort Sentences in Paragraph by number of given symbol.
  */
-public class SentenñeBySymbolCompatator implements Comparator<Component> {
-	/** Given Symbol for sorting*/
+public class SentenñeBySymbolComparator implements Comparator<Component> {
+	/** Given Symbol for sorting.*/
 	private String keySymbol;
 
 
@@ -16,7 +16,7 @@ public class SentenñeBySymbolCompatator implements Comparator<Component> {
 	 * Public constructor for Comparator.
 	 * @param keySymbol - given Symbol for sorting.
 	 */
-	public SentenñeBySymbolCompatator(char keySymbol) {
+	public SentenñeBySymbolComparator(final char keySymbol) {
 		super();
 		this.keySymbol = String.valueOf(keySymbol);
 	}

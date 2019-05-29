@@ -3,7 +3,6 @@ package test.infohandling.sorter;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import org.junit.Test;
@@ -20,7 +19,6 @@ import by.training.infohandling.parser.Parser;
 import by.training.infohandling.parser.ParserInitializer;
 import by.training.infohandling.parser.TextParser;
 import by.training.infohandling.sorter.Sorter;
-import by.training.infohandling.sorter.comparator.ParagraphBySentenceComparator;
 import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
 
 	@RunWith(Parameterized.class)
@@ -51,7 +49,7 @@ import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
 		}
 
 		@Test
-		public void sort(){
+		public void sort() {
 
 			Component textComposite = new TextComposite();
 			Parser parser = ParserInitializer.getParser(new TextParser());

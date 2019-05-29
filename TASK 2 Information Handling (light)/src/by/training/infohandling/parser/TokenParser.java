@@ -11,8 +11,11 @@ import org.apache.logging.log4j.Logger;
 import by.training.infohandling.model.Component;
 import by.training.infohandling.model.WordComposite;
 
-public class TokenParser extends Parser{
-	/** Regex for split token on words */
+/**
+ * Public class extends of Parser with override method parseElement.
+ */
+public class TokenParser extends Parser {
+	/** Regex for split token on words. */
 	private static final String WORD_REGEX = "[.]{3}|[.?!:,;]";
 	/** Pattern compiled from Regex. */
 	private static final Pattern PATTERN = Pattern.compile(WORD_REGEX);
@@ -31,7 +34,7 @@ public class TokenParser extends Parser{
 	 @return {@code List<String>} contains word and punctuation.
 	 */
 	@Override
-	public List<String> parseElement(String sourceText, Component component) {
+	public List<String> parseElement(final String sourceText, final Component component) {
 		Matcher matcher = PATTERN.matcher(sourceText);
 		List<String> words = new ArrayList<>();
 		if (matcher.find()) {

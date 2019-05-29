@@ -4,9 +4,11 @@ package by.training.infohandling.model;
  * Public class extends of TextComposite.
  * Contains ArrayList of Sentence Components.
  */
-
 public class ParagraphComposite extends TextComposite {
 
+	/**
+	 Overrided from superclass method.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();

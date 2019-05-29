@@ -13,12 +13,17 @@ import by.training.infohandling.model.SentenceComposite;
 /**
  * Public class extends of Parser with override method parseElement.
  */
-public class ParagraphParcer extends Parser{
-	/** Regex for split paragraph on sentences */
+public class ParagraphParcer extends Parser {
+	/** Regex for split paragraph on sentences. */
 	private static final String SENTENCE_REGEX = "([.]{3}|[.?!])\\s*";
+	/** Pattern, compiled from Regex. */
 	private static final Pattern PATTERN = Pattern.compile(SENTENCE_REGEX);
+	/** Logger.*/
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
+	/**
+	 * Constructor.
+	 */
 	public ParagraphParcer() {
 		LOGGER.info("New ParagraphParcer");
 	}

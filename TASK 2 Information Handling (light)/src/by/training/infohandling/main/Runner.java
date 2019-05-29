@@ -13,7 +13,7 @@ import by.training.infohandling.parser.ParserInitializer;
 import by.training.infohandling.parser.TextParser;
 import by.training.infohandling.sorter.Sorter;
 import by.training.infohandling.sorter.comparator.ParagraphBySentenceComparator;
-import by.training.infohandling.sorter.comparator.SentenñeBySymbolCompatator;
+import by.training.infohandling.sorter.comparator.SentenñeBySymbolComparator;
 import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
 
 /**
@@ -21,16 +21,22 @@ import by.training.infohandling.sorter.comparator.WordsByLengthComparator;
  */
 
 public class Runner {
+	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
+	/** Text file path and name. */
 	static final String FILE_NAME = ".\\data\\task2text.txt";
 
-	public static void main(String[] args) {
+	/**
+	 * Main method.
+	 * @param args
+	 */
+	public static void main(final String[] args) {
 		TextFileReader textFileReader = new TextFileReader();
 		String text = null;
 		try {
 			text = textFileReader.readText(FILE_NAME);
 		} catch (NullResultException e) {
-			e.printStackTrace();
+		LOGGER.error(e.getMessage() + e.getStackTrace());
 		}
 		LOGGER.info("Source Text");
 		LOGGER.info(text);
@@ -66,10 +72,9 @@ public class Runner {
 		LOGGER.info(textCollector.collectText(textComposite));
 
 		char keySymbol = 'a';
-		SentenñeBySymbolCompatator comparatorSBS = new SentenñeBySymbolCompatator(keySymbol);
+		SentenñeBySymbolComparator comparatorSBS = new SentenñeBySymbolComparator(keySymbol);
 		sorter.sort(textComposite, comparatorSBS);
 		LOGGER.info("Sorted Text - Sentences by numder of symbol " + keySymbol);
 		LOGGER.info(textCollector.collectText(textComposite));
-
 	}
 }

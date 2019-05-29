@@ -1,9 +1,9 @@
 package by.training.infohandling.filereader;
+
 /**
  * Public class for reading text from file.
  * Methods : ReadTest(String fileName);
  */
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,7 +15,6 @@ import by.training.infohandling.exception.NullResultException;
  * Public class, provides method readText(final String fileName), that reads
  * text from file.
  */
-
 public class TextFileReader {
 
 	/**

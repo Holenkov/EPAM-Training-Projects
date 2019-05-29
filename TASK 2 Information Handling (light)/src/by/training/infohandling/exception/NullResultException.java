@@ -1,20 +1,45 @@
 package by.training.infohandling.exception;
 
 /**
- * Custom Exception, throw when return parameter is null.
- *
+ * Custom Exception, throws when return parameter is null.
  */
-public class NullResultException extends Exception{
+public class NullResultException extends Exception {
+	/** UID. */
 	private static final long serialVersionUID = 3782609993504948245L;
 
+	/** Constructor. */
 	public NullResultException() {
 	}
-	public NullResultException(String message) {
+
+	/**
+	 * Return message from exception.
+	 */
+	@Override
+	public String getMessage() {
+		return super.getMessage();
+	}
+
+	/**
+	 * Overraided method.
+	 * @param message message
+	 */
+	public NullResultException(final String message) {
 		super(message);
-	    }
-	public NullResultException(String message, Throwable exception) {
+	}
+
+	/**
+	 * Override method.
+	 * @param message message.
+	 * @param exception exception.
+	 */
+	public NullResultException(final String message, final Throwable exception) {
 		super(message, exception);
-	    }
-	public NullResultException(Throwable exception) {
-	    }
+	}
+
+	/**
+	 * Override method.
+	 * @param exception thows.
+	 */
+	public NullResultException(final Throwable exception) {
+	}
 }

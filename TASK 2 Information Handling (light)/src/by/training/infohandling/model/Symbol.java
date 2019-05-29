@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
  * Final class in Component hierarchy implements Component.
  * Contains field, that store one letter.
  */
-
 public class Symbol implements Component {
 	/**Logger.*/
 	private static final Logger LOGGER = LogManager.getRootLogger();
@@ -15,15 +14,15 @@ public class Symbol implements Component {
 	private String letter;
 
 	/**
-	 * Public overrided method, no using for this class  
+	 * Public override method, no using for this class.
 	 */
 	@Override
 	public void add(final Component component) {
 		LOGGER.info("No operations");
 	}
-	
+
 	/**
-	 * Public overrided method, no using for this class  
+	 * Public override method, no using for this class.
 	 */
 	@Override
 	public void remove(final Component component) {
@@ -31,17 +30,17 @@ public class Symbol implements Component {
 	}
 
 	/**
-	 * Public overrided method, no using for this class  
+	 * Public override method, no using for this class.
 	 */
 	@Override
-	public Component getChild(int index) {
+	public Component getChild(final int index) {
 		LOGGER.info("No operations");
 		return null;
 	}
 
 	/**
 	 * Method return private field, storing one Symbol.
-	 * @return String, contains one symbol. 
+	 * @return String, contains one symbol.
 	 */
 	public String getLetter() {
 		return letter;
@@ -50,15 +49,23 @@ public class Symbol implements Component {
 	/**
 	 * Method set value of private field.
 	 */
-	public void setLetter(String letter) {
+	public void setLetter(final String letter) {
 		this.letter = letter;
 	}
 
+	/**
+	 Overrided from superclass method.
+	 @return value of class field.
+	 */
 	@Override
 	public String toString() {
 		return letter + "";
 	}
 
+	/**
+	 Overrided from superclass method.
+	 @return hashCode;
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,8 +74,12 @@ public class Symbol implements Component {
 		return result;
 	}
 
+	/**
+	 Overrided from superclass method.
+	 @return true or false;
+	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -84,23 +95,22 @@ public class Symbol implements Component {
 		return true;
 	}
 
+	/**
+	 * * Public overrided method, no using for this class.
+	 */
 	@Override
-	public void setChild(int index, Component component) {
+	public void setChild(final int index, final Component component) {
 		LOGGER.info("No operations");
-		
 	}
 
+	/**
+	 Overrided from superclass method.
+	 @return always return 0;
+	 */
 	@Override
 	public int returnSize() {
 		return 0;
 	}
 
-
-	
-	
-	
-	
-	
-	
 
 }

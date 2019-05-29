@@ -11,7 +11,7 @@ import by.training.infohandling.model.Component;
 
 public abstract class Parser {
 	/** Next Parser in the chain of Parsers.*/
-	protected Parser nextParcer;
+	private Parser nextParcer;
 
 	/**
 	 * Method, that parse text on Components.
@@ -28,15 +28,13 @@ public abstract class Parser {
 	public Parser getNextParcer() {
 		return nextParcer;
 	}
-
+	
 	/**
-	 * Setter for object field nextParcer;
+	 * Setter for object field nextParcer.
 	 * @param nextParcer - Parser, that should be next in the chain of Parsers.
 	 */
-	public void setNextParcer(Parser nextParcer) {
+	public void setNextParcer(final Parser nextParcer) {
 		this.nextParcer = nextParcer;
 	}
-	
-	
 
 }

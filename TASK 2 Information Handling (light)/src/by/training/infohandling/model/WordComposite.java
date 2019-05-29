@@ -7,6 +7,10 @@ package by.training.infohandling.model;
 
 public class WordComposite extends TextComposite {
 
+	/**
+	 Overrided from superclass method.
+	 @return value of class field.
+	 */
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();

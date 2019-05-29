@@ -13,14 +13,17 @@ import by.training.infohandling.model.ParagraphComposite;
 /**
  * Public class extends of Parser with override method parseElement.
  */
-public class TextParser extends Parser{
-	/** Regex for split text on paragraphs */
+public class TextParser extends Parser {
+	/** Regex for split text on paragraphs. */
 	private static final String PARAGRAPH_REGEX = "([.]{3}|[.?!]|([\\s]{4}))" + System.lineSeparator()  + "[\\s]{4}";
-	/** Pattern, compiled from Regex */ 
+	/** Pattern, compiled from Regex. */
 	private static final Pattern PATTERN = Pattern.compile(PARAGRAPH_REGEX);
-	/** Logger */
+	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
+	/**
+	 * Constructor.
+	 */
 	public TextParser() {
 		LOGGER.info("New TextParser");
 	}
@@ -28,7 +31,7 @@ public class TextParser extends Parser{
 	 * Override method from Parser class, that parse source Text on Paragraphs.
 	 */
 	@Override
-	public List<String> parseElement(String sourceText, Component component) {
+	public List<String> parseElement(final String sourceText, final Component component) {
 		Matcher matcher = PATTERN.matcher(sourceText);
 		List<String> paragraphs = new ArrayList<>();
 		int index = 0;
@@ -46,7 +49,5 @@ public class TextParser extends Parser{
 		}
 		return paragraphs;
 	}
-
-
 
 }
