@@ -24,14 +24,14 @@
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="TxtFile" />
 		</Logger> -->
-		
+
 		<!-- <Logger name="by.training.itcompany.main.TeamCreator" additivity="false" level="info">
 			<AppenderRef ref="ConsoleSimple" />
 		</Logger>
 		<Logger name="by.training.itcompany.main.EmployeesRepository" additivity="false" level="info">
 			<AppenderRef ref="ConsoleSimple" />
 		</Logger> -->
-		
+
 
 		<!-- Root Logger -->
 		<Root level="all">

@@ -9,27 +9,25 @@ import org.apache.logging.log4j.Logger;
 /**
  * Singletone class, contains matrix data with methods for work with matrix.
  */
-public class Matrix {
+public class MatrixLockers {
 	/** Matrix with data.*/
 	private int[][] matrix;
-	/** Index of diagonal element to change. */
-	private int currentIndex;
 	/** Locker. */
-	private ReentrantLock locker;
+	private ReentrantLock[] locker;
 	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
 	/**
 	 * Private constructor.
 	 */
-	private Matrix() {
+	private MatrixLockers() {
 	}
 
 	/**
 	 * Method return instance.
 	 * @return instance of Matrix.
 	 */
-	public static Matrix getMatrix() {
+	public static MatrixLockers getMatrix() {
 		return MatrixHolder.MATRIX;
 	}
 
@@ -38,7 +36,7 @@ public class Matrix {
 	 */
 	private static class MatrixHolder {
 		/** Instance of Matrix.*/
-		private static final Matrix MATRIX = new Matrix();
+		private static final MatrixLockers MATRIX = new MatrixLockers();
 	}
 
 	/**
@@ -46,26 +44,33 @@ public class Matrix {
 	 * Method initializes matrix.
 	 * @param m - square matrix dimensions MxM.
 	 */
-	public void initializeMatrix(final int m) {
-		matrix = new int[m][m];
-		currentIndex = 0;
-		locker = new ReentrantLock();
+	public void initializeMatrix(final int[][] matrix) {
+		int m = matrix.length;
+		this.matrix = new int[m][m];
+		
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < m; j++) {
+				this.matrix[i][j] = matrix[i][j];
+			}
+		}
+	
+		locker = new ReentrantLock[m];
+		
+		for(int i = 0; i < m; i++) {
+			locker[i] = new ReentrantLock();
+		}
 	}
 
 	/**
-	 * public void setElement(int i, int j, int element)
-	 * Set value of matrix element.
+	 * public void setElement(int i, int j, int element) Set value of matrix
+	 * element.
 	 * @param i - row index.
 	 * @param j - column index.
 	 * @param element - value of element to set.
 	 */
 	public void putElement(final int i, final int j, final int element) {
-			matrix[i][j] = element;
-	}
-	
-	public void putElement(final int element) {
-		int index = getCurrentIndex();
-		if (index < matrix.length) {
+		if (!locker[i].isLocked()) {
+			locker[i].lock();
 			LOGGER.info(Thread.currentThread().getName() + " begin work");
 			try {
 				TimeUnit.MILLISECONDS.sleep(new Random().nextInt(600));
@@ -73,14 +78,10 @@ public class Matrix {
 				LOGGER.error(e);
 				Thread.currentThread().interrupt();
 			}
-			matrix[index][index] = element;
-			LOGGER.info(Thread.currentThread().getName() + " end work. Element " + index + " has written.");
-		} else {
-			Thread.currentThread().interrupt();
-		}
-		
+			matrix[i][j] = element;
+			LOGGER.info(Thread.currentThread().getName() + " end work. Element " + i + " has written.");
+		} 
 	}
-	
 
 	/**
 	 * public int getElement(int i, int j)
@@ -90,35 +91,8 @@ public class Matrix {
 	 * @return value of element with indexes [i][j].
 	 */
 	public int returnElement(final int i, final int j) {
+		
 		return matrix[i][j];
-	}
-
-	/**
-	 * private int giveIndex() Method find element, that can be written, and
-	 * returns its index.
-	 * 
-	 * @return index of element, that can be written.
-	 */
-	public int getCurrentIndex() {
-		locker.lock();
-		int index = currentIndex;
-		currentIndex++;
-		while (currentIndex <= index)
-			;
-		index = currentIndex - 1;
-		locker.unlock();
-		return index;
-	}
-
-	/**
-	 * Setter.
-	 * @param currentIndex value.
-	 */
-	public void setCurrentIndex(final int currentIndex) {
-		int index = getCurrentIndex();
-		if (index >= matrix.length) {
-			this.currentIndex = currentIndex;
-		}
 	}
 
 	/**

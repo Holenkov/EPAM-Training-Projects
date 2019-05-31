@@ -8,14 +8,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.training.threads.exception.NullResultException;
 import by.training.threads.matrix.Matrix;
+import by.training.threads.matrix.MatrixLockers;
 import by.training.threads.matrixwriter.MatrixWriter;
+import by.training.threads.matrixwriter.MatrixWriterLockers;
 import by.training.threads.reader.ArrayCreator;
 import by.training.threads.reader.FileReader;
 
 /**
  * Main class.
  */
-public class Runner {
+public class RunnerLocker {
 	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	/** File path and name of file with matrix data. */
@@ -30,7 +32,7 @@ public class Runner {
 	/**
 	 * Constructor.
 	 */
-	private Runner() {
+	private RunnerLocker() {
 	}
 
 	/**
@@ -53,27 +55,22 @@ public class Runner {
 		int[] threadsData = ArrayCreator.createArray(arrayThreads, THREADS_NUMBER);
 		int[][] matrixData = ArrayCreator.createMatrix(arrayMatrix, MATRIX_DIMENSIONS);
 
-		Matrix matrix = Matrix.getMatrix();
-		matrix.initializeMatrix(MATRIX_DIMENSIONS);
+		MatrixLockers matrix = MatrixLockers.getMatrix();
+		matrix.initializeMatrix(matrixData);
 
-		for (int i = 0; i < MATRIX_DIMENSIONS; i++) {
-			for (int j = 0; j < MATRIX_DIMENSIONS; j++) {
-				matrix.putElement(i, j, matrixData[i][j]);
-			}
-		}
 		LOGGER.info(matrix);
 
-		List<MatrixWriter> matrixWriter = new ArrayList<>();
+		List<MatrixWriterLockers> matrixWriterLockers = new ArrayList<>();
 
 		for (int i = 0; i < THREADS_NUMBER; i++) {
-			matrixWriter.add(new MatrixWriter(threadsData[i]));
+			matrixWriterLockers.add(new MatrixWriterLockers(threadsData[i]));
 		}
 
-		for (MatrixWriter mWriter : matrixWriter) {
+		for (MatrixWriterLockers mWriter : matrixWriterLockers) {
 				mWriter.start();
 		}
 
-		for (MatrixWriter mWriter : matrixWriter) {
+		for (MatrixWriterLockers mWriter : matrixWriterLockers) {
 			try {
 				mWriter.join();
 			} catch (InterruptedException e) {

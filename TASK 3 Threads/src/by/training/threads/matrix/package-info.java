@@ -1,5 +1,5 @@
-package by.training.threads.matrix;
-
 /**
 * Package with class Matrix.
 */
+package by.training.threads.matrix;
+

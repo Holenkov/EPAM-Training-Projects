@@ -3,8 +3,6 @@ package by.training.threads.reader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,15 +10,20 @@ import org.apache.logging.log4j.Logger;
 
 import by.training.threads.exception.NullResultException;
 
+/**
+ * Class contains method read.
+ */
 public class FileReader {
+	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
+	/** Regex to split values. */
 	private static final String REGEX = "\\s+";
-	
+
 	/**
+	 * public int[] read(final String fileName) throws NullResultException
 	 * Method reads data from file.
-	 * @param fileName
-	 *            - String path to file to read;
-	 * @return ArrayList{@code<String>} of rows from file;
+	 * @param fileName - String path to file to read;
+	 * @return array of data from file;
 	 * @throws NullResultException
 	 *             - when file not exists or no access for reading;
 	 */
