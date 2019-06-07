@@ -2,7 +2,7 @@ package thread10producerconsumerwaitnotify;
 
 import java.util.concurrent.TimeUnit;
 
-class Producer extends Thread{//implements Runnable {
+class Producer extends Thread {// implements Runnable {
 
 	Store store;
 

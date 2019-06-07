@@ -1,6 +1,7 @@
 package thread14diningphilosophers;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 class Philosopher extends Thread {
 	Semaphore sem; // семафор. ограничивающий число философов
@@ -9,7 +10,8 @@ class Philosopher extends Thread {
 	// условный номер философа
 	int id;
 
-	// в качестве параметров конструктора передаем идентификатор философа и семафор
+	// в качестве параметров конструктора передаем идентификатор философа и
+	// семафор
 	Philosopher(Semaphore sem, int id) {
 		this.sem = sem;
 		this.id = id;
@@ -23,14 +25,14 @@ class Philosopher extends Thread {
 				sem.acquire();
 				System.out.println("Философ " + id + " садится за стол");
 				// философ ест
-				sleep(500);
+				TimeUnit.MILLISECONDS.sleep(100);
 				num++;
 
 				System.out.println("Философ " + id + " выходит из-за стола");
 				sem.release();
 
 				// философ гуляет
-				sleep(500);
+				TimeUnit.MILLISECONDS.sleep(500);
 			}
 		} catch (InterruptedException e) {
 			System.out.println("у философа " + id + " проблемы со здоровьем");

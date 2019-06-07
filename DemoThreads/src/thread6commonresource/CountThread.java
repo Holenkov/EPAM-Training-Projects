@@ -1,5 +1,7 @@
 package thread6commonresource;
 
+import java.util.concurrent.TimeUnit;
+
 class CountThread implements Runnable {
 	CommonResource res;
 
@@ -14,7 +16,7 @@ class CountThread implements Runnable {
 				System.out.printf("%s %d \n", Thread.currentThread().getName(), res.x);
 				res.x++;
 				try {
-					Thread.sleep(100);
+					TimeUnit.MILLISECONDS.sleep(100);
 				} catch (InterruptedException e) {
 				}
 			}

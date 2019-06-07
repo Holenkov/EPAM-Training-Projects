@@ -1,6 +1,6 @@
 package thread2runnableperson;
 
-public class RunnablePerson extends Person implements Runnable{
+public class RunnablePerson extends Person implements Runnable {
 
 	public RunnablePerson(String name) {
 		super(name);
@@ -12,7 +12,7 @@ public class RunnablePerson extends Person implements Runnable{
 			System.out.println(getName() + ": Hello World.");
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println("Main start");
 		Thread currentThread = Thread.currentThread();
@@ -26,7 +26,7 @@ public class RunnablePerson extends Person implements Runnable{
 		thread2.start();
 		try {
 			thread1.join();
-	//		thread2.join();
+			// thread2.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -34,9 +34,5 @@ public class RunnablePerson extends Person implements Runnable{
 		System.out.println(thread2);
 		System.out.println("Main finish");
 	}
-	
-	
-	
-	
 
 }

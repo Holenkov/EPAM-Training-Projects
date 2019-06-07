@@ -1,5 +1,6 @@
 package thread11commonresourcelock;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 class CountThread implements Runnable {
@@ -20,7 +21,7 @@ class CountThread implements Runnable {
 			for (int i = 1; i < 5; i++) {
 				System.out.printf("%s %d \n", Thread.currentThread().getName(), res.x);
 				res.x++;
-				Thread.sleep(100);
+				TimeUnit.MILLISECONDS.sleep(100);
 			}
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());

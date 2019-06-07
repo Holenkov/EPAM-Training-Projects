@@ -1,6 +1,7 @@
 package thread13commonresourcesemaphore;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 class CountThread implements Runnable {
 
@@ -14,6 +15,9 @@ class CountThread implements Runnable {
 		this.name = name;
 	}
 
+	/**
+	 * @
+	 */
 	public void run() {
 
 		try {
@@ -23,7 +27,7 @@ class CountThread implements Runnable {
 			for (int i = 1; i < 5; i++) {
 				System.out.println(this.name + ": " + res.x);
 				res.x++;
-				Thread.sleep(100);
+				TimeUnit.MILLISECONDS.sleep(100);
 			}
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());

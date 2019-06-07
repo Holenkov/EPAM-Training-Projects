@@ -15,7 +15,7 @@ class Store {
 		System.out.println("Товаров на складе: " + product);
 		notify();
 	}
-	
+
 	public synchronized void get() {
 		while (product < 1) {
 			try {

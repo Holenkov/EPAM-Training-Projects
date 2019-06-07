@@ -1,7 +1,7 @@
 package thread2runnableperson;
 
 public class Person {
-	
+
 	private String name;
 
 	public Person(String name) {
@@ -16,8 +16,5 @@ public class Person {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
 
 }

@@ -9,7 +9,7 @@ class Store {
 	synchronized int put() {
 		if (counter < N) {
 			counter++;
-			 System.out.println ("склад имеет " + counter + " товар(ов)");
+			System.out.println("склад имеет " + counter + " товар(ов)");
 			return 1;
 		}
 		return 0;//
@@ -18,7 +18,7 @@ class Store {
 	synchronized int get() {
 		if (counter > 0) {
 			counter--;
-			 System.out.println ("склад имеет " + counter + " товар(ов)");
+			System.out.println("склад имеет " + counter + " товар(ов)");
 			return 1;//
 		}
 		return 0;
@@ -35,6 +35,5 @@ class Store {
 	public int getN() {
 		return N;
 	}
-	
-	
+
 }

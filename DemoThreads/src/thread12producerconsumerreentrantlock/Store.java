@@ -10,7 +10,8 @@ class Store {
 
 	Store() {
 		locker = new ReentrantLock(); // создаем блокировку
-		condition = locker.newCondition(); // получаем условие, связанное с блокировкой
+		condition = locker.newCondition(); // получаем условие, связанное с
+											// блокировкой
 	}
 
 	public void get() {
@@ -18,8 +19,9 @@ class Store {
 		locker.lock();
 		try {
 			// пока нет доступных товаров на складе, ожидаем
-			while (product < 1)
+			while (product < 1) {
 				condition.await();
+			}
 
 			product--;
 			System.out.println("Покупатель купил 1 товар");
