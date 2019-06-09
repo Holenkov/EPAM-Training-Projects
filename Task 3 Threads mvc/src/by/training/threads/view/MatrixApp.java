@@ -61,7 +61,7 @@ public class MatrixApp {
 				try {
 					controller.writeDioganal(threadsData);
 				} catch (NullResultException e) {
-					LOGGER.info(e);
+					LOGGER.info(e.getMessage(), e);
 				}
 				break;
 			case 0:
@@ -114,7 +114,7 @@ public class MatrixApp {
 					matrixData = ArrayCreator.initializeDiagonal(matrixData);
 					LOGGER.info("Data readed successfully");
 				} catch (NullResultException e) {
-					LOGGER.info(e.getMessage());
+					LOGGER.info(e.getMessage(), e);
 				}
 				break;
 			case 2:
@@ -125,7 +125,7 @@ public class MatrixApp {
 					try {
 						controller.createCommonMatrix(matrixData);
 					} catch (NullResultException e) {
-						LOGGER.info("Matrix not created");
+						LOGGER.info("Matrix not created", e);
 					}
 					LOGGER.info("Matrix created successfully");
 				} else {
@@ -145,7 +145,7 @@ public class MatrixApp {
 						System.out.println();
 					}
 				} catch (NullResultException e) {
-					LOGGER.info("Matrix not created");
+					LOGGER.info("Matrix not created", e);
 				}
 				break;
 			case 0:
@@ -194,7 +194,7 @@ public class MatrixApp {
 					threadsData = controller.readData(fileName, 1, dimension)[0];
 					LOGGER.info("Data readed successfully");
 				} catch (NullResultException e) {
-					LOGGER.info(e);
+					LOGGER.info(e.getMessage(), e);
 				}
 				break;
 			case 2:
