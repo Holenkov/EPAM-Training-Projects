@@ -13,6 +13,7 @@ Create methods for sorting Text:
 1. Sort Paragraphs by number of Sentences.
 2. Sort Words on Sentence by length.
 3. Sort Sentences on Paragraph by number of given Symbol.
+
 Using pattern Composite for store Text. Parsers use pattern Chain of Responsibility.
 Logging made by Log4J2.
 JUnit tests.
