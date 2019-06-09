@@ -20,9 +20,13 @@ JUnit tests.
 Task 3. Threads.
 Create matrix NxN, 8<=N<=12, filled with integer numbers. Major diagonal initialized by zero numbers.
 Create M threads, 4<=M<=6. Thread have field with unique positive integer number. Every thread should write its number to matrix diagonal.
+
 a) Must be changed all diagonal elements.
+
 b) Every diagonal element must be changed only one time.
+
 c) Solution, when all elements changed by one thread - is incorrect.
+
 Using Singletone pattern for store matrix as common resource.
 Logging made by Log4J2.
 
