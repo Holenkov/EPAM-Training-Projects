@@ -4,7 +4,7 @@ package by.training.threads.service;
  * Class contains static methods createArray and createMatrix. Simply util
  * class.
  */
-public class ArrayCreator {
+public final class ArrayCreator {
 
 	/**
 	 * Constructor.
@@ -13,42 +13,45 @@ public class ArrayCreator {
 	}
 
 	/**
-	 * public static int[] createArray(int[] array, int arrayDimension)
-	 * Static method create array of given dimension.
+	 * public static int[][] createMatrix(final int[] array, final int
+	 * mDimension, final int nDimension)
+	 * Static method create matrix of given dimension.
+	 *
 	 * @param array
 	 *            - array with values.
-	 * @param arrayDimension
-	 *            - dimension of array to create.
-	 * @return - array of given dimension.
+	 * @param mDimension
+	 *            - m dimension of array to create.
+	 * @param nDimension
+	 *            - n dimension of array to create.
+	 * @return - matrix of given dimension with zero diagonal elements.
 	 */
-	public static int[] createArray(final int[] array, final int arrayDimension) {
-		int[] newArray = new int[arrayDimension];
-		for (int i = 0; i < arrayDimension; i++) {
-			newArray[i] = array[i];
+	public static int[][] createMatrix(final int[] array, final int mDimension, final int nDimension) {
+		int[][] matrix = new int[mDimension][nDimension];
+		for (int i = 0; i < mDimension; i++) {
+			for (int j = 0; j < nDimension; j++) {
+				matrix[i][j] = array[j + i * mDimension];
+			}
 		}
-		return newArray;
+		return matrix;
 	}
 
 	/**
-	 * public static int[][] createMatrix(int[] array, int matrixDimension)
-	 * Static method create square matrix of given dimension.
-	 * @param array
-	 *            - array with values.
-	 * @param matrixDimension
-	 *            - dimension of array to create.
-	 * @return - square matrix of given dimension with zero diagonal elements.
+	 * public static int[][] initializeDiagonal(final int[][] matrix)
+	 * Initialize diagonal elements of matrix with zero numbers.
+	 * @param matrix to initialize.
+	 * @return matrix with zero diagonal elements.
 	 */
-	public static int[][] createMatrix(final int[] array, final int matrixDimension) {
-		int[][] matrix = new int[matrixDimension][matrixDimension];
-		for (int i = 0; i < matrixDimension; i++) {
-			for (int j = 0; j < matrixDimension; j++) {
+	public static int[][] initializeDiagonal(final int[][] matrix) {
+		int mDimension = matrix.length;
+		int nDimension = matrix[0].length;
+		for (int i = 0; i < mDimension; i++) {
+			for (int j = 0; j < nDimension; j++) {
 				if (i == j) {
 					matrix[i][j] = 0;
-				} else {
-					matrix[i][j] = array[j + i * matrixDimension];
 				}
 			}
 		}
 		return matrix;
 	}
+
 }

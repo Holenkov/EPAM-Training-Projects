@@ -1,21 +1,18 @@
 package by.training.threads.view;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.training.threads.controller.Controller;
-import by.training.threads.exception.NullResultException;
-import by.training.threads.matrix.Matrix;
 import by.training.threads.service.ArrayCreator;
-import by.training.threads.service.DataReader;
-import by.training.threads.service.MatrixService;
+import by.training.threads.service.NullResultException;
 
+/** Console App. */
 public class MatrixApp {
+	/** Controller. */
 	private static Controller controller = new Controller();
 	/** Logger. */
 	private static final Logger LOGGER = LogManager.getRootLogger();
@@ -27,18 +24,17 @@ public class MatrixApp {
 	static final int THREADS_NUMBER = 4;
 	/** Matrix dimensions. */
 	static final int MATRIX_DIMENSIONS = 10;
+	/** Field to store threads data. */
 	private int[] threadsData;
+	/** Field to store matrix data. */
 	private int[][] matrixData;
 
 	/**
 	 * Constructor.
 	 */
-	
 
 	/**
 	 * Main method.
-	 * @param args
-	 *            String args from console.
 	 */
 	public void runMatrixApp() {
 		Scanner scanner;
@@ -63,10 +59,9 @@ public class MatrixApp {
 				break;
 			case 3:
 				try {
-					controller.writeElements(threadsData);
+					controller.writeDioganal(threadsData);
 				} catch (NullResultException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.info(e);
 				}
 				break;
 			case 0:
@@ -78,16 +73,19 @@ public class MatrixApp {
 			}
 		} while (menu != 0);
 		LOGGER.info("");
-		
+
 	}
-	
-	
+
+	/**
+	 * Matrix menu.
+	 */
 	void menuCreateMatrix() {
 		String fileName;
 		Scanner scanner;
 		int menu = -1;
 		do {
-			LOGGER.info("1: Read data from file   2: Read data (don't work)  3: Create and initialize Matrix  4: View matrix   0: Exit");
+			LOGGER.info(
+					"1: Read data from file   2: Read data (don't work)  3: Create and initialize Matrix  4: View matrix   0: Back");
 			scanner = new Scanner(System.in);
 			try {
 				menu = scanner.nextInt();
@@ -108,11 +106,12 @@ public class MatrixApp {
 					dimension = scanner.nextInt();
 				} catch (InputMismatchException e) {
 					LOGGER.info("Incorrect type. Enter integer number");
-					menu = -1;					
+					menu = -1;
 				}
-				
+
 				try {
 					matrixData = controller.readData(fileName, dimension, dimension);
+					matrixData = ArrayCreator.initializeDiagonal(matrixData);
 					LOGGER.info("Data readed successfully");
 				} catch (NullResultException e) {
 					LOGGER.info(e.getMessage());
@@ -127,12 +126,12 @@ public class MatrixApp {
 						controller.createCommonMatrix(matrixData);
 					} catch (NullResultException e) {
 						LOGGER.info("Matrix not created");
-					}	
+					}
 					LOGGER.info("Matrix created successfully");
 				} else {
-					System.out.println("Read data first");
+					LOGGER.info("Read data first");
 				}
-				
+
 				break;
 			case 4:
 				int[][] matrix;
@@ -144,7 +143,7 @@ public class MatrixApp {
 							System.out.print(matrix[i][j] + "\t");
 						}
 						System.out.println();
-					}	
+					}
 				} catch (NullResultException e) {
 					LOGGER.info("Matrix not created");
 				}
@@ -158,13 +157,16 @@ public class MatrixApp {
 		} while (menu != 0);
 		LOGGER.info("");
 	}
-	
+
+	/**
+	 * Threads menu.
+	 */
 	void menuReadThreadsData() {
 		String fileName;
 		Scanner scanner;
 		int menu = -1;
 		do {
-			LOGGER.info("1: Read data from file   2: Read data (don't work)  3: View threads data   0: Exit");
+			LOGGER.info("1: Read data from file   2: Read data (don't work)  3: View threads data   0: Back");
 			scanner = new Scanner(System.in);
 			try {
 				menu = scanner.nextInt();
@@ -185,14 +187,14 @@ public class MatrixApp {
 					dimension = scanner.nextInt();
 				} catch (InputMismatchException e) {
 					LOGGER.info("Incorrect type. Enter integer number");
-					menu = -1;					
+					menu = -1;
 				}
-				
+
 				try {
-					threadsData = controller.readData(fileName, dimension);
+					threadsData = controller.readData(fileName, 1, dimension)[0];
 					LOGGER.info("Data readed successfully");
 				} catch (NullResultException e) {
-					LOGGER.info(e.getMessage());
+					LOGGER.info(e);
 				}
 				break;
 			case 2:
@@ -205,9 +207,9 @@ public class MatrixApp {
 					}
 					System.out.println();
 				} else {
-					System.out.println("Read data first");
+					LOGGER.info("Read data first");
 				}
-				
+
 				break;
 			case 0:
 				break;
@@ -218,52 +220,5 @@ public class MatrixApp {
 		} while (menu != 0);
 		LOGGER.info("");
 	}
-	
-	
-	
-	/*	DataReader fileReader = new DataReader();
-		int[] arrayThreads = null;
-		int[] arrayMatrix = null;
 
-		try {
-			arrayThreads = fileReader.read(THREADS_DATA);
-			arrayMatrix = fileReader.read(MATRIX_DATA);
-		} catch (NullResultException e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-
-		int[] threadsData = ArrayCreator.createArray(arrayThreads, THREADS_NUMBER);
-		int[][] matrixData = ArrayCreator.createMatrix(arrayMatrix, MATRIX_DIMENSIONS);
-
-		Matrix matrix = Matrix.getMatrix();
-		matrix.initializeMatrix(MATRIX_DIMENSIONS);
-
-		for (int i = 0; i < MATRIX_DIMENSIONS; i++) {
-			for (int j = 0; j < MATRIX_DIMENSIONS; j++) {
-				matrix.putElement(i, j, matrixData[i][j]);
-			}
-		}
-		LOGGER.info(matrix);
-
-		List<MatrixWriter> matrixWriter = new ArrayList<>();
-
-		for (int i = 0; i < THREADS_NUMBER; i++) {
-			matrixWriter.add(new MatrixWriter(threadsData[i]));
-		}
-
-		for (MatrixWriter mWriter : matrixWriter) {
-				mWriter.start();
-		}
-
-		for (MatrixWriter mWriter : matrixWriter) {
-			try {
-				mWriter.join();
-			} catch (InterruptedException e) {
-				LOGGER.error(e.getMessage(), e);
-				Thread.currentThread().interrupt();
-			}
-		}
-		LOGGER.info(matrix);
-	}
-*/
 }

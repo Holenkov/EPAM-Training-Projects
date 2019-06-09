@@ -1,7 +1,6 @@
 /**
-* Package contains two classes:
-* FileReader - reads data from file,
-* ArrayCreator - create array of given dimensions.
+* Package contains Service and Exception classes:
+* ArrayCreator, DataReader, ElementWriter, MatrixService, NullResultException.
 */
 package by.training.threads.service;
 

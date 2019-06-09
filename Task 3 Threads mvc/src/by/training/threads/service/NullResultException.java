@@ -1,4 +1,4 @@
-package by.training.threads.exception;
+package by.training.threads.service;
 
 /**
  * Custom Exception, throw when return parameter is null.
@@ -15,21 +15,26 @@ public class NullResultException extends Exception {
 
 	/**
 	 * Override method.
+	 * @param message - message.
 	 */
 	public NullResultException(final String message) {
 		super(message);
 	    }
 
+
 	/**
 	 * Override method.
+	 * @param message - message.
+	 * @param exception - exception.
 	 */
-	public NullResultException(String message, Throwable exception) {
+	public NullResultException(final String message, final Throwable exception) {
 		super(message, exception);
 	    }
 
 	/**
 	 * Override method.
+	 * @param exception - exception.
 	 */
-	public NullResultException(Throwable exception) {
+	public NullResultException(final Throwable exception) {
 	    }
 }

@@ -1,30 +1,26 @@
-package by.training.threads.matrix;
+package by.training.threads.bean;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import by.training.threads.exception.NullResultException;
+import by.training.threads.service.NullResultException;
 
 /**
  * Singletone class, contains matrix data with methods for work with matrix.
  */
-public class Matrix {
-	/** Matrix with data.*/
+public final class Matrix {
+	/** Matrix with data. */
 	private int[][] matrix;
-	/** Index of diagonal element to change. */
-	private int currentIndex;
-	/** Logger. */
-	private static final Logger LOGGER = LogManager.getRootLogger();
 
 	/**
 	 * Private constructor.
 	 */
 	private Matrix() {
-		
+
 	}
 
 	/**
+	 * public static Matrix getMatrix().
 	 * Method return instance.
+	 *
 	 * @return instance of Matrix.
 	 */
 	public static Matrix getMatrix() {
@@ -35,43 +31,49 @@ public class Matrix {
 	 * Inner class for initialize instance.
 	 */
 	private static class MatrixHolder {
-		/** Instance of Matrix.*/
+		/** Instance of Matrix. */
 		private static final Matrix MATRIX = new Matrix();
 	}
 
 	/**
-	 * public void initializeMatrix(int m)
+	 * public void initializeMatrix(int m).
 	 * Method initializes matrix.
-	 * @param m - square matrix dimensions MxM.
+	 * @param m
+	 *            - square matrix dimensions MxM.
 	 */
 	public void initializeMatrix(final int m) {
 		matrix = new int[m][m];
 	}
 
 	/**
-	 * public void setElement(int i, int j, int element)
+	 * public void setElement(int i, int j, int element).
 	 * Set value of matrix element.
-	 * @param i - row index.
-	 * @param j - column index.
-	 * @param element - value of element to set.
-	 * @throws NullResultException 
+	 * @param i
+	 *            - row index.
+	 * @param j
+	 *            - column index.
+	 * @param element
+	 *            - value of element to set.
+	 * @throws NullResultException - exception.
 	 */
 	public void putElement(final int i, final int j, final int element) throws NullResultException {
 		try {
 			matrix[i][j] = element;
 		} catch (NullPointerException e) {
 			throw new NullResultException("Matrix not initialized", e);
-		}	
-		
+		}
+
 	}
 
 	/**
-	 * public int getElement(int i, int j)
+	 * public int getElement(int i, int j).
 	 * Return value of matrix element.
-	 * @param i - row index.
-	 * @param j - column index.
+	 * @param i
+	 *            - row index.
+	 * @param j
+	 *            - column index.
 	 * @return value of element with indexes [i][j].
-	 * @throws NullResultException 
+	 * @throws NullResultException - exception.
 	 */
 	public int returnElement(final int i, final int j) throws NullResultException {
 		int result;
@@ -79,15 +81,15 @@ public class Matrix {
 			result = matrix[i][j];
 		} catch (NullPointerException e) {
 			throw new NullResultException("Matrix not initialized", e);
-		}	
+		}
 		return result;
 	}
 
 	/**
-	 * public int getDimension()
+	 * public int getDimension().
 	 * Method return matrix dimension.
 	 * @return - square matrix dimension.
-	 * @throws NullResultException 
+	 * @throws NullResultException - exception.
 	 */
 	public int returnDimension() throws NullResultException {
 		int result;
@@ -95,7 +97,7 @@ public class Matrix {
 			result = matrix.length;
 		} catch (NullPointerException e) {
 			throw new NullResultException("Matrix not initialized", e);
-		}	
+		}
 		return result;
 	}
 

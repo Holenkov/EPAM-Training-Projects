@@ -6,17 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import by.training.threads.exception.NullResultException;
 
 /**
  * Class contains method read.
  */
 public class DataReader {
-	/** Logger. */
-	private static final Logger LOGGER = LogManager.getRootLogger();
 	/** Regex to split values. */
 	private static final String REGEX = "\\s+";
 
