@@ -107,15 +107,16 @@ public class MatrixService {
 	 * @throws NullResultException - exeption.
 	 */
 	public void writeElementsThreads(final int[] data,
-			final int[][] index) throws NullResultException {
+			final int[] index) throws NullResultException {
 		int size = matrix.returnDimension();
-		ReentrantLock[][] lockers = new ReentrantLock[size][size];
-		for (int[] pair : index) {
-			lockers[pair[0]][pair[1]] = new ReentrantLock();
+		ReentrantLock[] lockers = new ReentrantLock[size];
+		for (int i = 0; i < size; i++) {
+			lockers[i] = new ReentrantLock();
 		}
 		List<ElementWriter> elementWriter = new ArrayList<>();
+		ReentrantLock commonlocker = new ReentrantLock();
 		for (int i = 0; i < data.length; i++) {
-			elementWriter.add(new ElementWriter(data[i], index, lockers));
+			elementWriter.add(new ElementWriter(data[i], index, lockers, commonlocker));
 		}
 		for (ElementWriter mWriter : elementWriter) {
 			mWriter.start();

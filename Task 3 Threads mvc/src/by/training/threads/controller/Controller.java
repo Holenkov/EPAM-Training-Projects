@@ -60,13 +60,12 @@ public class Controller {
 	 * @param threadsData - data to write.
 	 * @throws NullResultException - exception.
 	 */
-	public void writeDioganal(final int[] threadsData) throws NullResultException {
+	public void writeDiagonal(final int[] threadsData) throws NullResultException {
 		MatrixService matrixService = new MatrixService();
 		int size = matrixService.returnDimension();
-		int[][] index = new int[size][2];
+		int[] index = new int[size];
 		for (int i = 0; i < size; i++) {
-			index[i][0] = i;
-			index[i][1] = i;
+			index[i] = i;
 		}
 		matrixService.writeElementsThreads(threadsData, index);
 	}

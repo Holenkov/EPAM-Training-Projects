@@ -59,7 +59,7 @@ public class MatrixApp {
 				break;
 			case 3:
 				try {
-					controller.writeDioganal(threadsData);
+					controller.writeDiagonal(threadsData);
 				} catch (NullResultException e) {
 					LOGGER.info(e.getMessage(), e);
 				}
@@ -84,41 +84,41 @@ public class MatrixApp {
 		Scanner scanner;
 		int menu = -1;
 		do {
-			LOGGER.info(
+			System.out.println(
 					"1: Read data from file   2: Read data (don't work)  3: Create and initialize Matrix  4: View matrix   0: Back");
 			scanner = new Scanner(System.in);
 			try {
 				menu = scanner.nextInt();
 			} catch (InputMismatchException e) {
-				LOGGER.info("Incorrect type. Enter integer number");
+				System.out.println("Incorrect type. Enter integer number");
 				menu = -1;
 			}
 			switch (menu) {
 			case -1:
 				break;
 			case 1:
-				LOGGER.info("Enter filename");
+				System.out.println("Enter filename");
 				fileName = scanner.next();
 				fileName = MATRIX_DATA;
-				LOGGER.info("Enter square matrix dimension");
+				System.out.println("Enter square matrix dimension");
 				int dimension = 0;
 				try {
 					dimension = scanner.nextInt();
 				} catch (InputMismatchException e) {
-					LOGGER.info("Incorrect type. Enter integer number");
+					System.out.println("Incorrect type. Enter integer number");
 					menu = -1;
 				}
 
 				try {
 					matrixData = controller.readData(fileName, dimension, dimension);
 					matrixData = ArrayCreator.initializeDiagonal(matrixData);
-					LOGGER.info("Data readed successfully");
+					System.out.println("Data readed successfully");
 				} catch (NullResultException e) {
 					LOGGER.info(e.getMessage(), e);
 				}
 				break;
 			case 2:
-				LOGGER.info("Sorry");
+				System.out.println("Sorry");
 				break;
 			case 3:
 				if (matrixData != null) {
@@ -127,9 +127,9 @@ public class MatrixApp {
 					} catch (NullResultException e) {
 						LOGGER.info("Matrix not created", e);
 					}
-					LOGGER.info("Matrix created successfully");
+					System.out.println("Matrix created successfully");
 				} else {
-					LOGGER.info("Read data first");
+					System.out.println("Read data first");
 				}
 
 				break;
@@ -151,11 +151,11 @@ public class MatrixApp {
 			case 0:
 				break;
 			default:
-				LOGGER.info("Incorrect number.");
+				System.out.println("Incorrect number.");
 				break;
 			}
 		} while (menu != 0);
-		LOGGER.info("");
+		System.out.println("");
 	}
 
 	/**
@@ -166,33 +166,33 @@ public class MatrixApp {
 		Scanner scanner;
 		int menu = -1;
 		do {
-			LOGGER.info("1: Read data from file   2: Read data (don't work)  3: View threads data   0: Back");
+			System.out.println("1: Read data from file   2: Read data (don't work)  3: View threads data   0: Back");
 			scanner = new Scanner(System.in);
 			try {
 				menu = scanner.nextInt();
 			} catch (InputMismatchException e) {
-				LOGGER.info("Incorrect type. Enter integer number");
+				System.out.println("Incorrect type. Enter integer number");
 				menu = -1;
 			}
 			switch (menu) {
 			case -1:
 				break;
 			case 1:
-				LOGGER.info("Enter filename");
+				System.out.println("Enter filename");
 				fileName = scanner.next();
 				fileName = THREADS_DATA;
-				LOGGER.info("Enter number of threads");
+				System.out.println("Enter number of threads");
 				int dimension = 0;
 				try {
 					dimension = scanner.nextInt();
 				} catch (InputMismatchException e) {
-					LOGGER.info("Incorrect type. Enter integer number");
+					System.out.println("Incorrect type. Enter integer number");
 					menu = -1;
 				}
 
 				try {
 					threadsData = controller.readData(fileName, 1, dimension)[0];
-					LOGGER.info("Data readed successfully");
+					System.out.println("Data readed successfully");
 				} catch (NullResultException e) {
 					LOGGER.info(e.getMessage(), e);
 				}
@@ -207,7 +207,7 @@ public class MatrixApp {
 					}
 					System.out.println();
 				} else {
-					LOGGER.info("Read data first");
+					System.out.println("Read data first");
 				}
 
 				break;
@@ -218,7 +218,7 @@ public class MatrixApp {
 				break;
 			}
 		} while (menu != 0);
-		LOGGER.info("");
+		System.out.println("");
 	}
 
 }
