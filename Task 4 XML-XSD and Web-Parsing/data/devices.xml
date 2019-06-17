@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<devices xmlns:dev="http://www.example.com/devices">
+	<mouse name = "Logitech m1" date = "05-2019">
+		<origin>China</origin>
+		<price>23.95</price>
+		<types>
+			<energy>
+				<watt>0.01</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>true</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>false</isCritical>
+		<isWireless>true</isWireless>
+	</mouse>
+	
+	<display name = "Samsung S710" date = "2019-01">
+		<origin>Taiwan</origin>
+		<price>151.50</price>
+		<types>
+			<energy>
+				<watt>40.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>true</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<resolutionX>1024</resolutionX>
+		<resolutionY>768</resolutionY>
+	</display>
+	
+	<display  date = "2017-12" name = "Viewsonic R300">
+		<origin>USA</origin>
+		<price>105.50</price>
+		<types>
+			<energy>
+				<watt>50.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>true</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<resolutionX>1024</resolutionX>
+		<resolutionY>768</resolutionY>
+	</display>
+	
+	<motherboard name = "MSI B450 Tomahawk" date = "2018-05">
+		<origin>Malaysia</origin>
+		<price>200.11</price>
+		<types>
+			<cooler>
+				<isCooler>true</isCooler>
+			</cooler>
+			<energy>
+				<watt>50.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>false</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<ports>
+			<port>USB</port>
+			<port>HDMI</port>
+			<port>SATA</port>
+			<port>COM</port>
+		</ports>
+	</motherboard>
+	
+	<ssd name = "Kingston A400" date = "2018-05">
+		<origin>Malaysia</origin>
+		<price>30.20</price>
+		<types>
+			<energy>
+				<watt>5.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>false</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<capacity>120</capacity>
+		<speed>500</speed>
+	</ssd>
+	
+	<hdd name = "WD Caviar Blue" date = "2012-07">
+		<origin>Japan</origin>
+		<price>54.40</price>
+		<types>
+			<energy>
+				<watt>5.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>false</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<capacity>100</capacity>
+		<rpm>7200</rpm>
+	</hdd>
+	
+	<cpu  date = "2018-11" name = "AMD Ryzen 5 2600" >
+		<origin>China</origin>
+		<price>168.40</price>
+		<types>
+			<energy>
+				<watt>5.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>false</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<frequency>2933</frequency>
+	</cpu>
+</devices>
+

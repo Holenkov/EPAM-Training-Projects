@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.example.com/devices" 
+	xmlns:dev="http://www.example.com/devices"
+	elementFormDefault="qualified">
+
+  <element name="devices">
+  	<complexType>
+  		<sequence>
+  			<element name="device"
+  				 type="dev:Device"     
+  				 minOccurs="16"     
+				 maxOccurs="unbounded" 
+  			/>
+  		</sequence>
+  	</complexType>
+  </element>
+  
+  
+   <element name="device" type="dev:Device" abstract="true"></element>
+   <element name="cpu" type="dev:CPU"></element>
+   <element name="display" type="dev:Display"></element>
+   <element name="motherboard" type="dev:Motherboard"></element>
+   <element name="mouse" type="dev:Mouse"></element>
+   <element name="ssd" type="dev:SSD"></element>
+   <element name="hdd" type="dev:HDD"></element>
+    
+  
+  <complexType name = "Device">
+  	<sequence>
+  		   <element type="string" name="origin" default="No information"/>
+           <element type="double" name="price"/>
+           <element type="string" name="isCritical" default="true"/>
+           <element name="types">
+                <complexType>
+                  <sequence>
+                    <element name="energy">
+                      <complexType>
+                        <sequence>
+                          <element type="double" name="watt"/>
+                        </sequence>
+                      </complexType>
+                    </element>
+                    <element name="peripheral">
+                      <complexType>
+                        <sequence>
+                          <element type="string" name="isPeripheral" default="false"/>
+                        </sequence>
+                      </complexType>
+                    </element>
+                      <element name="cooler">
+                      <complexType>
+                        <sequence>
+                          <element type="string" name="isCooler" default="false"/>
+                        </sequence>
+                      </complexType>
+                    </element>
+                  </sequence>
+                </complexType>
+             </element>
+  	</sequence>
+      <attribute type="string" name="name" use="required" />
+      <attribute type="gYearMonth" name="date" use="optional"  default="2000-01"/>
+  
+  </complexType>
+
+	<complexType name="CPU">
+		<complexContent>
+			<extension base="dev:Device">
+				<sequence>
+					<element type="int" name="frequency"  minOccurs="1" maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>	
+	
+   
+   <complexType name = "Motherboard">
+  	<complexContent>
+  		<extension base="dev:Device">
+  		  <all>
+  			  <element name="ports">
+                <complexType>
+                  <sequence>
+                    <element name="port" 
+                    	type="dev:Port" 
+                    	minOccurs="0"     
+				 		maxOccurs="16"/>
+                  </sequence>
+                </complexType>
+             </element>
+               </all>
+  		</extension>
+  	</complexContent>
+  </complexType>
+  
+  <simpleType name="Port">
+ 	 <restriction base="string">     
+ 	  	<enumeration value="COM"></enumeration>
+     	<enumeration value="USB"></enumeration>     
+     	<enumeration value="LPT"></enumeration> 
+     	<enumeration value="HDMI"></enumeration>
+     	<enumeration value="SATA"></enumeration>
+     	<enumeration value="PCI"></enumeration>    
+     </restriction>
+  </simpleType>
+  
+   <complexType name = "Display">
+  	<complexContent>
+  		<extension base="dev:Device">
+  			<sequence>
+  				<element type="int" name="resolutionX"/>
+  			 	<element type="int" name="resolutionY"/>
+  			</sequence>
+  		</extension>
+  	</complexContent>
+  </complexType>
+  
+   <complexType name = "Mouse">
+  	<complexContent>
+  		<extension base="dev:Device">
+  			<sequence>
+  				<element type="boolean" name="isWireless"/>
+  			</sequence>
+  		</extension>
+  	</complexContent>
+  </complexType>
+  
+   <complexType name = "Store">
+  	<complexContent>
+  		<extension base="dev:Device">
+  			<sequence>
+  			 <element type="int" name="capacity"/>
+  			   </sequence>
+  		</extension>
+  	</complexContent>
+  </complexType>
+  
+   <complexType name = "HDD">
+  	<complexContent>
+  		<extension base="dev:Store">
+  			<sequence>
+  			 <element type="int" name="capacity"/>
+  			   </sequence>
+  		</extension>
+  	</complexContent>
+  </complexType>
+  
+   <complexType name = "SSD">
+  	<complexContent>
+  		<extension base="dev:Store">
+  			<sequence>
+  			 <element type="int" name="speed"/>
+  			   </sequence>
+  		</extension>
+  	</complexContent>
+  </complexType>
+  
+  </schema>
