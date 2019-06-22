@@ -78,7 +78,7 @@
    <complexType name = "Motherboard">
   	<complexContent>
   		<extension base="dev:Device">
-  		  <all>
+  		  <sequence>
   			  <element name="ports">
                 <complexType>
                   <sequence>
@@ -89,7 +89,7 @@
                   </sequence>
                 </complexType>
              </element>
-               </all>
+               </sequence>
   		</extension>
   	</complexContent>
   </complexType>

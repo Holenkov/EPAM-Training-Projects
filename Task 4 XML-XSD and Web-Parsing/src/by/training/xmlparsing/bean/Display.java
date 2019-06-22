@@ -4,15 +4,6 @@ public class Display extends Device{
 	int resolutionX;
 	int resolutionY;
 	
-	public Display() {
-	}
-
-	public Display(int resolutionX, int resolutionY) {
-		super();
-		this.resolutionX = resolutionX;
-		this.resolutionY = resolutionY;
-	}
-
 	public int getResolutionX() {
 		return resolutionX;
 	}
@@ -28,6 +19,14 @@ public class Display extends Device{
 	public void setResolutionY(int resolutionY) {
 		this.resolutionY = resolutionY;
 	}
+
+	@Override
+	public String toString() {
+		return "Display [resolutionX=" + resolutionX + ", resolutionY=" + resolutionY + ", name=" + name + ", origin="
+				+ origin + ", dateOfIssue=" + dateOfIssue + ", price=" + price + ", types=" + types + ", critical="
+				+ critical + "]";
+	}
+	
 	
 
 }

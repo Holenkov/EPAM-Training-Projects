@@ -3,13 +3,6 @@ package by.training.xmlparsing.bean;
 public class HDD extends Store{
 	int rpm;
 	
-	public HDD() {
-	}
-
-	public HDD(int rpm) {
-		super();
-		this.rpm = rpm;
-	}
 
 	public int getRpm() {
 		return rpm;
@@ -17,6 +10,12 @@ public class HDD extends Store{
 
 	public void setRpm(int rpm) {
 		this.rpm = rpm;
+	}
+
+	@Override
+	public String toString() {
+		return "HDD [rpm=" + rpm + ", capacity=" + capacity + ", name=" + name + ", origin=" + origin + ", dateOfIssue="
+				+ dateOfIssue + ", price=" + price + ", types=" + types + ", critical=" + critical + "]";
 	}
 	
 	

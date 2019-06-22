@@ -1,23 +1,30 @@
 package by.training.xmlparsing.bean.type;
 
 public class EnergyConsumption extends Type{
-	int watt;
+	double watt;
 	
 	public EnergyConsumption() {
 	}
 
-	public EnergyConsumption(int watt) {
+	public EnergyConsumption(double watt) {
 		super();
 		this.watt = watt;
 	}
 
-	public int getWatt() {
+	public double getWatt() {
 		return watt;
 	}
 
-	public void setWatt(int watt) {
+	public void setWatt(double watt) {
 		this.watt = watt;
 	}
+
+	@Override
+	public String toString() {
+		return "EnergyConsumption [watt=" + watt + "]";
+	}
+	
+	
 	
 	
 

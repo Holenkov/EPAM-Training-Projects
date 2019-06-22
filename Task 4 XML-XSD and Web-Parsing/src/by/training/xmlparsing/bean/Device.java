@@ -1,5 +1,6 @@
 package by.training.xmlparsing.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,14 @@ public abstract class Device {
 	double price;
 	List<Type> types;
 	boolean critical;
+	
+	
+	
+	
+	public Device() {
+		super();
+		this.types = new ArrayList<>();
+	}
 	
 	
 	public String getName() {
@@ -49,6 +58,13 @@ public abstract class Device {
 	}
 	public void setCritical(boolean critical) {
 		this.critical = critical;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Device [name=" + name + ", origin=" + origin + ", dateOfIssue=" + dateOfIssue + ", price=" + price
+				+ ", types=" + types + ", critical=" + critical + "]";
 	}
 	
 	

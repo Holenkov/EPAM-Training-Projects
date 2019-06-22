@@ -1,8 +1,18 @@
-package by.training.xmlparsing.handler;
+package by.training.xmlparsing.builder;
+
 
 public enum DeviceParserEnum {
-	DEVICES("devices"),
 	MOUSE("mouse"),
+	DISPLAY("display"),
+	HDD("hdd"),
+	SSD("ssd"),
+	MOTHERBOARD("motherboard"),
+	STORE("store"),
+	CPU("cpu"),
+	
+	
+	DEVICES("devices"),
+
 	ORIGIN("origin"),
 	PRICE("price"),
 	TYPES("types"),
@@ -12,15 +22,22 @@ public enum DeviceParserEnum {
 	ISPERIPHERAL("isPeripheral"),
 	ISCRITICAL("isCritical"),
 	ISWIRELES("isWireless"),
-	DISPLAY("display"),
+	
 	RESOLUTIONX("resolutionX"),
 	RESOLUTIONY("resolutionY"),
-	MOTHERBOARD("motherboard"),
+	
 	PORTS("ports"),
-	SSD("ssd"),
-	HDD("hdd"),
+	
+	
 	RPM("rpm"),
+	COOLER("cooler"),
 	FREQENCY("frequency"),
+	
+	CAPACITY("capacity"),
+	FREQUENCY("freqency"),
+	PORT("port"),
+	ISCOOLER("isCooler"),
+	ISWIRELESS("isWireless"),
 	SPEED("speed");
 		
 	private String value;    

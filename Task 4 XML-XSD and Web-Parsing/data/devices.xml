@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <devices xmlns:dev="http://www.example.com/devices">
+
+<!-- <devices xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://www.example.com/devices"
+	xsi:schemaLocation="http://www.example.com/devices devices.xsd"> -->
+
+
 	<mouse name = "Logitech m1" date = "05-2019">
 		<origin>China</origin>
 		<price>23.95</price>
@@ -102,7 +108,7 @@
 		<rpm>7200</rpm>
 	</hdd>
 	
-	<cpu  date = "2018-11" name = "AMD Ryzen 5 2600" >
+	<cpu date = "2018-11" name = "AMD Ryzen 5 2600" >
 		<origin>China</origin>
 		<price>168.40</price>
 		<types>

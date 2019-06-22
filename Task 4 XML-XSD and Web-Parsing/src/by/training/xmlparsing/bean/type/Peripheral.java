@@ -18,6 +18,12 @@ public class Peripheral extends Type{
 	public void setPeripheral(boolean peripheral) {
 		this.isPeripheral = peripheral;
 	}
+
+	@Override
+	public String toString() {
+		return "Peripheral [isPeripheral=" + isPeripheral + "]";
+	}
+	
 	
 	
 

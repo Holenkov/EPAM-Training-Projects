@@ -18,6 +18,12 @@ public class Cooller extends Type{
 	public void setCooller(boolean isCooller) {
 		this.isCooller = isCooller;
 	}
+
+	@Override
+	public String toString() {
+		return "Cooller [isCooller=" + isCooller + "]";
+	}
+	
 	
 	
 
