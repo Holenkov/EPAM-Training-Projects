@@ -27,7 +27,8 @@ public class DeviceSAXBuilder implements DeviceBuilder {
 	/** Reader. */
 	private XMLReader reader;
 	/** File path to XSD Schema. */
-	public static final String DEVICES_XSD = ".\\data\\devices.xsd";
+	//public static final String DEVICES_XSD = ".\\data\\devices.xsd";
+	public static final String DEVICES_XSD = "d:/Epam Training Projects/Task4XMLParsing/data/devices.xsd";
 
 	/**
 	 * public DeviceSaxBuilder() throws ParserException

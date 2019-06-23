@@ -10,15 +10,15 @@
 <body>
 	<jsp:include page="_header.jsp"></jsp:include>
 	<jsp:include page="_menu.jsp"></jsp:include>
-	<form method="GET"
-		action="${pageContext.request.contextPath}/createDocument">
-
+	
+	<form method="GET" action="${pageContext.request.contextPath}/viewDevices">
 		<select id="parserType" name="parserType">
 			<option selected value="SAX">SAX</option>
 			<option value="StAX">StAX</option>
 			<option value="DOM">DOM</option>
-		</select> <input type="submit" value="Next" />
+		</select> <input type="submit" value="Parse" />
 	</form>
+	
 	<jsp:include page="_footer.jsp"></jsp:include>
 </body>
 </html>
