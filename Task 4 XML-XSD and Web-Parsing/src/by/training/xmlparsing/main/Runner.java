@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import by.training.xmlparsing.bean.Device;
 import by.training.xmlparsing.builder.DeviceDOMBuilder;
 import by.training.xmlparsing.builder.DeviceSAXBuilder;
+import by.training.xmlparsing.builder.DeviceStAXBuilder;
 import by.training.xmlparsing.builder.ParserException;
 
 public class Runner {
@@ -35,6 +36,21 @@ public class Runner {
 			deviceDOMBuilder = new DeviceDOMBuilder();
 			deviceDOMBuilder.buildSetDevices(DEVICES_XML);
 			Set<Device> devices = deviceDOMBuilder.getDevices();
+			for (Device device : devices) {
+				LOGGER.info(device);
+
+			}
+		} catch (ParserException e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		
+		LOGGER.info("");
+		LOGGER.info("StAX builder");
+		DeviceStAXBuilder deviceStAXBuilder;
+		try {
+			deviceStAXBuilder = new DeviceStAXBuilder();
+			deviceStAXBuilder.buildSetDevices(DEVICES_XML);
+			Set<Device> devices = deviceStAXBuilder.getDevices();
 			for (Device device : devices) {
 				LOGGER.info(device);
 

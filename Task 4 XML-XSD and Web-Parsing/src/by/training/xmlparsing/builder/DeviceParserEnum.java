@@ -2,6 +2,7 @@ package by.training.xmlparsing.builder;
 
 
 public enum DeviceParserEnum {
+	//classes
 	MOUSE("mouse"),
 	DISPLAY("display"),
 	HDD("hdd"),
@@ -10,9 +11,14 @@ public enum DeviceParserEnum {
 	STORE("store"),
 	CPU("cpu"),
 	
+	//attributes
+	NAME("name"),
+	DATE("date"),
+	
 	
 	DEVICES("devices"),
 
+	//fields
 	ORIGIN("origin"),
 	PRICE("price"),
 	TYPES("types"),
@@ -22,23 +28,17 @@ public enum DeviceParserEnum {
 	ISPERIPHERAL("isPeripheral"),
 	ISCRITICAL("isCritical"),
 	ISWIRELES("isWireless"),
-	
 	RESOLUTIONX("resolutionX"),
 	RESOLUTIONY("resolutionY"),
-	
-	PORTS("ports"),
-	
-	
-	RPM("rpm"),
-	COOLER("cooler"),
-	FREQENCY("frequency"),
-	
 	CAPACITY("capacity"),
-	FREQUENCY("freqency"),
 	PORT("port"),
 	ISCOOLER("isCooler"),
 	ISWIRELESS("isWireless"),
-	SPEED("speed");
+	SPEED("speed"),
+	RPM("rpm"),
+	COOLER("cooler"),
+	PORTS("ports"),
+	FREQUENCY("freqency");
 		
 	private String value;    
 	private DeviceParserEnum(String value) {     

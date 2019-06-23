@@ -161,7 +161,7 @@ public class DeviceSaxHandler extends DefaultHandler{
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		DeviceParserEnum classEnum = DeviceParserEnum.valueOf(localName.toUpperCase());
-		if (EnumSet.range(DeviceParserEnum.MOUSE, DeviceParserEnum.MOTHERBOARD).contains(classEnum)) {
+		if (EnumSet.range(DeviceParserEnum.MOUSE, DeviceParserEnum.CPU).contains(classEnum)) {
 			devices.add(current);
 		}
 	}

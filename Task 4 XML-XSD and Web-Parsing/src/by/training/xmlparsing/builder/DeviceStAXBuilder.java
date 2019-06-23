@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -17,8 +18,8 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import by.training.xmlparsing.bean.CPU;
 import by.training.xmlparsing.bean.Device;
@@ -26,21 +27,30 @@ import by.training.xmlparsing.bean.Display;
 import by.training.xmlparsing.bean.HDD;
 import by.training.xmlparsing.bean.MotherBoard;
 import by.training.xmlparsing.bean.Mouse;
+import by.training.xmlparsing.bean.Port;
 import by.training.xmlparsing.bean.SSD;
+import by.training.xmlparsing.bean.Store;
+import by.training.xmlparsing.bean.type.Cooller;
+import by.training.xmlparsing.bean.type.EnergyConsumption;
+import by.training.xmlparsing.bean.type.Peripheral;
+import by.training.xmlparsing.bean.type.Type;
 
-public class DeviceStAXBuilder {
+public class DeviceStAXBuilder implements DeviceBuilder{
+	/** Logger. */
+	private static final Logger LOGGER = LogManager.getRootLogger();
 	private Set<Device> devices = new HashSet<>();
 	private XMLInputFactory inputFactory;
+	private Device current;
 
 	public DeviceStAXBuilder() {
 		inputFactory = XMLInputFactory.newInstance();
 		}
 
-	public Set<Device> getStudents() {
+	public Set<Device> getDevices() {
 		return devices;
 	}
 
-	public void buildSetStudents(String fileName) {
+	public void buildSetDevices(String fileName) throws ParserException {
 		FileInputStream inputStream = null;
 		XMLStreamReader reader = null;
 		String name;
@@ -54,71 +64,147 @@ public class DeviceStAXBuilder {
 					name = reader.getLocalName();
 					DeviceParserEnum classEnum = DeviceParserEnum.valueOf(name.toUpperCase());
 					if (EnumSet.range(DeviceParserEnum.MOUSE, DeviceParserEnum.CPU).contains(classEnum)) {
-						Device device = buildDevice(reader);
-						devices.add(device);
+						buildDevice(reader);
+						devices.add(current);
+					}  else if (EnumSet.range(DeviceParserEnum.ORIGIN, DeviceParserEnum.FREQUENCY).contains(classEnum)){
+						buildFields(reader);
 					}
 				}
 			}
-		} catch (XMLStreamException ex) {
-			System.err.println("StAX parsing error! " + ex.getMessage());
-		} catch (FileNotFoundException ex) {
-			System.err.println("File " + fileName + " not found! " + ex);
+		} catch (XMLStreamException e) {
+			throw new ParserException("StAX parsing error! ", e);
+		} catch (FileNotFoundException e) {
+			throw new ParserException("File " + fileName + " not found! ", e);
 		} finally {
 			try {
 				if (inputStream != null) {
 					inputStream.close();
 				}
 			} catch (IOException e) {
-				System.err.println("Impossible close file " + fileName + " : " + e);
+				throw new ParserException("Impossible close file " + fileName + " : ", e);
 			}
 		}
 	}
 	
-	private Device buildDevice(Element element) throws ParserException {
-		String className = element.getNodeName();
+	private void buildDevice(XMLStreamReader reader) throws ParserException {
+		String className = reader.getLocalName();
 		DeviceParserEnum classEnum = DeviceParserEnum.valueOf(className.toUpperCase());
-		Device current = null;
-			switch (classEnum) {
-			case MOUSE:
-				current = buildMouse(element);
+		switch (classEnum) {
+		case MOUSE:
+			current = new Mouse();
+			break;
+		case DISPLAY:
+			current = new Display();
+			break;
+		case SSD:
+			current = new SSD();
+			break;
+		case HDD:
+			current = new HDD();
+			break;
+		case MOTHERBOARD:
+			current = new MotherBoard();
+			break;
+		case CPU:
+			current = new CPU();
+			break;
+		default:
+			break;
+		}
+		int count = reader.getAttributeCount();
+		for (int i = 0; i < count; i++) {
+			String attrName = reader.getAttributeLocalName(i);
+			DeviceParserEnum attrEnum = DeviceParserEnum.valueOf(attrName.toUpperCase());
+			switch (attrEnum) {
+			case NAME:
+				String name = reader.getAttributeValue(null, DeviceParserEnum.NAME.getValue());
+				current.setName(name);
 				break;
-			case DISPLAY:
-				current = buildDisplay(element);
-				break;
-			case HDD:
-				current = buildStore(element);
-				break;
-			case SSD:
-				current = buildStore(element);
-				break;
-			case MOTHERBOARD:
-				current = buildMotherBoard(element);
-				break;
-			case CPU:
-				current = new CPU();
+			case DATE:
+				String strDate = reader.getAttributeValue(null, DeviceParserEnum.DATE.getValue());
+				Date date = null;
+				try {
+					date = new SimpleDateFormat("yyyy-MM", Locale.ENGLISH).parse(strDate);
+				} catch (ParseException e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				current.setDateOfIssue(date);
 				break;
 			default:
 				break;
 			}
-			String name = element.getAttribute("name");
-			String strDate = element.getAttribute("date");
-			current.setName(name);
-			Date date = null;
-			try {
-				date = new SimpleDateFormat("yyyy-MM", Locale.ENGLISH).parse(strDate);
-			} catch (ParseException e) {
-				throw new ParserException("Date parse problems", e);
-			}
-			current.setDateOfIssue(date);
-			current.setOrigin(getElementTextContent(element, "origin"));
-			current.setPrice(Double.parseDouble(getElementTextContent(element, "price")));
-			NodeList typesList = element.getElementsByTagName("types");
-			Element types = (Element) typesList.item(0);
-			current.setTypes(buildTypes(types));
-			current.setCritical(Boolean.parseBoolean(getElementTextContent(element, "isCritical")));
-		return current;
+		}
 	}
 	
+	private void buildFields(XMLStreamReader reader) throws ParserException {
+		try {
+					String name = reader.getLocalName();
+					DeviceParserEnum classEnum = DeviceParserEnum.valueOf(name.toUpperCase());
+					if (EnumSet.range(DeviceParserEnum.ORIGIN, DeviceParserEnum.FREQUENCY).contains(classEnum)){
+						switch (classEnum) {
+						case ORIGIN:
+							current.setOrigin(getXMLText(reader));
+							break;
+						case PRICE:
+							current.setPrice(Double.parseDouble(getXMLText(reader)));
+							break;
+						case ISCRITICAL:
+							current.setCritical(Boolean.parseBoolean(getXMLText(reader)));
+							break;
+						case WATT:
+							List<Type> types = current.getTypes();
+							types.add(new EnergyConsumption(Double.parseDouble(getXMLText(reader))));
+							break;
+						case ISPERIPHERAL:
+							types = current.getTypes();
+							types.add(new Peripheral(Boolean.parseBoolean(getXMLText(reader))));
+							break;
+						case ISCOOLER:
+							types = current.getTypes();
+							types.add(new Cooller(Boolean.parseBoolean(getXMLText(reader))));
+							break;
+						case ISWIRELESS:
+							((Mouse) current).setWireless(Boolean.parseBoolean(getXMLText(reader)));
+							break;
+						case RESOLUTIONX:
+							((Display) current).setResolutionX(Integer.parseInt(getXMLText(reader)));
+							break;
+						case RESOLUTIONY:
+							((Display) current).setResolutionY(Integer.parseInt(getXMLText(reader)));
+							break;
+						case RPM:
+							((HDD) current).setRpm(Integer.parseInt(getXMLText(reader)));
+							break;
+						case SPEED:
+							((SSD) current).setSpeed(Integer.parseInt(getXMLText(reader)));
+							break;
+						case CAPACITY:
+							((Store) current).setCapacity(Integer.parseInt(getXMLText(reader)));
+							break;
+						case FREQUENCY:
+							((CPU) current).setFrequency(Integer.parseInt(getXMLText(reader)));
+							break;
+						case PORT:
+							List<Port> ports = ((MotherBoard) current).getPorts();
+							ports.add(Port.valueOf(getXMLText(reader)));
+							break;
+						default:
+							return;
+				}
+			}
+		} catch (XMLStreamException e) {
+			throw new ParserException("StAX parsing error! ", e);
+		}
+	}
 	
+	private String getXMLText(XMLStreamReader reader) throws XMLStreamException { 
+		String text = null; 
+		if (reader.hasNext()) { 
+			reader.next(); 
+			text = reader.getText(); 
+			} 
+		return text; 
+		}
+
 	
 }

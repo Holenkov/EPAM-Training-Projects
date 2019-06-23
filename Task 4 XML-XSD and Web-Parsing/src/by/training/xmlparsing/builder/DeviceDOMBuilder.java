@@ -100,7 +100,7 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 				current = buildMotherBoard(element);
 				break;
 			case CPU:
-				current = new CPU();
+				current = buildCPU(element);
 				break;
 			default:
 				break;
@@ -155,6 +155,12 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 		Mouse mouse = new Mouse();
 		mouse.setWireless(Boolean.parseBoolean(getElementTextContent(element, "isWireless")));
 		return mouse;
+	}
+	
+	private CPU buildCPU(Element element) {
+		CPU cpu = new CPU();
+		cpu.setFrequency(Integer.parseInt(getElementTextContent(element, "frequency")));
+		return cpu;
 	}
 	
 	private Display buildDisplay(Element element) {
