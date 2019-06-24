@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MotherBoard extends Device{
-	List<Port> ports;
+	protected List<Port> ports;
 	
 	public MotherBoard() {
 		super();

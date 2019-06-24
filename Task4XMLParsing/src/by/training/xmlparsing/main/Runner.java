@@ -4,6 +4,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.training.xmlparsing.bean.Device;
+import by.training.xmlparsing.bean.Display;
 import by.training.xmlparsing.builder.DeviceBuilder;
 import by.training.xmlparsing.builder.DeviceBuilderFactory;
 import by.training.xmlparsing.builder.DeviceDOMBuilder;

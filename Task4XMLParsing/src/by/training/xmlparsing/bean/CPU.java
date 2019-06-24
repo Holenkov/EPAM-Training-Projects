@@ -1,7 +1,7 @@
 package by.training.xmlparsing.bean;
 
 public class CPU extends Device {
-	int frequency;
+	protected int frequency;
 
 	public int getFrequency() {
 		return frequency;

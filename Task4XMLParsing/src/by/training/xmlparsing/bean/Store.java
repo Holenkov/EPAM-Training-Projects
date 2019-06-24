@@ -1,7 +1,7 @@
 package by.training.xmlparsing.bean;
 
 public class Store extends Device{
-	int capacity;
+	protected int capacity;
 	
 	public int getCapacity() {
 		return capacity;

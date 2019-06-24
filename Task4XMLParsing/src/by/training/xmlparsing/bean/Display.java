@@ -1,8 +1,8 @@
 package by.training.xmlparsing.bean;
 
 public class Display extends Device{
-	int resolutionX;
-	int resolutionY;
+	protected int resolutionX;
+	protected int resolutionY;
 	
 	public int getResolutionX() {
 		return resolutionX;

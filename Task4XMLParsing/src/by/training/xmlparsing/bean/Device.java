@@ -7,12 +7,12 @@ import java.util.List;
 import by.training.xmlparsing.bean.type.Type;
 
 public abstract class Device {
-	String name;
-	String origin;
-	Date dateOfIssue;
-	double price;
-	List<Type> types;
-	boolean critical;
+	protected String name;
+	protected String origin;
+	protected Date dateOfIssue;
+	protected double price;
+	protected List<Type> types;
+	protected boolean critical;
 	
 	
 	

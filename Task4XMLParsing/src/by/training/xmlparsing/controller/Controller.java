@@ -13,6 +13,9 @@ public class Controller {
 			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder(parser);
 			deviceBuilder.buildSetDevices(path);
 			Set<Device> devices = deviceBuilder.getDevices();
+			for (Device device : devices) {
+				System.out.println(device);
+			}
 			return devices;
 	}
 

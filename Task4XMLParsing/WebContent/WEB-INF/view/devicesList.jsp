@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Employee List</title>
+<title>Devices List</title>
 </head>
 <body>
 
@@ -16,17 +16,18 @@
 
 	<table border="1" cellpadding="5" cellspacing="1">
 		<tr>
-
-
 			<th>Name</th>
 			<th>Origin</th>
 			<th>Date of Issue</th>
 			<th>Price</th>
-			<th>Types</th>
+			<th>Other</th>
+			<th>Resolution</th>
+			<th>Capacity</th>
+			<th>Speed</th>
+			<th>Rpm</th>
+			<th>Is Wireless?</th>
+			<th>Ports</th>
 			<th>Is critical for Use?</th>
-			<th>Other parameters</th>
-
-
 		</tr>
 
 		<c:forEach items="${devices}" var="device">
@@ -35,6 +36,44 @@
 				<td>${device.origin}</td>
 				<td>${device.dateOfIssue}</td>
 				<td>${device.price}</td>
+				<td>${device.types}</td>
+				<td>
+					<c:catch var="exception">
+						${device.resolutionX}<br>
+						${device.resolutionY}
+					</c:catch> 
+					<c:if test="${not empty exception}">-</c:if> 
+				</td>
+				<td>
+					<c:catch var="exception">
+						${device.capacity}
+					</c:catch> 
+					<c:if test="${not empty exception}">-</c:if> 
+				</td>
+				<td>
+					<c:catch var="exception">
+						${device.speed}
+					</c:catch> 
+					<c:if test="${not empty exception}">-</c:if> 
+				</td>
+				<td>
+					<c:catch var="exception">
+						${device.rpm}
+					</c:catch> 
+					<c:if test="${not empty exception}">-</c:if> 
+				</td>
+				<td>
+					<c:catch var="exception">
+						${device.wireless}
+					</c:catch> 
+					<c:if test="${not empty exception}">-</c:if> 
+				</td>
+				<td>
+					<c:catch var="exception">
+							${device.ports}
+					</c:catch> 
+					<c:if test="${not empty exception}">-</c:if> 
+				</td>
 				<td>${device.critical}</td>
 			</tr>
 		</c:forEach>

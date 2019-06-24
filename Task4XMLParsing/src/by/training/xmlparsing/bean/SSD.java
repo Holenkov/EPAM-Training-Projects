@@ -1,7 +1,7 @@
 package by.training.xmlparsing.bean;
 
 public class SSD extends Store{
-	int speed;
+	protected int speed;
 	
 
 	public int getSpeed() {

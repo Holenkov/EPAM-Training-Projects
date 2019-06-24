@@ -1,7 +1,7 @@
 package by.training.xmlparsing.bean;
 
 public class HDD extends Store{
-	int rpm;
+	protected int rpm;
 	
 
 	public int getRpm() {

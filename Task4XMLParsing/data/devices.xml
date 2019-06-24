@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<devices xmlns:dev="http://www.example.com/devices">
+<!-- <devices xmlns:dev="http://www.example.com/devices"> -->
 
-<!-- <devices xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
+<devices xmlns:xsi="http://www.w3.org/2001/XMLSchema" 
 	xmlns="http://www.example.com/devices"
-	xsi:schemaLocation="http://www.example.com/devices devices.xsd"> -->
+	xsi:schemaLocation="http://www.example.com/devices devices.xsd">
 
 
 	<mouse name = "Logitech m1" date = "05-2019">

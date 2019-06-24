@@ -47,7 +47,7 @@ public class DeviceSAXBuilder implements DeviceBuilder {
 			// create SAXParser
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			spf.setNamespaceAware(true);
-			spf.setValidating(false);
+			spf.setValidating(true);
 			spf.setSchema(schema);
 
 			// создание объекта-обработчика
