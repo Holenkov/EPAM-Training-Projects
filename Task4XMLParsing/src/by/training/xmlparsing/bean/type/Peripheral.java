@@ -21,7 +21,8 @@ public class Peripheral extends Type{
 
 	@Override
 	public String toString() {
-		return "Peripheral [isPeripheral=" + isPeripheral + "]";
+		//return "Peripheral [isPeripheral=" + isPeripheral + "]";
+		return " Device isPeripheral = " + isPeripheral;
 	}
 	
 	

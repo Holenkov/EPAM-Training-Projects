@@ -7,7 +7,7 @@ public class DeviceBuilderFactory {
 		DOM 
 		} 
 	
-	public static DeviceBuilder createDeviceBuilder(String typeParser) throws ParserException { 
+	public static DeviceBuilder createDeviceBuilder(String typeParser, String xsdPath) throws ParserException { 
 		TypeParser type = TypeParser.valueOf(typeParser.toUpperCase()); 
 		switch (type) {    
 		case DOM: 
@@ -15,7 +15,7 @@ public class DeviceBuilderFactory {
 		case STAX: 
 			return new DeviceStAXBuilder();    
 		case SAX: 
-			return new DeviceSAXBuilder();    
+			return new DeviceSAXBuilder(xsdPath);   
 		default: 
 			throw new EnumConstantNotPresentException(type.getDeclaringClass(), type.name());
 	}

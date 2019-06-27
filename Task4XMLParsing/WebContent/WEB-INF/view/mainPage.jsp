@@ -11,12 +11,14 @@
 	<jsp:include page="_header.jsp"></jsp:include>
 	<jsp:include page="_menu.jsp"></jsp:include>
 	
-	<form method="GET" action="${pageContext.request.contextPath}/viewDevices">
+	<form method="POST" action="${pageContext.request.contextPath}/viewDevices" enctype="multipart/form-data">
 		<select id="parserType" name="parserType">
 			<option selected value="SAX">SAX</option>
 			<option value="StAX">StAX</option>
 			<option value="DOM">DOM</option>
-		</select> <input type="submit" value="Parse" />
+		</select> 
+		<input name="data" type="file"><br>
+		<input type="submit" value="Parse" />
 	</form>
 	
 	<jsp:include page="_footer.jsp"></jsp:include>

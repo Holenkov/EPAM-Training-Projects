@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,13 +51,13 @@ public class DeviceStAXBuilder implements DeviceBuilder{
 		return devices;
 	}
 
-	public void buildSetDevices(String fileName) throws ParserException {
+	public void buildSetDevices(InputStream input) throws ParserException {
 		FileInputStream inputStream = null;
 		XMLStreamReader reader = null;
 		String name;
 		try {
-			inputStream = new FileInputStream(new File(fileName));
-			reader = inputFactory.createXMLStreamReader(inputStream);
+		//	inputStream = new FileInputStream(new File(fileName));
+			reader = inputFactory.createXMLStreamReader(input);
 			// StAX parsing
 			while (reader.hasNext()) {
 				int type = reader.next();
@@ -73,15 +74,13 @@ public class DeviceStAXBuilder implements DeviceBuilder{
 			}
 		} catch (XMLStreamException e) {
 			throw new ParserException("StAX parsing error! ", e);
-		} catch (FileNotFoundException e) {
-			throw new ParserException("File " + fileName + " not found! ", e);
 		} finally {
 			try {
 				if (inputStream != null) {
 					inputStream.close();
 				}
 			} catch (IOException e) {
-				throw new ParserException("Impossible close file " + fileName + " : ", e);
+				throw new ParserException("Impossible close file ", e);
 			}
 		}
 	}

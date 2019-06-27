@@ -21,7 +21,7 @@ public class Cooller extends Type{
 
 	@Override
 	public String toString() {
-		return "Cooller [isCooller=" + isCooller + "]";
+		return " Is cooller present = " + isCooller + " ";
 	}
 	
 	

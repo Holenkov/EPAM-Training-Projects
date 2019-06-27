@@ -22,8 +22,8 @@
 	</display>
 	
 	<motherboard name = "2 MSI B450 Tomahawk" date = "2018-05">
-		<price>200.11</price>
 		<origin>Malaysia</origin>
+		<price>200.11</price>
 		<types>
 			<cooler>
 				<isCooler>true</isCooler>
@@ -42,12 +42,10 @@
 			<port>SATA</port>
 			<port>COM</port>
 		</ports>
-	
 	</motherboard>
-
-
-	<display name = "3 Samsung S710">
-		<origin></origin>
+	
+	<display name = "3 Samsung S710" date = "2019-01">
+		<origin>Taiwan</origin>
 		<price>151.50</price>
 		<types>
 			<energy>

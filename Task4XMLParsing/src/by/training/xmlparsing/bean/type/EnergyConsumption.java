@@ -21,7 +21,7 @@ public class EnergyConsumption extends Type{
 
 	@Override
 	public String toString() {
-		return "EnergyConsumption [watt=" + watt + "]";
+		return " EnergyConsumption " + watt +  " watt. ";
 	}
 	
 	

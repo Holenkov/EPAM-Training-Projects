@@ -1,6 +1,7 @@
 package by.training.xmlparsing.builder;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 	private DocumentBuilder docBuilder;
 
 	public DeviceDOMBuilder() throws ParserException {
-		// создание DOM-анализатора
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ DOM-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			docBuilder = factory.newDocumentBuilder();
@@ -55,10 +56,10 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 	}
 
 	@Override
-	public void buildSetDevices(String fileName) throws ParserException {
+	public void buildSetDevices(InputStream input) throws ParserException {
 		Document doc = null;
 		try {
-			doc = docBuilder.parse(fileName);
+			doc = docBuilder.parse(input);
 			Element root = doc.getDocumentElement();
 
 			NodeList deviceList = root.getElementsByTagName("*");

@@ -28,7 +28,14 @@
 	<complexType name="Device">
 		<choice maxOccurs="unbounded">
 			<element type="string" name="origin" default="No information" />
-			<element type="double" name="price" />
+			<element name="price">
+			 	<simpleType>
+			 		<restriction base="double">
+			 			<minExclusive value="0"/>
+			 			<maxInclusive value="2000"/>
+			 		</restriction>
+			 	</simpleType>
+			</element>
 			<element type="boolean" name="isCritical" default="true" />
 			<element name="types">
 				<complexType>
@@ -103,7 +110,7 @@
 						<complexType>
 							<sequence>
 								<element name="port" type="dev:Port" minOccurs="0"
-									maxOccurs="16" />
+									maxOccurs="10" />
 							</sequence>
 						</complexType>
 					</element>

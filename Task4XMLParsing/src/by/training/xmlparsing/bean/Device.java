@@ -7,31 +7,57 @@ import java.util.List;
 import by.training.xmlparsing.bean.type.Type;
 
 public abstract class Device {
+	/** Device name. */
 	protected String name;
+	/** place of origin. */
 	protected String origin;
+	/** Date of issue. */
 	protected Date dateOfIssue;
+	/** Price. */
 	protected double price;
+	/** List of characteristics. */
 	protected List<Type> types;
+	/** Is device critically needed?. */
 	protected boolean critical;
 	
 	
-	
-	
+	/**
+	 * Constructor.	
+	 */
 	public Device() {
 		super();
 		this.types = new ArrayList<>();
 	}
 	
 	
+	/**
+	 * Getter.
+	 * @return name of Device.
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Setter.
+	 * @param name of Device.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Getter for origin.
+	 * @return place of origin.
+	 */
 	public String getOrigin() {
 		return origin;
 	}
+	
+	/**
+	 * Setter for origin. 
+	 * @param origin place of origin.
+	 */
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}

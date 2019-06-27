@@ -1,5 +1,9 @@
 package by.training.xmlparsing.main;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,8 +25,16 @@ public class Runner {
 	public static void main(String[] args) {
 		
 		try {
-			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("SAX");
-			deviceBuilder.buildSetDevices(DEVICES_XML);
+			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("SAX", null);
+			File file = new File(DEVICES_XML);
+			InputStream inputStream = null;
+			try {
+				inputStream = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			deviceBuilder.buildSetDevices(inputStream);
 			Set<Device> devices = deviceBuilder.getDevices();
 			LOGGER.info("");
 			LOGGER.info("SAX builder");
@@ -34,8 +46,16 @@ public class Runner {
 		}
 		
 		try {
-			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("StAX");
-			deviceBuilder.buildSetDevices(DEVICES_XML);
+			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("StAX", null);
+			File file = new File(DEVICES_XML);
+			InputStream inputStream = null;
+			try {
+				inputStream = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			deviceBuilder.buildSetDevices(inputStream);
 			Set<Device> devices = deviceBuilder.getDevices();
 			LOGGER.info("");
 			LOGGER.info("StAX builder");
@@ -47,8 +67,16 @@ public class Runner {
 		}
 		
 		try {
-			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("DOM");
-			deviceBuilder.buildSetDevices(DEVICES_XML);
+			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("DOM", null);
+			File file = new File(DEVICES_XML);
+			InputStream inputStream = null;
+			try {
+				inputStream = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			deviceBuilder.buildSetDevices(inputStream);
 			Set<Device> devices = deviceBuilder.getDevices();
 			LOGGER.info("");
 			LOGGER.info("DOM builder");
