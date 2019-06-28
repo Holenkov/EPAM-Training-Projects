@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.training.xmlparsing.bean.Device;
 import by.training.xmlparsing.builder.DeviceBuilderFactory;
 import by.training.xmlparsing.builder.ParserException;
@@ -25,7 +28,7 @@ import by.training.xmlparsing.controller.Controller;
 @WebServlet("/viewDevices")
 public class ViewDevicesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private static final Logger LOGGER = LogManager.getRootLogger();
 //	public static final String DEVICES_XML = ".\\data\\devices.xml";
 	//public static final String DEVICES_XML = "d:/Epam Training Projects/Task4XMLParsing/data/devices.xml";
 	public static final String DEVICES_XML = "/WEB-INF/data/devices.xml";
@@ -54,7 +57,7 @@ public class ViewDevicesServlet extends HttpServlet {
 			devices = controller.parseDevices(devicesFile.getInputStream(), parser, xsdPath);
 		//	devices = controller.parseDevices(realPath + DEVICES_XML, parser);
 		} catch (ParserException e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		}
 		request.setAttribute("devices", devices);
 		RequestDispatcher dispatcher = request.getServletContext()

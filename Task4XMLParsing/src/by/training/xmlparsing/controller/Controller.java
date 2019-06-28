@@ -1,6 +1,5 @@
 package by.training.xmlparsing.controller;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Set;
 

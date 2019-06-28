@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <devices xmlns:dev="http://www.example.com/devices"> -->
+
+<devices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.example.com/devices"
+	xsi:schemaLocation="http://www.example.com/devices device.xsd">
+
+	<motherboard name = "2 MSI B450 Tomahawk" date = "2018-05">
+		<price>200.11</price>
+		<origin>Malaysia</origin>
+		<types>
+			<cooler>
+				<isCooler>true</isCooler>
+			</cooler>
+			<energy>
+				<watt>50.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>false</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<ports>
+			<port>USB</port>
+			<port>HDMI</port>
+			<port>SATA</port>
+			<port>COM</port>
+		</ports>
+	</motherboard>
+	
+</devices>
+

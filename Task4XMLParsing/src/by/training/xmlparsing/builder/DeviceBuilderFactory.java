@@ -11,9 +11,9 @@ public class DeviceBuilderFactory {
 		TypeParser type = TypeParser.valueOf(typeParser.toUpperCase()); 
 		switch (type) {    
 		case DOM: 
-			return new DeviceDOMBuilder();    
+			return new DeviceDOMBuilder(xsdPath);    
 		case STAX: 
-			return new DeviceStAXBuilder();    
+			return new DeviceStAXBuilder(xsdPath);    
 		case SAX: 
 			return new DeviceSAXBuilder(xsdPath);   
 		default: 

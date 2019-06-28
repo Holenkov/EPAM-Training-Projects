@@ -14,13 +14,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xml.sax.SAXException;
 
 import by.training.xmlparsing.bean.CPU;
 import by.training.xmlparsing.bean.Device;
@@ -31,7 +35,7 @@ import by.training.xmlparsing.bean.Mouse;
 import by.training.xmlparsing.bean.Port;
 import by.training.xmlparsing.bean.SSD;
 import by.training.xmlparsing.bean.Store;
-import by.training.xmlparsing.bean.type.Cooller;
+import by.training.xmlparsing.bean.type.Cooler;
 import by.training.xmlparsing.bean.type.EnergyConsumption;
 import by.training.xmlparsing.bean.type.Peripheral;
 import by.training.xmlparsing.bean.type.Type;
@@ -43,8 +47,20 @@ public class DeviceStAXBuilder implements DeviceBuilder{
 	private XMLInputFactory inputFactory;
 	private Device current;
 
-	public DeviceStAXBuilder() {
-		inputFactory = XMLInputFactory.newInstance();
+	public DeviceStAXBuilder(String xsdPath) {
+		
+		try {
+			String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+			SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
+			Schema schema = xsdFactory.newSchema(new File(xsdPath));
+			
+			
+			inputFactory = XMLInputFactory.newInstance();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		}
 
 	public Set<Device> getDevices() {
@@ -160,7 +176,7 @@ public class DeviceStAXBuilder implements DeviceBuilder{
 							break;
 						case ISCOOLER:
 							types = current.getTypes();
-							types.add(new Cooller(Boolean.parseBoolean(getXMLText(reader))));
+							types.add(new Cooler(Boolean.parseBoolean(getXMLText(reader))));
 							break;
 						case ISWIRELESS:
 							((Mouse) current).setWireless(Boolean.parseBoolean(getXMLText(reader)));
@@ -196,11 +212,16 @@ public class DeviceStAXBuilder implements DeviceBuilder{
 		}
 	}
 	
-	private String getXMLText(XMLStreamReader reader) throws XMLStreamException { 
+	private String getXMLText(XMLStreamReader reader) throws XMLStreamException, ParserException { 
 		String text = null; 
 		if (reader.hasNext()) { 
 			reader.next(); 
-			text = reader.getText(); 
+			try {
+				text = reader.getText();
+			} catch (IllegalStateException e) {
+				throw new ParserException("Impossible close file ", e);
+			}
+			
 			} 
 		return text; 
 		}

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.com/devices"
+	xmlns:dev="http://www.example.com/devices" elementFormDefault="qualified">
+
+	<element name="devices">
+		<complexType>
+			<sequence>
+				<element ref="dev:device" minOccurs="1" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+
+	<element name="device" type="dev:Device" abstract="true"></element>
+	<element name="cpu" type="dev:CPU" substitutionGroup="dev:device"></element>
+	<element name="display" type="dev:Display" substitutionGroup="dev:device"></element>
+	<element name="motherboard" type="dev:Motherboard" substitutionGroup="dev:device"></element>
+	<element name="mouse" type="dev:Mouse" substitutionGroup="dev:device"></element>
+	<element name="ssd" type="dev:SSD" substitutionGroup="dev:device"></element>
+	<element name="hdd" type="dev:HDD" substitutionGroup="dev:device"></element>
+
+	<element name="type" type="dev:Type" abstract="true"></element>
+	<element name="energy" type="dev:Energy" substitutionGroup="dev:type"></element>
+	<element name="cooler" type="dev:Cooler" substitutionGroup="dev:type"></element>
+	<element name="peripheral" type="dev:Peripheral" substitutionGroup="dev:type"></element>
+
+	
+	<complexType name="Device">
+		<choice maxOccurs="unbounded">
+			<element type="string" name="origin" default="No information" />
+			<element name="price">
+			 	<simpleType>
+			 		<restriction base="double">
+			 			<minExclusive value="0"/>
+			 			<maxInclusive value="2000"/>
+			 		</restriction>
+			 	</simpleType>
+			</element>
+			<element type="boolean" name="isCritical" default="true" />
+			<element name="types">
+				<complexType>
+					<sequence>
+						<element ref="dev:type" 
+						minOccurs="1" 
+						maxOccurs="unbounded" />
+					</sequence>
+				</complexType>
+			</element>
+		</choice>
+		<attribute type="string" name="name" id = "name" use="required" />
+		<attribute type="gYearMonth" name="date" use="optional"
+			default="2000-11" />
+	</complexType>
+	
+	<complexType name="Type">
+	</complexType>
+	
+	<complexType name="Energy">
+		<complexContent>
+			<extension base="dev:Type">
+				<sequence>
+					<element type="double" name="watt" minOccurs="1"
+						maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="Cooler">
+		<complexContent>
+			<extension base="dev:Type">
+				<sequence>
+					<element type="boolean" name="isCooler" minOccurs="1"
+						maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<complexType name="Peripheral">
+		<complexContent>
+			<extension base="dev:Type">
+				<sequence>
+					<element type="boolean" name="isPeripheral" minOccurs="1"
+						maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+
+
+	<complexType name="CPU">
+		<complexContent>
+			<extension base="dev:Device">
+				<sequence>
+					<element type="int" name="frequency" minOccurs="1"
+						maxOccurs="1" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+
+	<complexType name="Motherboard">
+		<complexContent>
+			<extension base="dev:Device">
+				<sequence>
+					<element name="ports">
+						<complexType>
+							<sequence>
+								<element name="port" type="dev:Port" minOccurs="0"
+									maxOccurs="10" />
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<simpleType name="Port">
+		<restriction base="string">
+			<enumeration value="COM"></enumeration>
+			<enumeration value="USB"></enumeration>
+			<enumeration value="LPT"></enumeration>
+			<enumeration value="HDMI"></enumeration>
+			<enumeration value="SATA"></enumeration>
+			<enumeration value="PCI"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="Display">
+		<complexContent>
+			<extension base="dev:Device">
+				<sequence>
+					<element type="int" name="resolutionX" />
+					<element type="int" name="resolutionY" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Mouse">
+		<complexContent>
+			<extension base="dev:Device">
+				<sequence>
+					<element type="boolean" name="isWireless" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="Store">
+		<complexContent>
+			<extension base="dev:Device">
+				<sequence>
+					<element type="int" name="capacity" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="HDD">
+		<complexContent>
+			<extension base="dev:Store">
+				<sequence>
+					<element type="int" name="rpm" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SSD">
+		<complexContent>
+			<extension base="dev:Store">
+				<sequence>
+					<element type="int" name="speed" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+</schema>

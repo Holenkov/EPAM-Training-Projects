@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <devices xmlns:dev="http://www.example.com/devices"> -->
+
+<devices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.example.com/devices"
+	xsi:schemaLocation="http://www.example.com/devices device.xsd">
+
+	<mouse name = "4 Logitech m1" date = "2019-10">
+		<origin>China</origin>
+		<price>23.95</price>
+		<types>
+			<energy>
+				<watt>0.01</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>true</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>false</isCritical>
+		<isWireless>true</isWireless>
+	</mouse>
+</devices>
+

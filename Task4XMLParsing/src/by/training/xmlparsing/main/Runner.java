@@ -25,7 +25,7 @@ public class Runner {
 	public static void main(String[] args) {
 		
 		try {
-			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("SAX", null);
+			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("SAX", DEVICES_XSD);
 			File file = new File(DEVICES_XML);
 			InputStream inputStream = null;
 			try {
@@ -46,7 +46,7 @@ public class Runner {
 		}
 		
 		try {
-			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("StAX", null);
+			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("StAX", DEVICES_XSD);
 			File file = new File(DEVICES_XML);
 			InputStream inputStream = null;
 			try {
@@ -67,7 +67,7 @@ public class Runner {
 		}
 		
 		try {
-			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("DOM", null);
+			DeviceBuilder deviceBuilder = DeviceBuilderFactory.createDeviceBuilder("DOM", DEVICES_XSD);
 			File file = new File(DEVICES_XML);
 			InputStream inputStream = null;
 			try {

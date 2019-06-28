@@ -46,8 +46,8 @@
 	</motherboard>
 
 
-	<display name = "3 Samsung S710">
-		<origin></origin>
+	<display name = "3 Samsung S710" date = "2019-10">
+		<origin>3</origin>
 		<price>151.50</price>
 		<types>
 			<energy>

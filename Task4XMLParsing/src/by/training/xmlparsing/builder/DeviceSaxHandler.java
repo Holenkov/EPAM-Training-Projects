@@ -24,7 +24,7 @@ import by.training.xmlparsing.bean.Mouse;
 import by.training.xmlparsing.bean.Port;
 import by.training.xmlparsing.bean.SSD;
 import by.training.xmlparsing.bean.Store;
-import by.training.xmlparsing.bean.type.Cooller;
+import by.training.xmlparsing.bean.type.Cooler;
 import by.training.xmlparsing.bean.type.EnergyConsumption;
 import by.training.xmlparsing.bean.type.Peripheral;
 import by.training.xmlparsing.bean.type.Type;
@@ -123,7 +123,7 @@ public class DeviceSaxHandler extends DefaultHandler{
 				break;
 			case ISCOOLER:
 				types = current.getTypes();
-				types.add(new Cooller(Boolean.parseBoolean(s)));
+				types.add(new Cooler(Boolean.parseBoolean(s)));
 				break;
 			case ISWIRELESS:
 				((Mouse) current).setWireless(Boolean.parseBoolean(s));

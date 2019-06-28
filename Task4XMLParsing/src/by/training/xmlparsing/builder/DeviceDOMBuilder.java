@@ -1,5 +1,6 @@
 package by.training.xmlparsing.builder;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -12,9 +13,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,7 +35,7 @@ import by.training.xmlparsing.bean.Mouse;
 import by.training.xmlparsing.bean.Port;
 import by.training.xmlparsing.bean.SSD;
 import by.training.xmlparsing.bean.Store;
-import by.training.xmlparsing.bean.type.Cooller;
+import by.training.xmlparsing.bean.type.Cooler;
 import by.training.xmlparsing.bean.type.EnergyConsumption;
 import by.training.xmlparsing.bean.type.Peripheral;
 import by.training.xmlparsing.bean.type.Type;
@@ -40,16 +44,30 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 	private Set<Device> devices= new HashSet<Device>();
 	private DocumentBuilder docBuilder;
 
-	public DeviceDOMBuilder() throws ParserException {
+	public DeviceDOMBuilder(String xsdPath) throws ParserException {
 		// �������� DOM-�����������
+		// create schema
+		String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+		SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
+		Schema schema = null;
+		try {
+			schema = xsdFactory.newSchema(new File(xsdPath));
+		} catch (SAXException e1) {
+			e1.printStackTrace();
+		}
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setValidating(false);
+		factory.setSchema(schema);
+
 		try {
 			docBuilder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
 			throw new ParserException("DOM parser configuration error", e);
 		}
 	}
-	
+
 	@Override
 	public Set<Device> getDevices() {
 		return devices;
@@ -143,7 +161,7 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 				break;
 			case COOLER:
 				text = getElementTextContent(typeElement, "isCooler");
-				types.add(new Cooller(Boolean.parseBoolean(text)));
+				types.add(new Cooler(Boolean.parseBoolean(text)));
 				break;
 			default:
 				break;
@@ -218,11 +236,6 @@ public class DeviceDOMBuilder implements DeviceBuilder{
 	
 	
 	private static String getElementTextContent(Element element, String elementName) {     
-		try {
-			NodeList nList = element.getElementsByTagName(elementName);     
-		} catch (NullPointerException e) {
-			return null; 
-		}
 		NodeList nList = element.getElementsByTagName(elementName);     
 		Node node = nList.item(0);     
 		String text = node.getTextContent();     

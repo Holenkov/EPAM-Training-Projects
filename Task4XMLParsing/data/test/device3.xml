@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <devices xmlns:dev="http://www.example.com/devices"> -->
+
+<devices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.example.com/devices"
+	xsi:schemaLocation="http://www.example.com/devices device.xsd">
+
+	<display name = "1 Samsung S710" date = "2019-01">
+		<origin></origin>
+		<price>151.50</price>
+		<types>
+			<energy>
+				<watt>40.0</watt>
+			</energy>
+			<peripheral>
+				<isPeripheral>true</isPeripheral>
+			</peripheral>
+		</types>
+		<isCritical>true</isCritical>
+		<resolutionX>1024</resolutionX>
+		<resolutionY>768</resolutionY>
+	</display>
+</devices>
+
