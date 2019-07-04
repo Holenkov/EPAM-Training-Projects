@@ -1,0 +1,1 @@
+CREATE DATABASE `epam_documents` DEFAULT CHARACTER SET utf8;
