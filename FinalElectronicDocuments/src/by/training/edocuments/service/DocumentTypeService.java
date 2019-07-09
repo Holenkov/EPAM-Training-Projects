@@ -1,12 +1,10 @@
-package by.training.edocuments.dao;
+package by.training.edocuments.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import by.training.edocuments.bean.base.DocumentType;
 import by.training.edocuments.exception.DBOperationException;
 
-public interface DocumentTypeDAO extends DAO<DocumentType> {
+public interface DocumentTypeService extends Service{
 	List<DocumentType> readAll() throws DBOperationException;
-
 }

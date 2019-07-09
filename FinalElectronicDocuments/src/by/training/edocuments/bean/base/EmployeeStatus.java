@@ -38,4 +38,10 @@ public class EmployeeStatus extends BaseEntity{
 		this.emplStatus = emplStatus;
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeeStatus [emplStatusID=" + emplStatusID + ", emplStatus=" + emplStatus + "]";
+	}
+
+	
 }

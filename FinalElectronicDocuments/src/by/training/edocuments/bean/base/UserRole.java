@@ -10,6 +10,12 @@ public class UserRole extends BaseEntity{
 	public UserRole() {
 	}
 
+	public UserRole(int roleID, RoleEnum role) {
+		super();
+		this.roleID = roleID;
+		this.role = role;
+	}
+
 	public UserRole(RoleEnum role) {
 		super();
 		this.roleID = role.ordinal()+1;
@@ -30,8 +36,12 @@ public class UserRole extends BaseEntity{
 
 	public void setRole(RoleEnum role) {
 		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRole [roleID=" + roleID + ", role=" + role + "]";
 	}	
-	
-	
+		
 	
 }

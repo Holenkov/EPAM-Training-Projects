@@ -31,6 +31,13 @@ public class DocumentStatus extends BaseEntity{
 	public void setDocStatus(String docStatus) {
 		this.docStatus = docStatus;
 	}
+
+	@Override
+	public String toString() {
+		return "DocumentStatus [docStatusID=" + docStatusID + ", docStatus=" + docStatus + "]";
+	}
+	
+	
 	
 
 }

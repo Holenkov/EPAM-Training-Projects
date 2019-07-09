@@ -29,6 +29,16 @@ employeeStatus*/
 	public Employee() {	
 	}
 
+	public Employee(int employeeID) {
+		super();
+		this.employeeID = employeeID;
+	}
+
+	public Employee(String email) {
+		super();
+		this.email = email;
+	}
+
 	public Employee(int employeeID, String email, String password, String firstName, String lastName, EmployeePosition position,
 			UserRole role, EmployeeStatus employeeStatus) {
 		super();

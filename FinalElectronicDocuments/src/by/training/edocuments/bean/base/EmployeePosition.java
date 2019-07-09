@@ -37,5 +37,11 @@ public class EmployeePosition extends BaseEntity{
 		this.position = position;
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeePosition [positionID=" + positionID + ", position=" + position + "]";
+	}
+
+	
 
 }

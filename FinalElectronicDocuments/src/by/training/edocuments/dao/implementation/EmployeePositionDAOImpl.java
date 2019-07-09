@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import by.training.edocuments.bean.base.DocumentType;
 import by.training.edocuments.bean.base.EmployeePosition;
 import by.training.edocuments.dao.AbstractDAO;
-import by.training.edocuments.dao.DocumentTypeDAO;
 import by.training.edocuments.dao.EmployeePositionDAO;
+import by.training.edocuments.exception.DBOperationException;
 
 public class EmployeePositionDAOImpl extends AbstractDAO implements EmployeePositionDAO {
 	private static final String ALL_EMPLOYEE_POSITIONS = "SELECT `positionID`, `position` FROM `employeePosition`";
@@ -24,35 +25,35 @@ public class EmployeePositionDAOImpl extends AbstractDAO implements EmployeePosi
 	}
 
 	@Override
-	public void create(EmployeePosition entity) throws Exception {
+	public void create(EmployeePosition entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
-	public EmployeePosition find(EmployeePosition entity) throws Exception {
+	public EmployeePosition find(EmployeePosition entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public void update(EmployeePosition entity) throws Exception {
+	public void update(EmployeePosition entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
-	public void delete(EmployeePosition entity) throws Exception {
+	public void delete(EmployeePosition entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public HashMap<Integer, EmployeePosition> readAll() {
-		HashMap<Integer, EmployeePosition> emplPositions = new HashMap<>();
+	public List<EmployeePosition> readAll() throws DBOperationException {
+		List<EmployeePosition> emplPositions = new ArrayList<>();
 		PreparedStatement statement = null;
 		EmployeePosition employeePosition;
 		try {
@@ -62,17 +63,13 @@ public class EmployeePositionDAOImpl extends AbstractDAO implements EmployeePosi
 				employeePosition = new EmployeePosition();
 				employeePosition.setPositionID(rSet.getInt(1));
 				employeePosition.setPosition(rSet.getString(2));
-				emplPositions.put(rSet.getInt(1), employeePosition);
+				emplPositions.add(employeePosition);
 			}
+			rSet.close();
+			statement.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+			throw new DBOperationException("Employee positions not read", e);
+		} 
 		return emplPositions;
 	}
 

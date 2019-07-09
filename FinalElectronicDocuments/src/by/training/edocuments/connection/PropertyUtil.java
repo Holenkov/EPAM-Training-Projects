@@ -6,24 +6,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class AppProperties {
+public class PropertyUtil {
 	private static final Logger LOGGER = LogManager.getRootLogger();
 	
-	private static AppProperties settings;
+	private static PropertyUtil settings;
 	private static Properties properties;
 	
-	private AppProperties() {
+	private PropertyUtil() {
 		 properties = new Properties();
 	        try {
-	            properties.load(AppProperties.class.getClassLoader().getResourceAsStream("app.properties"));	
+	            properties.load(PropertyUtil.class.getClassLoader().getResourceAsStream("app.properties"));	
 	        } catch (Exception e) {
 	           LOGGER.info("Something wrong");
 	        }
 	}
 	
-	public synchronized static AppProperties getSettings(){
+	public synchronized static PropertyUtil getSettings(){
 		if(settings == null){
-			settings = new AppProperties();
+			settings = new PropertyUtil();
 		}
 		return settings;
 	}

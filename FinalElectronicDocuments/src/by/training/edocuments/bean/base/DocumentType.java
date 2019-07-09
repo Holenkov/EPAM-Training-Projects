@@ -42,6 +42,11 @@ public class DocumentType extends BaseEntity{
 		this.docType = docType;
 	}
 
+	@Override
+	public String toString() {
+		return "DocumentType [docTypeID=" + docTypeID + ", docType=" + docType + "]";
+	}
+
 
 	
 	

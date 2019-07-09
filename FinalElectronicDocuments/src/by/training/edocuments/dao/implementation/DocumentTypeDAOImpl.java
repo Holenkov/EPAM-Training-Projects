@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import by.training.edocuments.bean.base.DocumentType;
 import by.training.edocuments.dao.AbstractDAO;
 import by.training.edocuments.dao.DocumentTypeDAO;
+import by.training.edocuments.exception.DBOperationException;
 
 public class DocumentTypeDAOImpl extends AbstractDAO implements DocumentTypeDAO {
 	private static final String ALL_DOCUMENT_TYPES = "SELECT `docTypeID`, `docType` FROM `documentType`";
@@ -23,32 +26,32 @@ public class DocumentTypeDAOImpl extends AbstractDAO implements DocumentTypeDAO 
 	}
 
 	@Override
-	public void create(DocumentType entity) throws Exception {
+	public void create(DocumentType entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public DocumentType find(DocumentType entity) throws Exception {
+	public DocumentType find(DocumentType entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(DocumentType entity) throws Exception {
+	public void update(DocumentType entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(DocumentType entity) throws Exception {
+	public void delete(DocumentType entity) throws DBOperationException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public HashMap<Integer, DocumentType> readAll() {
-		HashMap<Integer,DocumentType> docTypes = new HashMap<>();
+	public List<DocumentType> readAll() throws DBOperationException{
+		 List<DocumentType>  docTypes = new ArrayList<>();
 		PreparedStatement statement = null;
 		DocumentType documentType;
 		try {
@@ -58,17 +61,13 @@ public class DocumentTypeDAOImpl extends AbstractDAO implements DocumentTypeDAO 
 				documentType = new DocumentType();
 				documentType.setDocTypeID(rSet.getInt(1));
 				documentType.setDocType(rSet.getString(2));
-				docTypes.put(rSet.getInt(1), documentType);
+				docTypes.add(documentType);
 			}
+			rSet.close();
+			statement.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+			throw new DBOperationException("Document types not read. DB error.", e);
+		} 
 		return docTypes;
 	}
 	
