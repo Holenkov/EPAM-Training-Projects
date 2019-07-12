@@ -7,8 +7,8 @@ public abstract class AbstractDAO {
 	protected Connection connection;
 	
 
-	public Connection getConnection() {
+/*	public Connection getConnection() {
 		return connection;
-	}
+	}*/
 
 }

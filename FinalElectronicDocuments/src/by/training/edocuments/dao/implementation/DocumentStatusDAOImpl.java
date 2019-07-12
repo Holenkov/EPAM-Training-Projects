@@ -28,7 +28,8 @@ docStatus*/
 	}
 	
 	@Override
-	public void create(DocumentStatus entity) throws DBOperationException  {
+	public int create(DocumentStatus entity) throws DBOperationException  {
+		return 0;
 		// TODO Auto-generated method stub
 	}
 
@@ -39,13 +40,15 @@ docStatus*/
 	}
 
 	@Override
-	public void update(DocumentStatus entity) throws DBOperationException {
+	public int update(DocumentStatus entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(DocumentStatus entity) throws DBOperationException {
+	public int delete(DocumentStatus entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}

@@ -9,10 +9,16 @@ import by.training.edocuments.connection.CookieUtil;
 public class LogOutAction extends Action {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
 		CookieUtil.storeLoginedUser(request.getSession(), null);
-		String path = JSPEnum.MAIN.getPath();
-		request.setAttribute("path", path);
+		path = JSPEnum.MAIN.getPath();
+		isRedirect = true;
+	}
+
+	@Override
+	public void executePost(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

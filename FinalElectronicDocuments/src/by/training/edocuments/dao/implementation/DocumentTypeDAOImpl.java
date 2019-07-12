@@ -26,7 +26,8 @@ public class DocumentTypeDAOImpl extends AbstractDAO implements DocumentTypeDAO 
 	}
 
 	@Override
-	public void create(DocumentType entity) throws DBOperationException {
+	public int create(DocumentType entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
@@ -38,13 +39,15 @@ public class DocumentTypeDAOImpl extends AbstractDAO implements DocumentTypeDAO 
 	}
 
 	@Override
-	public void update(DocumentType entity) throws DBOperationException {
+	public int update(DocumentType entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(DocumentType entity) throws DBOperationException {
+	public int delete(DocumentType entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}

@@ -30,7 +30,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		DAO dao = new EmployeeDAOImpl(connection);
 		employee = ((EmployeeDAOImpl)dao).find(employee);
-		
+		if (employee != null) {
+			setStatusPosition(employee);
+		}	
 		setStatusPosition(employee);
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
 		return employee;
@@ -41,8 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		DAO dao = new EmployeeDAOImpl(connection);
 		employee = ((EmployeeDAOImpl)dao).findByEmail(employee);
-		
-		setStatusPosition(employee);
+		if (employee != null) {
+			setStatusPosition(employee);
+		}	
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
 		return employee;
 	}
@@ -52,8 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		EmployeeDAOImpl dao = new EmployeeDAOImpl(connection);
 		dao.update(employee);
-		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
-		
+		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);		
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ CREATE TABLE `employeeStatus` (
 CREATE TABLE `employee` (
   `employeeID` INT(5) NOT NULL,
   `pic` blob NOT NULL,
-  `email` VARCHAR(64) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(32) NOT NULL,
   `firstName` VARCHAR(32) NOT NULL,
   `lastName` VARCHAR(32) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `document` (
   `docID` INT(8) NOT NULL,
   `authorID` INT(5) NOT NULL,
   `docType` TINYINT(2) NOT NULL,
-  `keywords` VARCHAR(64) NOT NULL,
+  `description` VARCHAR(64) NOT NULL,
   `textBody` VARCHAR(1000) NOT NULL,
   `dateUpdated` TIMESTAMP NOT NULL,
   `dateToExecute` TIMESTAMP NOT NULL

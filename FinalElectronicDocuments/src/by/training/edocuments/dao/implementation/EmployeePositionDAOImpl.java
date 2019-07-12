@@ -25,7 +25,8 @@ public class EmployeePositionDAOImpl extends AbstractDAO implements EmployeePosi
 	}
 
 	@Override
-	public void create(EmployeePosition entity) throws DBOperationException {
+	public int create(EmployeePosition entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,14 +40,16 @@ public class EmployeePositionDAOImpl extends AbstractDAO implements EmployeePosi
 
 
 	@Override
-	public void update(EmployeePosition entity) throws DBOperationException {
+	public int update(EmployeePosition entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
-	public void delete(EmployeePosition entity) throws DBOperationException {
+	public int delete(EmployeePosition entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}

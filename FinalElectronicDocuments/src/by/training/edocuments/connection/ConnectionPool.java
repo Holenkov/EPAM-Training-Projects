@@ -18,6 +18,7 @@ import by.training.edocuments.bean.base.UserRole;
 import by.training.edocuments.bean.base.RoleEnum;
 import by.training.edocuments.dao.DAO;
 import by.training.edocuments.dao.implementation.EmployeeDAOImpl;
+import by.training.edocuments.exception.PoolInitException;
 
 
 public class ConnectionPool {
@@ -36,44 +37,39 @@ public class ConnectionPool {
 	public static ConnectionPool getConnectionPool() {
 		if (instance == null) {	
 			synchronized (ConnectionPool.class) {
-			
 				if (instance == null) {	
 				instance = new ConnectionPool();
-				System.out.println("ConnectionPool init");
-				//need to find in server prop maximum connections.
-				try {
-					DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} 
-				init(20);
 				}
 			}
 		}
 		return instance;
 	}
 	
-	public static void init (final int POOL_SIZE) {
+	public void init (final int POOL_SIZE) throws Exception{
 		connections = new ArrayBlockingQueue<>(POOL_SIZE);
-		Properties properties = PropertyUtil.getSettings().getProperties();
+		Properties properties = new Properties();
+	    try {
+	    	properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream("app.properties"));	
+	    } catch (Exception e) {
+	    	throw new PoolInitException("Connection properties not read.", e);
+	    }
 		userName = properties.getProperty("DB_USER_NAME");
 		userPass = properties.getProperty("DB_USER_PASS");
 		final String URL = properties.getProperty("DB_URL");
 		final String SERVER_PROP = properties.getProperty("SERVER_PROP");
-		String fullURL = URL + SERVER_PROP;
+		FULL_URL = URL + SERVER_PROP;
 		poolSize = POOL_SIZE;
-	
-		for (int i = 0; i < POOL_SIZE; i++) {
-			ProxyConnection connection = null;;
-			try {
-				connection = new ProxyConnection(DriverManager.getConnection(fullURL, userName, userPass));
-				connections.offer(connection);
-			} catch (SQLException e) {
-				e.printStackTrace();
+		try {
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			for (int i = 0; i < POOL_SIZE; i++) {
+				ProxyConnection connection = null;
+					connection = new ProxyConnection(DriverManager.getConnection(FULL_URL, userName, userPass));
+					connections.offer(connection);
 			}
-			
+		} catch (SQLException e) {	
+			throw new PoolInitException("Connection pool not initialized.", e);
+		} 
 		
-		}
 		LOGGER.info("Connection Pool initialization complete  " + connections.size() + "  " + connections.remainingCapacity());
 	}
 
@@ -90,46 +86,22 @@ public class ConnectionPool {
 	}
 
 	public void closeConnection(ProxyConnection connection) {
+		try {
+			connection.getConnection().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			connection = new ProxyConnection(DriverManager.getConnection(FULL_URL, userName, userPass));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	
 		connections.offer(connection);
 	}
 	
 	
-	//MAIN
-	public static void main(String[] args) {
-		ConnectionPool connectionPool = ConnectionPool.getConnectionPool();
-		ProxyConnection connection = connectionPool.getConnection();
-		DAO<Employee> employeeDAO = new EmployeeDAOImpl(connection);
-		Employee employee = new Employee(1, "email11", "password", "firstName", "lastName", 
-				new EmployeePosition(1), new UserRole(RoleEnum.NO_PERMISSIONS), new EmployeeStatus(1));
-		/*try {
-			employeeDAO.create(employee);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-		
-		employee = new Employee(38, "email33", "password47", "firstName", "lastName", 
-				new EmployeePosition(1), new UserRole(RoleEnum.NO_PERMISSIONS), new EmployeeStatus(1));
-		
-		try {
-			employeeDAO.update(employee);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		employee = new Employee(38);
-		try {
-			employee = employeeDAO.find(employee);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
-		connectionPool.closeConnection(connection);
-		
-	}
+
 
 
 }

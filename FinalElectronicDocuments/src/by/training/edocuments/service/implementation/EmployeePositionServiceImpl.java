@@ -17,8 +17,9 @@ public class EmployeePositionServiceImpl implements EmployeePositionService{
 	public List<EmployeePosition> readAll() throws DBOperationException {
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		DAO dao = new EmployeePositionDAOImpl(connection);
+		List<EmployeePosition> list = ((EmployeePositionDAOImpl)dao).readAll();
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
-		return ((EmployeePositionDAOImpl)dao).readAll();	
+		return list;	
 	}
 
 }

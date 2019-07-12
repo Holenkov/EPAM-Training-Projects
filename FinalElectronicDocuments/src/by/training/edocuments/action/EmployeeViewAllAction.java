@@ -16,7 +16,7 @@ public class EmployeeViewAllAction extends Action{
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
 		EmployeeServiceImpl service = new EmployeeServiceImpl();
 		List<Employee> employees;
 		try {
@@ -27,8 +27,12 @@ public class EmployeeViewAllAction extends Action{
 			request.setAttribute("errorString", e.getMessage());
 		}
 		
-		String path = JSPEnum.EMPLOYEE_VIEW_ALL.getPath();
-		request.setAttribute("path", path);
+		path = JSPEnum.EMPLOYEE_VIEW_ALL.getPath();
+	}
+
+	@Override
+	public void executePost(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 		
 	}
 

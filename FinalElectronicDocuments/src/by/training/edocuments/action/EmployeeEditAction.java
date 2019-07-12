@@ -12,6 +12,7 @@ import by.training.edocuments.bean.Employee;
 import by.training.edocuments.bean.base.EmployeePosition;
 import by.training.edocuments.bean.base.EmployeeStatus;
 import by.training.edocuments.bean.base.RoleEnum;
+import by.training.edocuments.bean.base.UserRole;
 import by.training.edocuments.connection.SourceTablesStore;
 import by.training.edocuments.exception.DBOperationException;
 import by.training.edocuments.service.implementation.EmployeeServiceImpl;
@@ -21,12 +22,11 @@ public class EmployeeEditAction extends Action {
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
 		String employeeID = request.getParameter("employeeID");
 	
 		String errorString = null;
 		Employee employee = new Employee(Integer.parseInt(employeeID));
-		System.out.println(employee);
 		EmployeeServiceImpl service = new EmployeeServiceImpl();
 		try {
 			employee = service.findByID(employee);
@@ -39,9 +39,8 @@ public class EmployeeEditAction extends Action {
 		List<EmployeeStatus> emplStatuses = SourceTablesStore.getStore().returnEmployeeStatuses();
 		List<RoleEnum> userRoles = RoleEnum.getRoles();
 		
-		String path;
+		isRedirect = false;
 		if (errorString == null) {
-			System.out.println(employee);
 			request.setAttribute("employee", employee);
 			request.setAttribute("emplPositions", emplPositions);
 			request.setAttribute("emplStatuses", emplStatuses);
@@ -52,12 +51,56 @@ public class EmployeeEditAction extends Action {
 			request.setAttribute("errorString", errorString);
 			path = JSPEnum.EMPLOYEE_VIEW_ALL.getPath();
 		}
-		
-		request.setAttribute("path", path);
-
 
 		
 		/*response.sendRedirect(request.getServletPath() + "/employees");*/
+	}
+
+	@Override
+	public void executePost(HttpServletRequest request, HttpServletResponse response) {
+		boolean hasError = false;
+		String errorString = null;
+		
+		int employeeID = Integer.parseInt(request.getParameter("employeeID"));
+		String firstName = (String) request.getParameter("firstName");
+		String lastName = (String) request.getParameter("lastName");
+		int positionID = Integer.parseInt(request.getParameter("employeePosition"));
+		int roleID = Integer.parseInt(request.getParameter("employeeRole"));
+		int statusID = Integer.parseInt(request.getParameter("employeeStatus"));
+		Employee employee = new Employee(employeeID);
+		
+		EmployeeServiceImpl service = new EmployeeServiceImpl();
+		try {
+			employee = service.findByID(employee);
+		} catch (DBOperationException e) {
+			LOGGER.error(e.getMessage(), e);
+			hasError = true;
+			errorString = e.getMessage();
+		}
+		if (employee != null) {
+			employee.setFirstName(firstName);
+			employee.setLastName(lastName);
+			employee.setPosition(SourceTablesStore.getStore().returnEmployeePosition(positionID));
+			employee.setRole(new UserRole(RoleEnum.getRole(roleID)));
+			employee.setEmployeeStatus(SourceTablesStore.getStore().returnEmployeeStatus(statusID));
+			
+			try {
+				service.update(employee);
+			} catch (DBOperationException e) {
+				LOGGER.error(e.getMessage(), e);
+				hasError = true;
+				errorString = e.getMessage();
+			}
+			path = JSPEnum.EMPLOYEE_SUCCESS_EDIT.getPath();
+			isRedirect = true;
+		} else {
+			hasError = true;
+			isRedirect = false;
+			errorString = "Employee null";
+			path = JSPEnum.EMPLOYEE_EDIT.getPath();			
+		}
+		request.setAttribute("errorString", errorString);
+		
 	}
 
 }

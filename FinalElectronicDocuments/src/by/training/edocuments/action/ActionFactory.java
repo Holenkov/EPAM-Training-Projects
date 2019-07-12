@@ -10,11 +10,17 @@ public class ActionFactory {
 
 	static {
 		actions.put("/", new ViewMainPageAction());
-		actions.put("/main", new ViewMainPageAction());
-		actions.put("/login", new LoginAction());
-		actions.put("/logout", new LogOutAction());
-		actions.put("/employee/viewAll", new EmployeeViewAllAction());
-		actions.put("/employee/edit", new EmployeeEditAction());
+		actions.put(JSPEnum.MAIN.getPath(), new ViewMainPageAction());
+		actions.put(JSPEnum.LOGIN.getPath(), new LoginAction());
+		actions.put(JSPEnum.LOGOUT.getPath(), new LogOutAction());
+		actions.put(JSPEnum.EMPLOYEE_VIEW_ALL.getPath(), new EmployeeViewAllAction());
+		actions.put(JSPEnum.EMPLOYEE_EDIT.getPath(), new EmployeeEditAction());
+		actions.put(JSPEnum.EMPLOYEE_SUCCESS_EDIT.getPath(), new MessageAction());
+		actions.put(JSPEnum.EMPLOYEE_REGISTRATION_FORM.getPath(), new UserRegistrationAction());
+		actions.put(JSPEnum.NOT_AUTH_VIEW.getPath(), new MessageAction());
+		
+		
+		
 	}
 
 	public Action createAction(HttpServletRequest request) {
@@ -32,6 +38,8 @@ public class ActionFactory {
 		action = actions.get(actionStr);
 		if (action == null) {
 			action = new PageNotFoundAction();
+		} else {
+			action.setPath(actionStr);
 		}
 		
 		return action;

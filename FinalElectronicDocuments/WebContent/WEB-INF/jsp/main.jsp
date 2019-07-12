@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Electronic Workflow</title>
+<script src="login-validation.js"></script>
 </head>
 <body>
 	<jsp:include page="_header.jsp"></jsp:include>
@@ -21,7 +22,8 @@
 		<table>
 			<tr>
 				<td>
-					<form action="${pageContext.request.contextPath}/login.html" method="POST">
+					<form action="${pageContext.request.contextPath}/login.html" name ="login" method="POST"  
+						onSubmit="return formValidation();">
 						<table>
 							<tr>
 								<td>User name</td>
@@ -49,7 +51,7 @@
 						<tr>
 							<td>Not registered?</td>
 							<td>
-								<form action="${pageContext.request.contextPath}/registration.html" method="get">
+								<form action="${pageContext.request.contextPath}/employee/registration.html" method="GET">
 									<input type="submit" value="Registration">
 								</form>
 							</td>

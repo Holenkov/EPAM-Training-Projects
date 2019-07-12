@@ -17,8 +17,9 @@ public class EmployeeStatusServiceImpl implements EmployeeStatusService{
 	public List<EmployeeStatus> readAll() throws DBOperationException {
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		DAO dao = new EmployeeStatusDAOImpl(connection);
+		List<EmployeeStatus> list = ((EmployeeStatusDAOImpl)dao).readAll();
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
-		return ((EmployeeStatusDAOImpl)dao).readAll();	
+		return list;	
 	}
 	
 	

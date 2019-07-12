@@ -7,9 +7,14 @@ public class ViewMainPageAction extends Action{
 
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String path = JSPEnum.MAIN.getPath();
-		request.setAttribute("path", path);
+	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
+		path = JSPEnum.MAIN.getPath();
+	}
+
+	@Override
+	public void executePost(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

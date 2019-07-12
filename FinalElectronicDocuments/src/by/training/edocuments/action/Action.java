@@ -1,15 +1,34 @@
 package by.training.edocuments.action;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 public abstract class Action {
+	protected String path;
+	protected Boolean isRedirect;
 
-	public abstract void execute (HttpServletRequest request, HttpServletResponse response);
+	public abstract void executeGet (HttpServletRequest request, HttpServletResponse response);
+	public abstract void executePost (HttpServletRequest request, HttpServletResponse response);
+	
+	public Action() {
+		isRedirect = false;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public Boolean getIsRedirect() {
+		return isRedirect;
+	}
+	public void setIsRedirect(Boolean isRedirect) {
+		this.isRedirect = isRedirect;
+	}
+	
 	
 	
 	

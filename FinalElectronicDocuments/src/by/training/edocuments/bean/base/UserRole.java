@@ -38,6 +38,33 @@ public class UserRole extends BaseEntity{
 		this.role = role;
 	}
 
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + roleID;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserRole other = (UserRole) obj;
+		if (role != other.role)
+			return false;
+		if (roleID != other.roleID)
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "UserRole [roleID=" + roleID + ", role=" + role + "]";

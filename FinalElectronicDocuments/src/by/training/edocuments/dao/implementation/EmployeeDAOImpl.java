@@ -62,11 +62,12 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 
 
 	@Override
-	public void create(Employee employee) throws DBOperationException {
+	public int create(Employee employee) throws DBOperationException {
 		/*String sql = "INSERT INTO `employee` "
 				+ "(`email`, `pic`, `password`, `firstName`, `lastName`, `position`, `role`, `employeeStatus`) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";*/
 		PreparedStatement statement = null;
+		int update = 0;
 		try {
 			statement = connection.prepareStatement(CREATE_EMPLOYEE);
 			statement.setString(1, employee.getEmail());
@@ -77,7 +78,7 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 			statement.setInt(6, employee.getPosition().getPositionID());
 			statement.setInt(7, employee.getRole().getRoleID());
 			statement.setInt(8, employee.getEmployeeStatus().getEmplStatusID());
-			statement.executeUpdate();
+			update = statement.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -88,6 +89,7 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 				e.printStackTrace();
 			}
 		}
+		return update;
 	}
 	
 	
@@ -113,20 +115,18 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 		} catch (SQLException e) {
 			throw new DBOperationException("Employee not found. DB error.", e);
 		} 
-
-		
 		return employee;
 	}
 	
 	
 	@Override
-	public void update(Employee employee) throws DBOperationException {
+	public int update(Employee employee) throws DBOperationException {
 		/*private final static String INSERT_EMPLOYEE = "UPDATE `employee` "
 				+ "SET `email` = ?, `pic` = ?, `password` = ?, `firstName` = ?, "
 				+ "`lastName` = ?, `position` = ?, `role` = ?, `employeeStatus` = ? " + "WHERE employeeID = ?";*/
 		PreparedStatement statement = null;
 		System.out.println(connection + "   " + employee.getEmail());
-
+		int update;
 		try {
 			statement = connection.prepareStatement(UPDATE_EMPLOYEE);
 			statement.setString(1, employee.getEmail());
@@ -138,16 +138,17 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 			statement.setInt(7, employee.getRole().getRoleID());
 			statement.setInt(8, employee.getEmployeeStatus().getEmplStatusID());
 			statement.setInt(9, employee.getEmployeeID());
-			statement.executeUpdate();
+			update = statement.executeUpdate();
 			statement.close();
 		} catch (SQLException e) {
 			throw new DBOperationException("Employee not updated", e);
 		} 
-
+		return update;
 	}
 
 	@Override
-	public void delete(Employee employee){
+	public int delete(Employee employee){
+		return 0;
 	}	
 	
 

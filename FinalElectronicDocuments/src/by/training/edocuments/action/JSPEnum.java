@@ -1,12 +1,18 @@
 package by.training.edocuments.action;
 
 public enum JSPEnum {
-	MAIN("/WEB-INF/jsp/main.jsp"),
-	LOGIN(""),
-	PAGE_NOT_FOUND("/WEB-INF/jsp/page_not_found.jsp"),
-	EMPLOYEE_VIEW_ALL("/WEB-INF/jsp/employee/viewAll.jsp"),
+	MAIN("/main"),
+	LOGIN("/login"),
+	LOGOUT("/logout"),
+	PAGE_NOT_FOUND("/page_not_found"),
+	NOT_AUTH_VIEW("/notAuthView"),
+	EMPLOYEE_VIEW_ALL("/employee/viewAll"),
 	EMPLOYEE_ADD(""),
-	EMPLOYEE_EDIT("/WEB-INF/jsp/employee/edit.jsp");
+	EMPLOYEE_EDIT("/employee/edit"),
+	EMPLOYEE_SUCCESS_ADD("/employee/successAdd"),
+	EMPLOYEE_SUCCESS_EDIT("/employee/successEdit"),
+	EMPLOYEE_REGISTRATION_FORM("/employee/registration"),
+	;
 	
 	private String path;
 

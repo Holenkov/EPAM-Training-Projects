@@ -17,8 +17,9 @@ public class DocumentTypeServiceImpl implements DocumentTypeService{
 	public List<DocumentType> readAll() throws DBOperationException {
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		DAO dao = new DocumentTypeDAOImpl(connection);
+		List<DocumentType> list = ((DocumentTypeDAOImpl)dao).readAll();
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
-		return ((DocumentTypeDAOImpl)dao).readAll();	
+		return list;	
 	}
 
 }

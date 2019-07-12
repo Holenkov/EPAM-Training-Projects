@@ -31,12 +31,11 @@ public class SourceTablesStore {
 	private SourceTablesStore() {
 	}
 
-	public static SourceTablesStore getStore() {
+	public static SourceTablesStore getStore(){
 		if (store == null) {
 			synchronized(SourceTablesStore.class) {
 				if (store == null) {
-					store = new SourceTablesStore();
-					init();
+					store = new SourceTablesStore();				
 				}
 			}
 		}
@@ -92,15 +91,11 @@ public class SourceTablesStore {
 		return list;
 	}
 	
-	public static void init() {
+	public synchronized void init() throws DBOperationException{
 		Service service = new DocumentStatusServiceImpl();
 		List<DocumentStatus> docStatuses = null;
-		try {
-			docStatuses = ((DocumentStatusServiceImpl)service).readAll();
-		} catch (DBOperationException e) {
-			e.printStackTrace();
-			return;
-		}	
+		docStatuses = ((DocumentStatusServiceImpl)service).readAll();
+
 		documentStatusMap.clear();
 		for (DocumentStatus element : docStatuses) {
 			documentStatusMap.put(element.getDocStatusID(), element);
@@ -108,12 +103,8 @@ public class SourceTablesStore {
 		
 		service = new DocumentTypeServiceImpl();
 		List<DocumentType> docTypes = null;
-		try {
 			docTypes = ((DocumentTypeServiceImpl)service).readAll();
-		} catch (DBOperationException e) {
-			e.printStackTrace();
-			return;
-		}	
+			
 		documentTypeMap.clear();
 		for (DocumentType element : docTypes) {
 			documentTypeMap.put(element.getDocTypeID(), element);
@@ -121,12 +112,8 @@ public class SourceTablesStore {
 		
 		service = new EmployeePositionServiceImpl();
 		List<EmployeePosition> emplPositions = null;
-		try {
-			emplPositions = ((EmployeePositionServiceImpl)service).readAll();
-		} catch (DBOperationException e) {
-			e.printStackTrace();
-			return;
-		}	
+		emplPositions = ((EmployeePositionServiceImpl)service).readAll();
+
 		employeePositionMap.clear();
 		for (EmployeePosition element : emplPositions) {
 			employeePositionMap.put(element.getPositionID(), element);
@@ -134,12 +121,8 @@ public class SourceTablesStore {
 		
 		service = new EmployeeStatusServiceImpl();
 		List<EmployeeStatus> emplStatuses = null;
-		try {
-			emplStatuses = ((EmployeeStatusServiceImpl)service).readAll();
-		} catch (DBOperationException e) {
-			e.printStackTrace();
-			return;
-		}	
+		emplStatuses = ((EmployeeStatusServiceImpl)service).readAll();
+
 		employeeStatusMap.clear();
 		for (EmployeeStatus element : emplStatuses) {
 			employeeStatusMap.put(element.getEmplStatusID(), element);

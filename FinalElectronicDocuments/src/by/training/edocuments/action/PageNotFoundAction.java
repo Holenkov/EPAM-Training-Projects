@@ -7,9 +7,14 @@ public class PageNotFoundAction extends Action{
 	
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		String path = JSPEnum.PAGE_NOT_FOUND.getPath();
-		request.setAttribute("path", path);
+	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
+		path = JSPEnum.PAGE_NOT_FOUND.getPath();
+	}
+
+	@Override
+	public void executePost(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -19,8 +19,9 @@ public class DocumentStatusServiceImpl implements DocumentStatusService{
 	public List<DocumentStatus> readAll() throws DBOperationException {
 		Connection connection = ConnectionPool.getConnectionPool().getConnection();
 		DAO dao = new DocumentStatusDAOImpl(connection);
+		List<DocumentStatus> list = ((DocumentStatusDAOImpl)dao).readAll();
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
-		return ((DocumentStatusDAOImpl)dao).readAll();	
+		return list;	
 	}
 
 }

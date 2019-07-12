@@ -17,9 +17,13 @@ import by.training.edocuments.service.implementation.EmployeeServiceImpl;
 public class LoginAction extends Action {
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
+	@Override
+	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
+
+	}
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void executePost(HttpServletRequest request, HttpServletResponse response) {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String rememberMe = request.getParameter("rememberMe");
@@ -29,34 +33,24 @@ public class LoginAction extends Action {
 		boolean hasError = false;
 		String errorString = null;
 
-		if (email == null || email.length() == 0) {
-			hasError = true;
-			errorString = "Required username!";
-		} else if (password == null || password.length() == 0) {
-			hasError = true;
-			errorString = "Required password!";
-		} else {
+		try {
+			SourceTablesStore store = SourceTablesStore.getStore();
+			EmployeeStatus notActive = store.returnEmployeeStatus(4);
 
-			try {
-				SourceTablesStore store = SourceTablesStore.getStore();
-				EmployeeStatus notActive = store.returnEmployeeStatus(4);
-
-				EmployeeServiceImpl service = new EmployeeServiceImpl();
-				employee = service.findByEmail(employee);
-				// password = cryptoUtils.encrypt(request.getParameter("password"));
-				if ((employee == null) || (!employee.getPassword().equals(password))) {
-					hasError = true;
-					errorString = "User Name or password invalid";
-				} else if (employee.getEmployeeStatus().equals(notActive)) {
-					hasError = true;
-					errorString = "User inactive";
-				}
-			} catch (DBOperationException e) {
-				LOGGER.error(e.getMessage(), e);
-				request.setAttribute("errorString", e.getMessage());
+			EmployeeServiceImpl service = new EmployeeServiceImpl();
+			employee = service.findByEmail(employee);
+			// password = cryptoUtils.encrypt(request.getParameter("password"));
+			if ((employee == null) || (!employee.getPassword().equals(password))) {
 				hasError = true;
-				errorString = e.getMessage();
+				errorString = "User Name or password invalid";
+			} else if (employee.getEmployeeStatus().equals(notActive)) {
+				hasError = true;
+				errorString = "User inactive, complete registration, please.";
 			}
+		} catch (DBOperationException e) {
+			LOGGER.error(e.getMessage(), e);
+			hasError = true;
+			errorString = e.getMessage();
 		}
 
 		if (hasError) {
@@ -70,10 +64,8 @@ public class LoginAction extends Action {
 			} else {
 				CookieUtil.deleteUserCookie(response);
 			}
-			
-		}
-		String path = JSPEnum.MAIN.getPath();
-		request.setAttribute("path", path);
 
+		}
+		path = JSPEnum.MAIN.getPath();
 	}
 }

@@ -27,7 +27,8 @@ emplStatus*/
 	}
 	
 	@Override
-	public void create(EmployeeStatus entity) throws DBOperationException {
+	public int create(EmployeeStatus entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,13 +40,15 @@ emplStatus*/
 	}
 
 	@Override
-	public void update(EmployeeStatus entity) throws DBOperationException {
+	public int update(EmployeeStatus entity) throws DBOperationException {
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(EmployeeStatus entity) throws DBOperationException{
+	public int delete(EmployeeStatus entity) throws DBOperationException{
+		return 0;
 		// TODO Auto-generated method stub
 		
 	}
