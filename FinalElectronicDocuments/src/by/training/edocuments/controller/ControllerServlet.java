@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import by.training.edocuments.action.Action;
 import by.training.edocuments.action.ActionFactory;
 import by.training.edocuments.connection.ConnectionPool;
-import by.training.edocuments.connection.SourceTablesStore;
 import by.training.edocuments.exception.DBOperationException;
+import by.training.edocuments.util.SourceTablesStore;
 
 @WebServlet("/controller")
-
+@MultipartConfig
 public class ControllerServlet extends HttpServlet {
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +34,7 @@ public class ControllerServlet extends HttpServlet {
 		String path = action.getPath();
 		System.out.println("CS  " + method + path + "   " + action.getIsRedirect());
 		if (action.getIsRedirect()) {
-			response.sendRedirect(request.getContextPath() + path + ".html");
+			response.sendRedirect(request.getContextPath() + path + ".html" + action.getParameters());
 		} else {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp" + path + ".jsp");
 			dispatcher.forward(request, response);

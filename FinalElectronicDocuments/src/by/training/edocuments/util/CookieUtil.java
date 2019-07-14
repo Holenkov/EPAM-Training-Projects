@@ -1,8 +1,5 @@
-package by.training.edocuments.connection;
+package by.training.edocuments.util;
 
-import java.sql.Connection;
-
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,10 +22,10 @@ public class CookieUtil {
     }
  
     public static void storeUserCookie(HttpServletResponse response, Employee user) {
-        System.out.println("Store user cookie");
         Cookie cookieUserName = new Cookie(ATT_NAME_USER_NAME, user.getEmail());
         cookieUserName.setMaxAge(24 * 60 * 60);
         response.addCookie(cookieUserName);
+        
     }
  
     public static String getUserNameInCookie(HttpServletRequest request) {

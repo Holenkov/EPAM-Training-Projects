@@ -18,21 +18,17 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.training.edocuments.bean.Employee;
 import by.training.edocuments.bean.base.RoleEnum;
 import by.training.edocuments.bean.base.UserRole;
-import by.training.edocuments.connection.ConnectionPool;
-import by.training.edocuments.connection.CookieUtil;
-import by.training.edocuments.connection.PropertyUtil;
+import by.training.edocuments.util.CookieUtil;
 
 //@WebFilter("/*")
 public class SecurityFilter implements Filter {

@@ -22,9 +22,9 @@ public class DocumentStatusDAOImpl extends AbstractDAO implements DocumentStatus
 		/*	docStatusID
 docStatus*/
 
+	
 	public DocumentStatusDAOImpl(Connection connection) {
-		super();
-		this.connection = connection;
+		super(connection);
 	}
 	
 	@Override
@@ -32,6 +32,8 @@ docStatus*/
 		return 0;
 		// TODO Auto-generated method stub
 	}
+
+
 
 	@Override
 	public DocumentStatus find(DocumentStatus entity) throws DBOperationException {

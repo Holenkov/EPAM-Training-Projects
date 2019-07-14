@@ -10,19 +10,22 @@ import by.training.edocuments.bean.base.EmployeePosition;
 import by.training.edocuments.bean.base.EmployeeStatus;
 import by.training.edocuments.connection.ConnectionPool;
 import by.training.edocuments.connection.ProxyConnection;
-import by.training.edocuments.connection.SourceTablesStore;
 import by.training.edocuments.dao.DAO;
 import by.training.edocuments.dao.implementation.EmployeeDAOImpl;
 import by.training.edocuments.dao.implementation.EmployeePositionDAOImpl;
 import by.training.edocuments.exception.DBOperationException;
 import by.training.edocuments.service.EmployeeService;
+import by.training.edocuments.util.SourceTablesStore;
 
 public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
-	public void add(Employee employee) {
-		// TODO Auto-generated method stub
-		
+	public void add(Employee employee)  throws DBOperationException {
+		Connection connection = ConnectionPool.getConnectionPool().getConnection();
+		EmployeeDAOImpl dao = new EmployeeDAOImpl(connection);
+		int result = dao.create(employee);
+		if (result == 0) throw new DBOperationException("Employee not added");
+		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);		
 	}
 	
 	@Override

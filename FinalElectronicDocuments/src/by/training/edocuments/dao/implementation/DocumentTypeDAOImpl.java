@@ -19,10 +19,9 @@ public class DocumentTypeDAOImpl extends AbstractDAO implements DocumentTypeDAO 
 			
 		/*	docTypeID
 			docType*/
-
+	
 	public DocumentTypeDAOImpl(Connection connection) {
-		super();
-		this.connection = connection;
+		super(connection);
 	}
 
 	@Override

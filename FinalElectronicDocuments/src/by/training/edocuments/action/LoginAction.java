@@ -9,10 +9,11 @@ import org.apache.logging.log4j.Logger;
 
 import by.training.edocuments.bean.Employee;
 import by.training.edocuments.bean.base.EmployeeStatus;
-import by.training.edocuments.connection.CookieUtil;
-import by.training.edocuments.connection.SourceTablesStore;
 import by.training.edocuments.exception.DBOperationException;
 import by.training.edocuments.service.implementation.EmployeeServiceImpl;
+import by.training.edocuments.util.CookieUtil;
+import by.training.edocuments.util.CryptoUtil;
+import by.training.edocuments.util.SourceTablesStore;
 
 public class LoginAction extends Action {
 	private static final Logger LOGGER = LogManager.getRootLogger();
@@ -32,34 +33,47 @@ public class LoginAction extends Action {
 		Employee employee = new Employee(email);
 		boolean hasError = false;
 		String errorString = null;
-
+		CryptoUtil cryptoUtil = null;
+		
 		try {
-			SourceTablesStore store = SourceTablesStore.getStore();
-			EmployeeStatus notActive = store.returnEmployeeStatus(4);
-
-			EmployeeServiceImpl service = new EmployeeServiceImpl();
-			employee = service.findByEmail(employee);
-			// password = cryptoUtils.encrypt(request.getParameter("password"));
-			if ((employee == null) || (!employee.getPassword().equals(password))) {
-				hasError = true;
-				errorString = "User Name or password invalid";
-			} else if (employee.getEmployeeStatus().equals(notActive)) {
-				hasError = true;
-				errorString = "User inactive, complete registration, please.";
-			}
-		} catch (DBOperationException e) {
+			cryptoUtil = new CryptoUtil();
+		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			hasError = true;
 			errorString = e.getMessage();
 		}
+		
+		if (!hasError) {
+			try {
+				SourceTablesStore store = SourceTablesStore.getStore();
+				EmployeeStatus notActive = store.returnEmployeeStatus(4);
+
+				EmployeeServiceImpl service = new EmployeeServiceImpl();
+				employee = service.findByEmail(employee);
+				password = cryptoUtil.encrypt(request.getParameter("password"));
+				if ((employee == null) || (!employee.getPassword().equals(password))) {
+					hasError = true;
+					errorString = "User Name or password invalid";
+				} else if (employee.getEmployeeStatus().equals(notActive)) {
+					hasError = true;
+					errorString = "User inactive, complete registration, please.";
+				}
+			} catch (DBOperationException e) {
+				LOGGER.error(e.getMessage(), e);
+				hasError = true;
+				errorString = e.getMessage();
+			}
+		}
+	
 
 		if (hasError) {
 			request.setAttribute("errorString", errorString);
-
 		} else {
+			isRedirect = true;
 			HttpSession session = request.getSession();
 			CookieUtil.storeLoginedUser(session, employee);
 			if (remember) {
+				System.out.println("LogAct  " + employee);
 				CookieUtil.storeUserCookie(response, employee);
 			} else {
 				CookieUtil.deleteUserCookie(response);

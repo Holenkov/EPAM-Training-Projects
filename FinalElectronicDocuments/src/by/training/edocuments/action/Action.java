@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class Action {
 	protected String path;
 	protected Boolean isRedirect;
+	protected String parameters = "";
 
 	public abstract void executeGet (HttpServletRequest request, HttpServletResponse response);
 	public abstract void executePost (HttpServletRequest request, HttpServletResponse response);
@@ -28,6 +29,14 @@ public abstract class Action {
 	public void setIsRedirect(Boolean isRedirect) {
 		this.isRedirect = isRedirect;
 	}
+	public String getParameters() {
+		return parameters;
+	}
+	public void setParameters(String parameters) {
+		this.parameters = parameters;
+	}
+	
+	
 	
 	
 	

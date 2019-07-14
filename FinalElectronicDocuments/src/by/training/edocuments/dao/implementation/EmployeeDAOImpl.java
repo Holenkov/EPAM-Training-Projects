@@ -1,5 +1,6 @@
 package by.training.edocuments.dao.implementation;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,15 +40,6 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 	private static final String EMPLOYEE_ALL = "SELECT `employeeID`, `email`, `pic`, `password`, "
 			+ "`firstName`, `lastName`, `position`, `role`, `employeeStatus` "
 			+ "FROM `employee` ORDER BY `employeeID`"; 
-		
-	
-//	String sql = "SELECT `login`, `password`, `role` FROM `users` WHERE `identity` = ?";
-	
-	
-	public EmployeeDAOImpl(Connection connection) {
-		super();
-		this.connection = connection;
-	}
 	
 /*	employeeID
 	pic
@@ -59,7 +51,11 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 	role
 	employeeStatus
 	*/
-
+	
+	public EmployeeDAOImpl(Connection connection) {
+		super(connection);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public int create(Employee employee) throws DBOperationException {
@@ -71,7 +67,7 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 		try {
 			statement = connection.prepareStatement(CREATE_EMPLOYEE);
 			statement.setString(1, employee.getEmail());
-			statement.setString(2, "vcdgfsd");
+			statement.setBlob(2, employee.getAvatar());
 			statement.setString(3, employee.getPassword());
 			statement.setString(4, employee.getFirstName());
 			statement.setString(5, employee.getLastName());
@@ -79,21 +75,18 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 			statement.setInt(7, employee.getRole().getRoleID());
 			statement.setInt(8, employee.getEmployeeStatus().getEmplStatusID());
 			update = statement.executeUpdate();
-			
+			statement.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+			throw new DBOperationException("Employee not created. DB error.", e);
+		} 
 		return update;
 	}
 	
 	
 	
+	
+
+
 	@Override
 	public Employee find(Employee employee) throws DBOperationException {
 		/*private final static String EMPLOYEE_BY_ID = "SELECT `employeeID`, `email`, `pic`, `password`, "
@@ -130,7 +123,7 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 		try {
 			statement = connection.prepareStatement(UPDATE_EMPLOYEE);
 			statement.setString(1, employee.getEmail());
-			statement.setString(2, "vcdgfsd");
+			statement.setBlob(2, employee.getAvatar());
 			statement.setString(3, employee.getPassword());
 			statement.setString(4, employee.getFirstName());
 			statement.setString(5, employee.getLastName());
@@ -204,7 +197,7 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 	private void initEmployee (ResultSet rSet, Employee employee) throws SQLException {
 		employee.setEmployeeID(rSet.getInt(1));
 		employee.setEmail(rSet.getString(2));
-		//enter image
+		employee.setAvatar(rSet.getBinaryStream(3));
 		employee.setPassword(rSet.getString(4));
 		employee.setFirstName(rSet.getString(5));
 		employee.setLastName(rSet.getString(6));

@@ -16,6 +16,11 @@ public class Subordination extends BaseEntity{
 	
 	public Subordination() {
 	}
+	
+	public Subordination(int id) {
+		super();
+		this.id = id;
+	}
 
 	public Subordination(int id, Employee sender, DocumentType docType, Employee receiver) {
 		super();
@@ -57,6 +62,11 @@ public class Subordination extends BaseEntity{
 		this.receiver = receiver;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Subordination [id=" + id + ", sender=" + sender + ", docType=" + docType + ", receiver=" + receiver
+				+ "]";
+	}
+
 
 }

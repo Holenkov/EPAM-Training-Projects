@@ -2,6 +2,10 @@ package by.training.edocuments.bean;
 
 
 import by.training.edocuments.bean.base.EmployeeStatus;
+
+import java.io.InputStream;
+
+
 import by.training.edocuments.bean.base.EmployeePosition;
 import by.training.edocuments.bean.base.UserRole;
 
@@ -18,7 +22,8 @@ role
 employeeStatus*/
 	
 	private int employeeID;
-	private String email;
+	private InputStream avatar;
+ 	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;	
@@ -114,6 +119,16 @@ employeeStatus*/
 
 	public void setEmployeeStatus(EmployeeStatus employeeStatus) {
 		this.employeeStatus = employeeStatus;
+	}
+
+
+
+	public InputStream getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(InputStream avatar) {
+		this.avatar = avatar;
 	}
 
 	@Override

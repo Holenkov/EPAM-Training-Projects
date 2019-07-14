@@ -20,8 +20,7 @@ public class EmployeePositionDAOImpl extends AbstractDAO implements EmployeePosi
 	position*/		
 
 	public EmployeePositionDAOImpl(Connection connection) {
-		super();
-		this.connection = connection;
+		super(connection);
 	}
 
 	@Override

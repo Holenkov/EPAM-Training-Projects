@@ -18,6 +18,11 @@ public class ActionFactory {
 		actions.put(JSPEnum.EMPLOYEE_SUCCESS_EDIT.getPath(), new MessageAction());
 		actions.put(JSPEnum.EMPLOYEE_REGISTRATION_FORM.getPath(), new UserRegistrationAction());
 		actions.put(JSPEnum.NOT_AUTH_VIEW.getPath(), new MessageAction());
+		actions.put(JSPEnum.EMPLOYEE_COMLETE_REGISTRATION.getPath(), new MessageAction());
+		actions.put(JSPEnum.SUBORDINATION_EDIT.getPath(), new SubordinationEditAction());
+		actions.put(JSPEnum.SUBORDINATION_ADD_FORM.getPath(), new SubordinationAddAction());
+		actions.put(JSPEnum.SUBORDINATION_DELETE_CONFIRM.getPath(), new SubordinationDeleteAction());
+		actions.put(JSPEnum.SUBORDINATION_DELETE.getPath(), new SubordinationDeleteAction());
 		
 		
 		
@@ -35,6 +40,7 @@ public class ActionFactory {
 		} else {
 			actionStr = uri.substring(begin);
 		}
+		System.out.println(actionStr);
 		action = actions.get(actionStr);
 		if (action == null) {
 			action = new PageNotFoundAction();

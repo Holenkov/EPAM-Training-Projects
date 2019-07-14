@@ -44,6 +44,15 @@
 		<filter-name>SecurityFilter</filter-name>
 		<url-pattern>*.html</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+		<filter-name>CookieFilter</filter-name>
+		<filter-class>by.training.edocuments.filter.CookieFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CookieFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
 
 
 

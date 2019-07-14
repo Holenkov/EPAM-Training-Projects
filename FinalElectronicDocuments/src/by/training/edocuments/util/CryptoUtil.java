@@ -1,4 +1,4 @@
-package by.training.edocuments.connection;
+package by.training.edocuments.util;
 
 import java.security.spec.KeySpec;
 import java.util.Properties;
@@ -9,6 +9,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+
+import by.training.edocuments.connection.ConnectionPool;
 
 public class CryptoUtil {
      
@@ -21,6 +23,7 @@ public class CryptoUtil {
     	    try {
     	    	properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream("app.properties"));	
     	    } catch (Exception e) {
+    	    	e.printStackTrace();
     	    }
             UNICODE_FORMAT = properties.getProperty("UNICODE_FORMAT");
             DESEDE_ENCRYPTION_SCHEME = properties.getProperty("DESEDE_ENCRYPTION_SCHEME");

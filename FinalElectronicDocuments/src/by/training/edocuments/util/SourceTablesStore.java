@@ -1,4 +1,4 @@
-package by.training.edocuments.connection;
+package by.training.edocuments.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +25,8 @@ public class SourceTablesStore {
 	private static Map<Integer, DocumentType> documentTypeMap = new HashMap<>();
 	private static Map<Integer, EmployeeStatus> employeeStatusMap = new HashMap<>();
 	private static Map<Integer, EmployeePosition> employeePositionMap = new HashMap<>();
+	private static final int NOT_ACTIVE_STATUS = 4;
+	private static final int START_POSITION = 14;	
 	
 	private static volatile SourceTablesStore store;
 	
@@ -131,12 +133,14 @@ public class SourceTablesStore {
 		
 	}
 	
-	
-	
+	public static int getNOT_ACTIVE_STATUS() {
+		return NOT_ACTIVE_STATUS;
+	}
 
-	
-	
-	
-	
+	public static int getSTART_POSITION() {
+		return START_POSITION;
+	}
+
+
 	
 }

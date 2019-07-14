@@ -11,23 +11,32 @@ import org.apache.logging.log4j.Logger;
 import by.training.edocuments.bean.Employee;
 import by.training.edocuments.exception.DBOperationException;
 import by.training.edocuments.service.implementation.EmployeeServiceImpl;
+import by.training.edocuments.util.CryptoUtil;
 
 public class EmployeeViewAllAction extends Action{
 	private static final Logger LOGGER = LogManager.getRootLogger();
 
 	@Override
 	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
+		String errorString = null;
 		EmployeeServiceImpl service = new EmployeeServiceImpl();
-		List<Employee> employees;
+		List<Employee> employees = null;
 		try {
 			employees = service.readAll();
-			request.setAttribute("employeeList", employees);
 		} catch (DBOperationException e) {
-			LOGGER.error(e.getMessage(), e);
-			request.setAttribute("errorString", e.getMessage());
+			errorString = e.getMessage();
+			LOGGER.error(errorString , e);
+			request.setAttribute("errorString", errorString);
+		}
+		isRedirect = false;
+		if (errorString == null) {
+			request.setAttribute("employeeList", employees);
+			path = JSPEnum.EMPLOYEE_VIEW_ALL.getPath();
+		} else {
+			path = JSPEnum.MAIN.getPath();
 		}
 		
-		path = JSPEnum.EMPLOYEE_VIEW_ALL.getPath();
+		
 	}
 
 	@Override

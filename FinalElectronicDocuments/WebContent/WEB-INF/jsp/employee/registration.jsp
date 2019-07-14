@@ -17,37 +17,38 @@
 	<p style="color: red;">${errorString}</p>
 
 
-	<form
+	<form 		
 		action="${pageContext.request.contextPath}/employee/registration.html"
-		method="POST" name="registration" enctype="multipart/form-data"
-		onsubmit="return formValidation();">
+		method="POST" name="registration" enctype="multipart/form-data" onsubmit="return formValidation();">
+		
 
 		<table border="0">
 			<tr>
-				<td>Select avatar.</td>
-				<td><input name="avatar" type="file"></td>
-			</tr>
-			<tr>
 				<td>E-mail</td>
-				<td><input type="text" name="email" value="${employee.email}" /></td>
+				<td><input type="text" name="email" value="${tempEmployee.email}"/></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><input type="password" name="password1" /></td>
+				<td><input type="password" name="password1" value="${tempEmployee.password}"/></td>
 			</tr>
 			<tr>
 				<td>Repeat Password</td>
-				<td><input type="password" name="password2" /></td>
+				<td><input type="password" name="password2" value="${tempEmployee.password}"/></td>
 			</tr>
 			<tr>
 				<td>First Name</td>
 				<td><input type="text" name="firstName"
-					value="${employee.firstName}" /></td>
+					value="${tempEmployee.firstName}" /></td>
 			</tr>
 			<tr>
 				<td>Last Name</td>
 				<td><input type="text" name="lastName"
-					value="${employee.lastName}" /></td>
+					value="${tempEmployee.lastName}" /></td>
+			</tr>
+			
+			<tr>
+				<td>Select avatar.</td>
+				<td><input name="avatar" type="file" accept=".jpg"></td>
 			</tr>
 
 			<tr>
@@ -70,9 +71,9 @@
 		firstName = document.forms["registration"]["firstName"].value;
 		lastName = document.forms["registration"]["lastName"].value;
 		
-		if (validateFile(file) == false) {
+	/* 	if (validateFile(file) == false) {
 			return false;
-		}
+		} */
 		if (validateEmail(email) == false) {
 			return false;
 		}
@@ -100,7 +101,6 @@
 	}
 	
 	function validatePassword(password1, password2) {
-		alert(password1);
 		if (password1 != password2) {
 			alert("Password 1 not equals Password 2");
 			return false;

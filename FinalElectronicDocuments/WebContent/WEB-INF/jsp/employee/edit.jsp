@@ -86,6 +86,19 @@
 			action="${pageContext.request.contextPath}/employee/viewAll.html">
 			<input type="submit" value="Cancel">
 		</form>
+		<br>
+		<br>
+
+		<c:if test="${loginedUser.role.role == 'MANAGER'}">
+			<form method="GET"
+				action="${pageContext.request.contextPath}/subordination/edit.html">
+				<input type="hidden" name="employeeID"
+						value="${employee.employeeID}" /></td>
+				<input type="submit" value="Edit Subordination">
+			</form>
+		</c:if>
+
+
 	</c:if>
 
 	<jsp:include page="/WEB-INF/jsp/_footer.jsp"></jsp:include>

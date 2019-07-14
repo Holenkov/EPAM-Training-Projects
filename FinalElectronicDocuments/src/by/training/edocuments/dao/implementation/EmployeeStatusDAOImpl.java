@@ -22,8 +22,7 @@ public class EmployeeStatusDAOImpl extends AbstractDAO implements EmployeeStatus
 emplStatus*/		
 
 	public EmployeeStatusDAOImpl(Connection connection) {
-		super();
-		this.connection = connection;
+		super(connection);
 	}
 	
 	@Override

@@ -13,9 +13,9 @@ import by.training.edocuments.bean.base.EmployeePosition;
 import by.training.edocuments.bean.base.EmployeeStatus;
 import by.training.edocuments.bean.base.RoleEnum;
 import by.training.edocuments.bean.base.UserRole;
-import by.training.edocuments.connection.SourceTablesStore;
 import by.training.edocuments.exception.DBOperationException;
 import by.training.edocuments.service.implementation.EmployeeServiceImpl;
+import by.training.edocuments.util.SourceTablesStore;
 
 
 public class EmployeeEditAction extends Action {
@@ -93,6 +93,7 @@ public class EmployeeEditAction extends Action {
 			}
 			path = JSPEnum.EMPLOYEE_SUCCESS_EDIT.getPath();
 			isRedirect = true;
+			LOGGER.info("User edited  " + employee.getEmployeeID());
 		} else {
 			hasError = true;
 			isRedirect = false;
