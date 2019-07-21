@@ -5,6 +5,8 @@
 		<Property name="patternfull"> %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level%logger{5} - %msg%n </Property>
 		<Property name="patternshort"> %d{HH:mm:ss.SSS} [%t] %-5level %logger{1} - %msg%n </Property>
 		<Property name="simple">%msg%n</Property>
+		
+		 <Property name = "filename">${sys:catalina.base}/work/Catalina/localhost/elDoc/log/log.txt</Property>
 	</Properties>
 
 	<Appenders>
@@ -17,6 +19,10 @@
 		<File name="TxtFile" bufferedIO="true" fileName="logs/text.log">
 			<PatternLayout pattern="${patternfull}" />
 		</File>
+		
+		 <File name="WebFile" filename = "${filename}">
+         	  <PatternLayout pattern="${patternfull}" />
+      </File>
 	</Appenders>
 
 	<Loggers>
@@ -37,6 +43,7 @@
 		<Root level="all">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="TxtFile" />
+			<AppenderRef ref="WebFile" />
 		</Root>
 	</Loggers>
 

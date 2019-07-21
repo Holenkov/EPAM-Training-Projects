@@ -6,11 +6,11 @@
 		<a href="${pageContext.request.contextPath}/main.html">Home</a>
 		<c:if test="${not empty loginedUser}">
 		 |
-      	 <a href="${pageContext.request.contextPath}/myDocuments">My Documents</a>
+      	 <a href="${pageContext.request.contextPath}/document/my.html">My Documents</a>
       	 |
-      	 <a href="${pageContext.request.contextPath}/executeDocuments">Execute</a>
+      	 <a href="${pageContext.request.contextPath}/document/execute.html">Execute</a>
       	 |
-      	 <a href="${pageContext.request.contextPath}/createDocument">Create Document</a>
+      	 <a href="${pageContext.request.contextPath}/document/choose.html">Create Document</a>
 
 			<c:if test="${loginedUser.role.role == 'ADMIN' or loginedUser.role.role == 'MANAGER'}">    	 	|
       	 	<a href="${pageContext.request.contextPath}/employee/viewAll.html">Employees</a>

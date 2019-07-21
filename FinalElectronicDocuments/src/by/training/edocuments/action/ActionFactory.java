@@ -23,6 +23,8 @@ public class ActionFactory {
 		actions.put(JSPEnum.SUBORDINATION_ADD_FORM.getPath(), new SubordinationAddAction());
 		actions.put(JSPEnum.SUBORDINATION_DELETE_CONFIRM.getPath(), new SubordinationDeleteAction());
 		actions.put(JSPEnum.SUBORDINATION_DELETE.getPath(), new SubordinationDeleteAction());
+		actions.put(JSPEnum.DOCUMENT_CREATE.getPath(), new DocumentCreateAction());
+		actions.put(JSPEnum.DOCUMENT_CHOOSE_TYPE.getPath(), new DocumentCreateAction());
 		
 		
 		
@@ -40,11 +42,13 @@ public class ActionFactory {
 		} else {
 			actionStr = uri.substring(begin);
 		}
-		System.out.println(actionStr);
+		System.out.println("AF  " + actionStr);
 		action = actions.get(actionStr);
+		System.out.println("AF  " + action);
 		if (action == null) {
 			action = new PageNotFoundAction();
 		} else {
+			System.out.println("AF1  " + actionStr);
 			action.setPath(actionStr);
 		}
 		

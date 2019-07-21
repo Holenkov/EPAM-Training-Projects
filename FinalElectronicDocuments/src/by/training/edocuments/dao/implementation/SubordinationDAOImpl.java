@@ -25,6 +25,8 @@ public class SubordinationDAOImpl extends AbstractDAO implements SubordinationDA
 	private static final String SUBORDINATION_DELETE_ID = "DELETE FROM `subordination` WHERE `id` = ?";
 	private static final String SUBORDINATION_ADD = "INSERT "
 			+ "INTO `subordination` (`senderID`, `docTypeID`, `receiverID`) VALUES (?, ? ,?)";
+	private static final String SUBORDINATION_BY_SENDER_DOCTYPE = "SELECT `id`, `senderID`, `docTypeID`, `receiverID` "
+			+ "FROM `subordination` WHERE (`senderID` = ?  AND `docTypeID` = ? ) ORDER BY `id` ";
 	
 	
 	/*id
@@ -125,6 +127,32 @@ public class SubordinationDAOImpl extends AbstractDAO implements SubordinationDA
 		} 
 		return subList;
 	}
+	
+	@Override
+	public List<Subordination> findBySender(Employee employee, DocumentType docType) throws DBOperationException {
+	/*	private static final String SUBORDINATION_BY_RECEIVER_DOCTYPE = "SELECT `id`, `senderID`, `docTypeID`, `receiverID` "
+				+ "FROM `subordination` WHERE (`senderID` = ?  AND `docTypeID` = ? ) ORDER BY `id` ";*/
+		PreparedStatement statement = null;
+		List<Subordination> subList = new ArrayList<>();
+		Subordination sub = null;
+		try {
+			statement = connection.prepareStatement(SUBORDINATION_BY_SENDER_DOCTYPE);
+			statement.setInt(1, employee.getEmployeeID());
+			statement.setInt(2, docType.getDocTypeID());
+			ResultSet rSet = statement.executeQuery();
+			while (rSet.next()) {
+				sub = new Subordination();
+				initSubordination(rSet, sub);
+				subList.add(sub);
+			}
+			statement.close();
+			rSet.close();
+		} catch (SQLException e) {
+			throw new DBOperationException("Subordination not found. DB error.", e);
+		} 
+		return subList;
+	}
+
 
 	@Override
 	public List<Subordination> readAll() throws DBOperationException {
@@ -160,6 +188,9 @@ public class SubordinationDAOImpl extends AbstractDAO implements SubordinationDA
 		} 
 		return subList;
 	}
+
+
+
 
 	
 	

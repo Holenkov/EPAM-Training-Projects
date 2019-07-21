@@ -16,7 +16,11 @@ public enum JSPEnum {
 	SUBORDINATION_EDIT("/subordination/edit"),
 	SUBORDINATION_DELETE("/subordination/delete"),
 	SUBORDINATION_ADD_FORM("/subordination/add"),
-	SUBORDINATION_DELETE_CONFIRM("/subordination/deleteConfirm")
+	SUBORDINATION_DELETE_CONFIRM("/subordination/deleteConfirm"),
+	DOCUMENT_CREATE("/document/create"),
+	DOCUMENT_CHOOSE_TYPE("/document/choose"),
+	DOCUMENT_VIEW_MY("/document/view/my"),
+	DOCUMENT_VIEW_EXECUTE("/document/view/execute")
 	;
 	
 	private String path;
