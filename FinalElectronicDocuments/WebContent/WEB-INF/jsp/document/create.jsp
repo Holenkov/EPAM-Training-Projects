@@ -17,16 +17,9 @@
 
 	<p style="color: red;">${errorString}</p>
 	
-	<!-- docID
-	authorID
-	docType
-	description
-	textBody
-	dateUpdated
-	dateToExecute -->
 	
-	
-		<form method="POST" action="${pageContext.request.contextPath}/document/create.html">
+		<form method="POST" name = "newDocument" action="${pageContext.request.contextPath}/document/create.html" 
+		onsubmit="return formValidation()">
 		
 
 		<table border="0">
@@ -38,14 +31,14 @@
 		
 			<tr>
 				<td>
-				<input type="hidden" name="employeeID" value="${loginedUser.employeeID}"/>
+				<input type="hidden" name="senderID" value="${loginedUser.employeeID}"/>
 				Author ${loginedUser.lastName}, ${loginedUser.position.position} 
 				</td>
 			</tr>
 			<tr>
 				<td>
-				Enter short description. <input type="text" name="description"/>
-				<textarea id="docDescription" name="docDescription" rows="1" cols="100"></textarea>
+				Enter short description. 
+				<textarea id="docDescription" name="docDescription" rows="1" cols="64"></textarea>
 				</td>
 			</tr>	
 			<tr>
@@ -60,9 +53,8 @@
 			</tr>		
 			<tr>
 				<td>Send to  <br>
-		<%-- 		<input type="checkbox" name="${employees[0].employeeID}" value="${employees[0].employeeID}">${employees[0].employeeID}  ${employees[0].lastName}  ${employees[0].position.position}<br>		 --%>		
-				<c:forEach items="${receivers}" var="receiver" varStatus="index">
-				<input type="checkbox" name="receiver${index.index}" value="${rec.employeeID}">${rec.employeeID}  ${rec.lastName}  ${rec.position.position}<br>
+				<c:forEach items="${subordinations}" var="subordination" varStatus="index">
+				<input type="checkbox" name="receiver${index.index}" value="${subordination.receiver.employeeID}"> ${subordination.receiver.lastName}  ${subordination.receiver.position.position} receiver ${index.index}<br>
 				</c:forEach>
 				</td>
 			</tr>
@@ -74,8 +66,7 @@
 		</table>
 	</form>
 	
-	<form method="GET" action="${pageContext.request.contextPath}/main.html">
-		<input type="hidden" name="documentTypeID" value="${documentType.docTypeID}"/>
+	<form method="GET" action="${pageContext.request.contextPath}/document/create.html">
 		<input type="submit" value="Back">
 	</form>
 
@@ -88,85 +79,51 @@
 </body>
 
 <script>
+
 	function formValidation() {
-		file = document.forms["registration"]["avatar"].value.toUpperCase();
-		email = document.forms["registration"]["email"].value;
-		password1 = document.forms["registration"]["password1"].value;
-		password2 = document.forms["registration"]["password2"].value;
-		firstName = document.forms["registration"]["firstName"].value;
-		lastName = document.forms["registration"]["lastName"].value;
-		
-	/* 	if (validateFile(file) == false) {
-			return false;
-		} */
-		if (validateEmail(email) == false) {
+		description = document.forms["newDocument"]["docDescription"].value;
+		text = document.forms["newDocument"]["docText"].value;
+		date = document.forms["newDocument"]["executeDate"].value;
+
+		if (validateDescription(description) == false) {
 			return false;
 		}
-		if (validatePassword(password1, password2) == false) {
-			return false;
-		}	
-		if (validateFirstName(firstName) == false) {
+
+		if (validateText(text) == false) {
 			return false;
 		}
-		if (validateLastName(lastName) == false) {
+
+		if (validateDate(date) == false) {
 			return false;
 		}
+
 		return true;
 	}
-	
-	function validateFile(file) {
-		suffix1 = ".JPG";
-		suffix2 = ".JPEG";
-		if (file.indexOf(suffix1, file.length - suffix1.length) == -1
-				&& file.indexOf(suffix2, file.length - suffix2.length) == -1) {
-			alert('File type not allowed,\nAllowed file: *.jpg,*.jpeg');
-			return false;
-		}
-		return true;
-	}
-	
-	function validatePassword(password1, password2) {
-		if (password1 != password2) {
-			alert("Password 1 not equals Password 2");
-			return false;
-		}
-		var reg = (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/);
-		if (!reg.test(String(password1))) {
-			alert("Password too simple. 8 and more symbols, digits, upper-lower case.");
-			return false;
-		}
-		return true;
-	}
-	
-	function validateEmail(email) {
-		if (email == "") {
-			alert("E-mail is empty");
-			return false;
-		}
-		var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if (!reg.test(String(email).toLowerCase())) {
-			alert("E-mail is incorrect");
-			return false;
-		}
-		return true;
-	}
-	
-	function validateFirstName(firstName) {
-		if (firstName == "") {
-			alert("First name is empty");
+
+	function validateDescription(text) {
+		if (text == "") {
+			alert("Description is empty");
 			return false;
 		}
 		return true;
 	}
 
-	function validateLastName(lastName) {
-		if (firstName == "") {
-			alert("Last name is empty");
+	function validateText(text) {
+		if (text == "") {
+			alert("Text is empty");
 			return false;
 		}
 		return true;
 	}
-	
+
+	function validateDate(date) {
+		var currentDate = new Date().toString();
+		if (Date.parse(date) < Date.parse(currentDate)) {
+			alert("Execute date should be later, than present date");
+			return false;
+		}
+		return true;
+	}
 </script>
 
 </html>

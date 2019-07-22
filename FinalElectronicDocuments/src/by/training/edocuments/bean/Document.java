@@ -19,6 +19,10 @@ public class Document extends BaseEntity {
 	public Document() {
 	}	
 
+	public Document(int docID) {
+		super();
+		this.docID = docID;
+	}
 
 	public Document(int docID, Employee author, DocumentType docType, String description, String textBody,
 			Timestamp dateUpdated, Timestamp dateToExecute, String signUpdater) {
@@ -111,6 +115,14 @@ public class Document extends BaseEntity {
 
 	public void setSignUpdater(String signUpdater) {
 		this.signUpdater = signUpdater;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Document [docID=" + docID + ", author=" + author + ", docType=" + docType + ", description="
+				+ description + ", textBody=" + textBody + ", dateUpdated=" + dateUpdated + ", dateToExecute="
+				+ dateToExecute + ", signUpdater=" + signUpdater + "]";
 	}
 	
 	

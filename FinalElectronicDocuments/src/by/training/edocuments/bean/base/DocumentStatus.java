@@ -10,6 +10,11 @@ public class DocumentStatus extends BaseEntity{
 	public DocumentStatus() {
 	}
 	
+	public DocumentStatus(int docStatusID) {
+		super();
+		this.docStatusID = docStatusID;
+	}
+
 	public DocumentStatus(int docStatusID, String docStatus) {
 		super();
 		this.docStatusID = docStatusID;

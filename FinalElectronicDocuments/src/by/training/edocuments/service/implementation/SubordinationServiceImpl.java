@@ -5,6 +5,7 @@ import java.util.List;
 
 import by.training.edocuments.bean.Employee;
 import by.training.edocuments.bean.Subordination;
+import by.training.edocuments.bean.base.DocumentType;
 import by.training.edocuments.connection.ConnectionPool;
 import by.training.edocuments.connection.ProxyConnection;
 import by.training.edocuments.dao.DAO;
@@ -76,6 +77,31 @@ public class SubordinationServiceImpl implements SubordinationService{
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);		
 		return subList;
 	}
+	
+	@Override
+	public List<Subordination> findBySender(Employee employee, DocumentType documentType) throws DBOperationException {
+		Connection connection = ConnectionPool.getConnectionPool().getConnection();
+		SourceTablesStore store = SourceTablesStore.getStore();
+	
+		Service service = new EmployeeServiceImpl();
+		Employee sender = ((EmployeeServiceImpl)service).findByID(employee);
+				
+		DAO dao = new SubordinationDAOImpl(connection);
+		List<Subordination> subList = ((SubordinationDAOImpl)dao).findBySender(employee, documentType);
+		if (!subList.isEmpty()) {
+			for (Subordination sub : subList) {
+				sub.setSender(sender);
+				
+				sub.setDocType(store.returnDocumentType(sub.getDocType().getDocTypeID()));
+				
+				Employee receiver = sub.getReceiver();
+				receiver =  ((EmployeeServiceImpl)service).findByID(receiver);
+				sub.setReceiver(receiver);
+			}
+		}	
+		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);		
+		return subList;
+	}
 
 	@Override
 	public List<Subordination> findByReceiver(Employee employee) throws DBOperationException {
@@ -117,6 +143,8 @@ public class SubordinationServiceImpl implements SubordinationService{
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);		
 		return result;
 	}
+
+	
 
 	
 

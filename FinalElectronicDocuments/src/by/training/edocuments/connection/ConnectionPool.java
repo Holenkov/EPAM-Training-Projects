@@ -1,23 +1,11 @@
 package by.training.edocuments.connection;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
-
-import javax.naming.InitialContext;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import by.training.edocuments.bean.Employee;
-import by.training.edocuments.bean.base.EmployeeStatus;
-import by.training.edocuments.bean.base.EmployeePosition;
-import by.training.edocuments.bean.base.UserRole;
-import by.training.edocuments.bean.base.RoleEnum;
-import by.training.edocuments.dao.DAO;
-import by.training.edocuments.dao.implementation.EmployeeDAOImpl;
 import by.training.edocuments.exception.PoolInitException;
 
 

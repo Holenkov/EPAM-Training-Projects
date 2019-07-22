@@ -1,17 +1,14 @@
-package by.training.edocuments.dao;
+package by.training.edocuments.service;
 
 import java.util.List;
 
-import by.training.edocuments.bean.Document;
 import by.training.edocuments.bean.DocumentHistory;
 import by.training.edocuments.bean.Employee;
 import by.training.edocuments.exception.DBOperationException;
 
-public interface DocumentHistoryDAO extends DAO<DocumentHistory>{
+public interface DocumentHistoryService extends Service{
+	int create(DocumentHistory history) throws DBOperationException;
+	DocumentHistory find(DocumentHistory entity) throws DBOperationException;
 	List<DocumentHistory> findByAuthor(Employee employee) throws DBOperationException;
 	List<DocumentHistory> findByExecutor(Employee employee) throws DBOperationException;
-	List<DocumentHistory> readAll() throws DBOperationException;
-	
-	
-
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +43,7 @@ public class DocumentDAOImpl extends AbstractDAO implements DocumentDAO{
 				+ "(`authorID`, `docType`, `description`, `textBody`, `dateUpdated`, `dateToExecute`) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";*/
 		PreparedStatement statement = null;
-		int update = 0;
+		int result = 0;
 		try {
 			statement = connection.prepareStatement(CREATE_DOCUMENT);
 			statement.setInt(1, document.getAuthor().getEmployeeID());
@@ -51,12 +52,18 @@ public class DocumentDAOImpl extends AbstractDAO implements DocumentDAO{
 			statement.setString(4, document.getTextBody());
 			statement.setTimestamp(5, document.getDateUpdated());
 			statement.setTimestamp(6, document.getDateToExecute());
-			update = statement.executeUpdate();
+			statement.executeUpdate();
+		
+			ResultSet rSet = statement.executeQuery("SELECT LAST_INSERT_ID()");
+			if (rSet.next()) {
+				result = rSet.getInt(1);
+			}  
+			rSet.close();
 			statement.close();
 		} catch (SQLException e) {
 			throw new DBOperationException("Document not created. DB error.", e);
 		} 
-		return update;
+		return result;
 	}
 
 	@Override
