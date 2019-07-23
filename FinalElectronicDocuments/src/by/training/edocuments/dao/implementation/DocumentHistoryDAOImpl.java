@@ -19,10 +19,13 @@ public class DocumentHistoryDAOImpl extends AbstractDAO implements DocumentHisto
 	private static final String CREATE_HISTORY = "INSERT INTO `documentHistory` "
 			+ "(`docID`, `fromID`, `toID`, `docStatus`) "
 			+ "VALUES (?, ?, ?, ?)";
+	private static final String HISTORY_BY_ID = "SELECT `id`, `docID`, `fromID`, `toID`, `dateExecuted`, `docStatus` "
+			+ "FROM `documentHistory` WHERE `id` = ? ORDER BY `id`";
 	private static final String HISTORY_BY_SENDER = "SELECT `id`, `docID`, `fromID`, `toID`, `dateExecuted`, `docStatus` "
-			+ "FROM `documentHistory` WHERE `fromID` = ?";
+			+ "FROM `documentHistory` WHERE `fromID` = ? ORDER BY `id`";
 	private static final String HISTORY_BY_EXECUTOR = "SELECT `id`, `docID`, `fromID`, `toID`, `dateExecuted`, `docStatus` "
-			+ "FROM `documentHistory` WHERE `toID` = ?";
+			+ "FROM `documentHistory` WHERE `toID` = ? ORDER BY `id`";
+	private static final String UPDATE_HISTORY = "UPDATE `documentHistory` SET `dateExecuted` = ?, `docStatus` = ? WHERE `id` = ?";
 	
 	/*id
 	docID
@@ -58,15 +61,41 @@ public class DocumentHistoryDAOImpl extends AbstractDAO implements DocumentHisto
 	}
 
 	@Override
-	public DocumentHistory find(DocumentHistory entity) throws DBOperationException {
-		// TODO Auto-generated method stub
-		return null;
+	public DocumentHistory find(DocumentHistory docHistory) throws DBOperationException {
+		PreparedStatement statement = null;
+		DocumentHistory history = null;
+		try {
+			statement = connection.prepareStatement(HISTORY_BY_ID);
+			statement.setInt(1, docHistory.getId());
+			ResultSet rSet = statement.executeQuery();
+			if (rSet.next()) {
+				history = new DocumentHistory();
+				initHistory(rSet, history);
+			}  
+			statement.close();
+			rSet.close();
+		} catch (SQLException e) {
+			throw new DBOperationException("Document History not found. DB error.", e);
+		} 
+		return history;
 	}
 
 	@Override
-	public int update(DocumentHistory entity) throws DBOperationException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(DocumentHistory docHistory) throws DBOperationException {
+	/*	private static final String UPDATE_HISTORY = "UPDATE `documentHistory` SET `dateExecuted` = ?, `docStatus` = ? WHERE `id` = ?";*/
+		PreparedStatement statement = null;
+		int update;
+		try {
+			statement = connection.prepareStatement(UPDATE_HISTORY);
+			statement.setTimestamp(1, docHistory.getDateExecuted());
+			statement.setInt(2, docHistory.getDocStatus().getDocStatusID());
+			statement.setInt(3, docHistory.getId());
+			update = statement.executeUpdate();
+			statement.close();
+		} catch (SQLException e) {
+			throw new DBOperationException("Document History not updated", e);
+		} 
+		return update;
 	}
 
 	@Override

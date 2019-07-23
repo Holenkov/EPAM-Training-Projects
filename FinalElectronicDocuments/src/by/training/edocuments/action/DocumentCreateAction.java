@@ -16,10 +16,13 @@ import org.apache.logging.log4j.Logger;
 
 
 import by.training.edocuments.bean.Document;
+import by.training.edocuments.bean.DocumentHistory;
 import by.training.edocuments.bean.Employee;
 import by.training.edocuments.bean.Subordination;
+import by.training.edocuments.bean.base.DocumentStatus;
 import by.training.edocuments.bean.base.DocumentType;
 import by.training.edocuments.exception.DBOperationException;
+import by.training.edocuments.service.implementation.DocumentHistoryServiceImpl;
 import by.training.edocuments.service.implementation.DocumentServiceImpl;
 import by.training.edocuments.service.implementation.SubordinationServiceImpl;
 import by.training.edocuments.util.CookieUtil;
@@ -27,6 +30,7 @@ import by.training.edocuments.util.SourceTablesStore;
 
 public class DocumentCreateAction extends Action {
 	private static final Logger LOGGER = LogManager.getRootLogger();
+	private final static int NEW_DOC = 4;
 
 	@Override
 	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
@@ -112,112 +116,40 @@ public class DocumentCreateAction extends Action {
 		DocumentServiceImpl documentService = new DocumentServiceImpl();
 		int result = 0;
 		try {
-			result = documentService.add(document);
+			result = documentService.create(document);
 		} catch (DBOperationException e) {
 			errorString = e.getMessage();
 			LOGGER.error(errorString, e);
 		}
 		
-		
-		
-		
-		
-		
-		
-	}	
-		
-		
-		
-		
-	/*	Employee employee = new Employee();
-		String email = request.getParameter("email");
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String password1 = request.getParameter("password1");
-		String password2 = request.getParameter("password2");
-		Part partAvatar = null;
-
-		InputStream avatarStream = null;
-		try {
-			partAvatar = request.getPart("avatar");
-			if (partAvatar.getSize() > 0) {
-			
-				avatarStream = partAvatar.getInputStream();
-			} else {
-				String path = request.getServletContext().getRealPath("/avatar/default.jpg");  
-				File file = new File(path);
+		DocumentHistoryServiceImpl historyServiceImpl = new DocumentHistoryServiceImpl();
+		if (!receivers.isEmpty() && errorString == null) {
+			for (Employee receiver : receivers) {
+				DocumentHistory docHistory = new DocumentHistory();
+				docHistory.setDocument(new Document(result));
+				docHistory.setFromEmployee(new Employee(senderID));
+				docHistory.setToEmployee(receiver);
+				docHistory.setDocStatus(new DocumentStatus(NEW_DOC));
 				try {
-					avatarStream = new FileInputStream(file);
-				} catch (FileNotFoundException e) {
-					errorString = "Default logo not found";
+					historyServiceImpl.create(docHistory);
+				} catch (DBOperationException e) {
+					errorString = e.getMessage();
 					LOGGER.error(errorString, e);
-					hasError = true;
 				}
 			}
-		} catch (IOException | ServletException e1) {
-			errorString = "Default logo file not found";
-			LOGGER.error(errorString, e1);
-			hasError = true;
 		}
-
-		employee.setEmail(email);
-
-		EmployeeServiceImpl service = new EmployeeServiceImpl();
-		try {
-			employee = service.findByEmail(employee);
-		} catch (DBOperationException e) {
-			errorString = e.getMessage();
-			LOGGER.error(errorString, e);
-			hasError = true;
-		}
-		if (employee != null) {
-			errorString = "This email already exists";
-			hasError = true;
-		}
-
-		employee = new Employee();
-		employee.setFirstName(firstName);
-		employee.setLastName(lastName);
-		employee.setEmail(email);
-		SourceTablesStore store = SourceTablesStore.getStore();
-		employee.setEmployeeStatus(store.returnEmployeeStatus(SourceTablesStore.getNOT_ACTIVE_STATUS()));
-		employee.setPosition(store.returnEmployeePosition(SourceTablesStore.getSTART_POSITION()));
-		employee.setRole(new UserRole(RoleEnum.NO_PERMISSIONS));
-		employee.setAvatar(avatarStream);
-
-		CryptoUtil cryptoUtil = null;
-		if (!hasError) {
-			try {
-				cryptoUtil = new CryptoUtil();
-			} catch (Exception e) {
-				errorString = "Crypto Util error";
-				LOGGER.error(errorString, e);
-				hasError = true;
-			}
-		}
-
-		if (!hasError) {
-			employee.setPassword(cryptoUtil.encrypt(password1));
-			try {
-				service.add(employee);
-			} catch (DBOperationException e) {
-				errorString = e.getMessage();
-				LOGGER.error(errorString, e);
-				hasError = true;
-			}
-		}
-
-		if (!hasError) {
-			path = JSPEnum.EMPLOYEE_COMLETE_REGISTRATION.getPath();
+		if (errorString == null) {
+			path = JSPEnum.DOCUMENT_CREATE_COMPLETE.getPath();
 			isRedirect = true;
 		} else {
-			employee.setPassword(password1);
-			request.setAttribute("tempEmployee", employee);
+			SourceTablesStore store = SourceTablesStore.getStore();
+			List<DocumentType> docTypes = store.returnDocumentTypes();
+			request.setAttribute("docTypes", docTypes);
+			
+			path = JSPEnum.DOCUMENT_CHOOSE_TYPE.getPath();
 			isRedirect = false;
-			path = JSPEnum.EMPLOYEE_REGISTRATION_FORM.getPath();
-			request.setAttribute("errorString", errorString);
 		}
-
-	}*/
+		request.setAttribute("errorString", errorString);
+	}	
 
 }

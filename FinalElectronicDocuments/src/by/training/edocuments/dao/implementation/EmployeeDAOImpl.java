@@ -118,7 +118,6 @@ public class EmployeeDAOImpl extends AbstractDAO implements EmployeeDAO{
 				+ "SET `email` = ?, `pic` = ?, `password` = ?, `firstName` = ?, "
 				+ "`lastName` = ?, `position` = ?, `role` = ?, `employeeStatus` = ? " + "WHERE employeeID = ?";*/
 		PreparedStatement statement = null;
-		System.out.println(connection + "   " + employee.getEmail());
 		int update;
 		try {
 			statement = connection.prepareStatement(UPDATE_EMPLOYEE);

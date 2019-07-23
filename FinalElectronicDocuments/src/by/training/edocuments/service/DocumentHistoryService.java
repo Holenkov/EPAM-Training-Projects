@@ -8,7 +8,9 @@ import by.training.edocuments.exception.DBOperationException;
 
 public interface DocumentHistoryService extends Service{
 	int create(DocumentHistory history) throws DBOperationException;
-	DocumentHistory find(DocumentHistory entity) throws DBOperationException;
+	int update(DocumentHistory history) throws DBOperationException;
+	DocumentHistory find(DocumentHistory history) throws DBOperationException;
 	List<DocumentHistory> findByAuthor(Employee employee) throws DBOperationException;
 	List<DocumentHistory> findByExecutor(Employee employee) throws DBOperationException;
+	
 }

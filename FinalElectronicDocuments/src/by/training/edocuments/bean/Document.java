@@ -13,7 +13,6 @@ public class Document extends BaseEntity {
 	private String textBody;
 	private Timestamp dateUpdated;
 	private Timestamp dateToExecute;
-	private String signUpdater;
 	
 	
 	public Document() {
@@ -25,7 +24,7 @@ public class Document extends BaseEntity {
 	}
 
 	public Document(int docID, Employee author, DocumentType docType, String description, String textBody,
-			Timestamp dateUpdated, Timestamp dateToExecute, String signUpdater) {
+			Timestamp dateUpdated, Timestamp dateToExecute) {
 		super();
 		this.docID = docID;
 		this.author = author;
@@ -34,7 +33,6 @@ public class Document extends BaseEntity {
 		this.textBody = textBody;
 		this.dateUpdated = dateUpdated;
 		this.dateToExecute = dateToExecute;
-		this.signUpdater = signUpdater;
 	}
 
 
@@ -108,21 +106,13 @@ public class Document extends BaseEntity {
 	}
 
 
-	public String getSignUpdater() {
-		return signUpdater;
-	}
-
-
-	public void setSignUpdater(String signUpdater) {
-		this.signUpdater = signUpdater;
-	}
 
 
 	@Override
 	public String toString() {
 		return "Document [docID=" + docID + ", author=" + author + ", docType=" + docType + ", description="
 				+ description + ", textBody=" + textBody + ", dateUpdated=" + dateUpdated + ", dateToExecute="
-				+ dateToExecute + ", signUpdater=" + signUpdater + "]";
+				+ dateToExecute + "]";
 	}
 	
 	

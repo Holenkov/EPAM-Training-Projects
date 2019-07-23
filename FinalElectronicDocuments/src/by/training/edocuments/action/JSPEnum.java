@@ -20,7 +20,12 @@ public enum JSPEnum {
 	DOCUMENT_CREATE("/document/create"),
 	DOCUMENT_CHOOSE_TYPE("/document/choose"),
 	DOCUMENT_VIEW_MY("/document/view/my"),
-	DOCUMENT_VIEW_EXECUTE("/document/view/execute")
+	DOCUMENT_VIEW_EXECUTE("/document/view/execute"),
+	DOCUMENT_CREATE_COMPLETE("/document/createComplete"),
+	DOCUMENT_VIEW_AUTHOR("/document/my"),
+	DOCUMENT_VIEW_EXECUTOR("/document/execute"),
+	DOCUMENT_VIEW("/document/view")
+	
 	;
 	
 	private String path;

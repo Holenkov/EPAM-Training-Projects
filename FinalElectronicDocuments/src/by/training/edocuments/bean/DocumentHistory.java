@@ -7,13 +7,6 @@ import by.training.edocuments.bean.base.DocumentStatus;
 
 public class DocumentHistory extends BaseEntity {
 	
-	/*id
-docID
-fromID
-toID
-dateExecuted
-docStatus*/
-	
 	private int id;
 	private Document document;
 	private Employee fromEmployee;
@@ -22,6 +15,11 @@ docStatus*/
 	private DocumentStatus docStatus;
 	
 	public DocumentHistory() {
+	}
+
+	public DocumentHistory(int id) {
+		super();
+		this.id = id;
 	}
 
 	public DocumentHistory(int id, Document document, Employee fromEmployee, Employee toEmployee,
@@ -81,6 +79,12 @@ docStatus*/
 
 	public void setDocStatus(DocumentStatus docStatus) {
 		this.docStatus = docStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "DocumentHistory [id=" + id + ", document=" + document + ", fromEmployee=" + fromEmployee
+				+ ", toEmployee=" + toEmployee + ", dateExecuted=" + dateExecuted + ", docStatus=" + docStatus + "]";
 	}
 	
 	

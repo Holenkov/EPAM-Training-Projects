@@ -69,7 +69,7 @@ public class DocumentDAOImpl extends AbstractDAO implements DocumentDAO{
 	@Override
 	public Document find(Document document) throws DBOperationException {
 		/*private static final String DOCUMENT_BY_ID = "SELECT `docID`, `authorID`, `docType`, `description`, "
-				+ "`textBody`, `dateUpdated`, `dateToExecute` FROM `document` WHERE `docID` = ?";  */
+			+ "`textBody`, `dateUpdated`, `dateToExecute` FROM `document` WHERE `docID` = ?";   */
 		PreparedStatement statement = null;
 		try {
 			statement = connection.prepareStatement(DOCUMENT_BY_ID);
@@ -105,8 +105,9 @@ public class DocumentDAOImpl extends AbstractDAO implements DocumentDAO{
 		document.setAuthor(new Employee(rSet.getInt(2)));
 		document.setDocType(new DocumentType(rSet.getInt(3)));
 		document.setDescription(rSet.getString(4));
-		document.setDateUpdated(rSet.getTimestamp(5));
-		document.setDateToExecute(rSet.getTimestamp(5));
+		document.setTextBody(rSet.getString(5));
+		document.setDateUpdated(rSet.getTimestamp(6));
+		document.setDateToExecute(rSet.getTimestamp(7));
 	}
 
 
