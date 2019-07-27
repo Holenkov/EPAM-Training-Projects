@@ -34,31 +34,40 @@ public class ConnectionPool {
 	}
 	
 	public void init (final int POOL_SIZE) throws Exception{
-		connections = new ArrayBlockingQueue<>(POOL_SIZE);
-		Properties properties = new Properties();
-	    try {
-	    	properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream("app.properties"));	
-	    } catch (Exception e) {
-	    	throw new PoolInitException("Connection properties not read.", e);
-	    }
-		userName = properties.getProperty("DB_USER_NAME");
-		userPass = properties.getProperty("DB_USER_PASS");
-		final String URL = properties.getProperty("DB_URL");
-		final String SERVER_PROP = properties.getProperty("SERVER_PROP");
-		FULL_URL = URL + SERVER_PROP;
-		poolSize = POOL_SIZE;
-		try {
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			for (int i = 0; i < POOL_SIZE; i++) {
-				ProxyConnection connection = null;
-					connection = new ProxyConnection(DriverManager.getConnection(FULL_URL, userName, userPass));
-					connections.offer(connection);
-			}
-		} catch (SQLException e) {	
-			throw new PoolInitException("Connection pool not initialized.", e);
-		} 
+		 /* try {
+	            DriverManager.deregisterDriver(new com.mysql.jdbc.Driver());
+	            LOGGER.info("Deregistering JDBC driver: {}");
+	        } catch (SQLException e) {
+	        	LOGGER.warn("Error deregistering JDBC driver: {}. Root cause: ",  e);
+	        }*/
+		if (connections == null) {
+			connections = new ArrayBlockingQueue<>(POOL_SIZE);
+			Properties properties = new Properties();
+		    try {
+		    	properties.load(ConnectionPool.class.getClassLoader().getResourceAsStream("app.properties"));	
+		    } catch (Exception e) {
+		    	throw new PoolInitException("Connection properties not read.", e);
+		    }
+			userName = properties.getProperty("DB_USER_NAME");
+			userPass = properties.getProperty("DB_USER_PASS");
+			final String URL = properties.getProperty("DB_URL");
+			final String SERVER_PROP = properties.getProperty("SERVER_PROP");
+			FULL_URL = URL + SERVER_PROP;
+			poolSize = POOL_SIZE;
+			try {
+				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+				for (int i = 0; i < POOL_SIZE; i++) {
+					ProxyConnection connection = null;
+						connection = new ProxyConnection(DriverManager.getConnection(FULL_URL, userName, userPass));
+						connections.offer(connection);
+				}
+			} catch (SQLException e) {	
+				throw new PoolInitException("Connection pool not initialized.", e);
+			} 
+			
+			LOGGER.info("Connection Pool initialization complete  " + connections.size() + "  " + connections.remainingCapacity());
+		}
 		
-		LOGGER.info("Connection Pool initialization complete  " + connections.size() + "  " + connections.remainingCapacity());
 	}
 
 

@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html>
+<html lang=eng>
+
 <head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -54,13 +58,15 @@
 			<tr>
 				<td>Send to  <br>
 				<c:forEach items="${subordinations}" var="subordination" varStatus="index">
-				<input type="checkbox" name="receiver${index.index}" value="${subordination.receiver.employeeID}"> ${subordination.receiver.lastName}  ${subordination.receiver.position.position} receiver ${index.index}<br>
+				<input type="checkbox" name="receiver${index.index}" value="${subordination.receiver.employeeID}"> ${subordination.receiver.lastName}  ${subordination.receiver.position.position}<br>
 				</c:forEach>
 				</td>
 			</tr>
-			
 			<tr>
-				<td colspan="2"><input type="submit" name="submit" value="Create" /></td>
+				<td colspan="2">
+				<input type="hidden" name="subNumber" value="${fn:length(subordinations)}"/>
+				<input type="submit" name="submit" value="Create" />
+				</td>
 			</tr>
 
 		</table>

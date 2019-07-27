@@ -3,9 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
 <!DOCTYPE html>
-<html>
- <head>
-    <meta charset="UTF-8">
+<html lang=eng>
+
+<head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
     <title>Employee List</title>
  </head>
  <body>
@@ -62,7 +65,8 @@
 		</table>
 		
 		<form method="GET"
-			action="${pageContext.request.contextPath}/document/my.html">
+			action="${pageContext.request.contextPath}/document/viewList.html">
+			<input type="hidden" name="${backParam}" value="${loginedUser.employeeID}" />
 			<input type="submit" value="Back">
 		</form>
     

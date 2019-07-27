@@ -10,12 +10,15 @@
 
 		<c:if test="${not empty loginedUser}">
 			${loginedUser.role.role.name} ${loginedUser.email}
-		   | <a href="${pageContext.request.contextPath}/user/accountInfo.html"> Account Info</a> 
+		   | <a href="${pageContext.request.contextPath}/employee/view.html?employeeID=${loginedUser.employeeID}"> Account Info</a> 
 		   | <a href="${pageContext.request.contextPath}/logout.html">Exit</a>   		  
 		</c:if>
 		<br/>
 		<!--     Search <input name="search"> -->
 
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </div>

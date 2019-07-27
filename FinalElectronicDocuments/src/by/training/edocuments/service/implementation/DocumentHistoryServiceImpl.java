@@ -104,7 +104,7 @@ public class DocumentHistoryServiceImpl implements DocumentHistoryService{
 		List<DocumentHistory> histories = ((DocumentHistoryDAOImpl)dao).findByExecutor(executor);
 		if (!histories.isEmpty()) {
 			for (DocumentHistory history : histories) {
-				Employee sender = history.getToEmployee();
+				Employee sender = history.getFromEmployee();
 				sender =  ((EmployeeServiceImpl)serviceEmployee).findByID(sender);
 				history.setFromEmployee(sender);
 				

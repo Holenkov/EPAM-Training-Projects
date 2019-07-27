@@ -1,11 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
- pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> 
 <!DOCTYPE html>
-<html>
- <head>
-    <meta charset="UTF-8">
+<html lang=eng>
+
+<head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
     <title>Employee List</title>
  </head>
  <body>
@@ -23,6 +25,7 @@
 			<th>Document Type</th>
 			<th>Date</th>
 			<th>Description</th>
+			<th>Author</th>
 			<th>Executor</th>
 			<th>Status</th>
 			<th>Date of execution</th>
@@ -37,13 +40,14 @@
      	     <td>${history.document.docType.docType}</td>
 			 <td><fmt:formatDate value="${history.document.dateUpdated}" pattern="yyyy-MM-dd" /></td>
 			 <td>${history.document.description}</td>
+			 <td>${history.fromEmployee.lastName}, ${history.fromEmployee.position.position}</td>
 			 <td>${history.toEmployee.lastName}, ${history.toEmployee.position.position}</td>
 			 <td>${history.docStatus.docStatus}</td>
 			 <td><fmt:formatDate value="${history.dateExecuted}" pattern="yyyy-MM-dd" /></td>
 			 <td>
                 <form method="POST" action="${pageContext.request.contextPath}/document/view.html">
-                	<input type="hidden" name="docID" value="${history.document.docID}" />
-                	<%-- <input type="hidden" name="docHistoryID" value="${history.id}" /> --%>
+             	    <input type="hidden" name="docHistoryID" value="${history.id}" />
+                	<input type="hidden" name="backParam" value="${backParam}" />
                 	<input type="submit" value="View">
                 </form>  
              </td>          

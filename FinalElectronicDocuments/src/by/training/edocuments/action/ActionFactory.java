@@ -14,6 +14,7 @@ public class ActionFactory {
 		actions.put(JSPEnum.LOGIN.getPath(), new LoginAction());
 		actions.put(JSPEnum.LOGOUT.getPath(), new LogOutAction());
 		actions.put(JSPEnum.EMPLOYEE_VIEW_ALL.getPath(), new EmployeeViewAllAction());
+		actions.put(JSPEnum.EMPLOYEE_VIEW.getPath(), new EmployeeViewAction());
 		actions.put(JSPEnum.EMPLOYEE_EDIT.getPath(), new EmployeeEditAction());
 		actions.put(JSPEnum.EMPLOYEE_REGISTRATION_FORM.getPath(), new UserRegistrationAction());
 		actions.put(JSPEnum.SUBORDINATION_EDIT.getPath(), new SubordinationEditAction());
@@ -22,8 +23,8 @@ public class ActionFactory {
 		actions.put(JSPEnum.SUBORDINATION_DELETE.getPath(), new SubordinationDeleteAction());
 		actions.put(JSPEnum.DOCUMENT_CREATE.getPath(), new DocumentCreateAction());
 		actions.put(JSPEnum.DOCUMENT_CHOOSE_TYPE.getPath(), new DocumentCreateAction());
-		actions.put(JSPEnum.DOCUMENT_VIEW_AUTHOR.getPath(), new DocumentViewAuthorAction());
 		actions.put(JSPEnum.DOCUMENT_VIEW.getPath(), new DocumentViewAction());
+		actions.put(JSPEnum.DOCUMENT_VIEW_LIST.getPath(), new DocumentListViewAction());
 		
 		actions.put(JSPEnum.EMPLOYEE_SUCCESS_EDIT.getPath(), new MessageAction());
 		actions.put(JSPEnum.NOT_AUTH_VIEW.getPath(), new MessageAction());
@@ -47,13 +48,10 @@ public class ActionFactory {
 		} else {
 			actionStr = uri.substring(begin);
 		}
-		System.out.println("AF  " + actionStr);
 		action = actions.get(actionStr);
-		System.out.println("AF  " + action);
 		if (action == null) {
 			action = new PageNotFoundAction();
 		} else {
-			System.out.println("AF1  " + actionStr);
 			action.setPath(actionStr);
 		}
 		

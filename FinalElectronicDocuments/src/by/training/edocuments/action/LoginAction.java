@@ -72,8 +72,8 @@ public class LoginAction extends Action {
 			isRedirect = true;
 			HttpSession session = request.getSession();
 			CookieUtil.storeLoginedUser(session, employee);
+			LOGGER.info("User login  " + employee.getEmail());
 			if (remember) {
-				System.out.println("LogAct  " + employee);
 				CookieUtil.storeUserCookie(response, employee);
 			} else {
 				CookieUtil.deleteUserCookie(response);

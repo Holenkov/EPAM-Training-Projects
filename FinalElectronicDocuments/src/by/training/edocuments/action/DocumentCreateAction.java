@@ -36,7 +36,6 @@ public class DocumentCreateAction extends Action {
 	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
 		String errorString = null;
 		String docType = request.getParameter("documentTypeID");
-		System.out.println("DocCreate  " + docType);
 		if (docType != null){
 			int docTypeID = Integer.parseInt(docType);
 			SourceTablesStore store  = SourceTablesStore.getStore();
@@ -81,9 +80,9 @@ public class DocumentCreateAction extends Action {
 	@Override
 	public void executePost(HttpServletRequest request, HttpServletResponse response) {
 		String errorString = null;
-
+		int subNumber = Integer.parseInt(request.getParameter("subNumber"));
+		System.out.println(subNumber);
 		int docTypeID = Integer.parseInt(request.getParameter("documentTypeID"));
-		System.out.println("DocCr  " + request.getParameter("senderID"));
 		int senderID = Integer.parseInt(request.getParameter("senderID"));
 		String description = request.getParameter("docDescription");
 		String text = request.getParameter("docText");
@@ -105,7 +104,7 @@ public class DocumentCreateAction extends Action {
 				receivers.add(new Employee(Integer.parseInt(receiverID)));
 			}	
 			i++;
-		} while (receiverID != null);	
+		} while (i < subNumber);	
 		Document document = new Document();
 		document.setAuthor(new Employee(senderID));
 		document.setDocType(new DocumentType(docTypeID));

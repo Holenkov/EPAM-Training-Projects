@@ -55,7 +55,7 @@ public class UserRegistrationAction extends Action {
 			
 				avatarStream = partAvatar.getInputStream();
 			} else {
-				String path = request.getServletContext().getRealPath("/avatar/default.jpg");  
+				String path = request.getServletContext().getRealPath(DEFAULT_AVATAR);  
 				File file = new File(path);
 				try {
 					avatarStream = new FileInputStream(file);
@@ -121,6 +121,7 @@ public class UserRegistrationAction extends Action {
 		if (!hasError) {
 			path = JSPEnum.EMPLOYEE_COMLETE_REGISTRATION.getPath();
 			isRedirect = true;
+			LOGGER.info("Employee registered  " + employee);
 		} else {
 			employee.setPassword(password1);
 			request.setAttribute("tempEmployee", employee);
@@ -131,22 +132,5 @@ public class UserRegistrationAction extends Action {
 
 	}
 
-	private byte[] partToBlob(Part part) {
-		InputStream io = null;
-		try {
-			io = part.getInputStream();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		byte[] bytes = new byte[(int) part.getSize()];
-		DataInputStream dis = new DataInputStream(io);
-		try {
-			dis.readFully(bytes);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return bytes;
-	}
 
 }

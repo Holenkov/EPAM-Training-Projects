@@ -7,6 +7,7 @@ public enum JSPEnum {
 	PAGE_NOT_FOUND("/page_not_found"),
 	NOT_AUTH_VIEW("/notAuthView"),
 	EMPLOYEE_VIEW_ALL("/employee/viewAll"),
+	EMPLOYEE_VIEW("/employee/view"),
 	EMPLOYEE_ADD(""),
 	EMPLOYEE_EDIT("/employee/edit"),
 	EMPLOYEE_SUCCESS_ADD("/employee/successAdd"),
@@ -22,9 +23,10 @@ public enum JSPEnum {
 	DOCUMENT_VIEW_MY("/document/view/my"),
 	DOCUMENT_VIEW_EXECUTE("/document/view/execute"),
 	DOCUMENT_CREATE_COMPLETE("/document/createComplete"),
-	DOCUMENT_VIEW_AUTHOR("/document/my"),
-	DOCUMENT_VIEW_EXECUTOR("/document/execute"),
-	DOCUMENT_VIEW("/document/view")
+//	DOCUMENT_VIEW_AUTHOR("/document/my"),
+//	DOCUMENT_VIEW_EXECUTOR("/document/execute"),
+	DOCUMENT_VIEW("/document/view"),
+	DOCUMENT_VIEW_LIST("/document/viewList")
 	
 	;
 	

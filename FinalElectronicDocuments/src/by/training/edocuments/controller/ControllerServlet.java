@@ -32,7 +32,7 @@ public class ControllerServlet extends HttpServlet {
 		}
 		
 		String path = action.getPath();
-		System.out.println("CS  " + method + path + "   " + action.getIsRedirect());
+	//	System.out.println("CS  " + method + path + "   " + action.getIsRedirect());
 		if (action.getIsRedirect()) {
 			response.sendRedirect(request.getContextPath() + path + ".html" + action.getParameters());
 		} else {
