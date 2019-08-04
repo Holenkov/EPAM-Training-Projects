@@ -30,6 +30,7 @@ public class ActionFactory {
 		actions.put(JSPEnum.NOT_AUTH_VIEW.getPath(), new MessageAction());
 		actions.put(JSPEnum.EMPLOYEE_COMLETE_REGISTRATION.getPath(), new MessageAction());
 		actions.put(JSPEnum.DOCUMENT_CREATE_COMPLETE.getPath(), new MessageAction());
+		actions.put(JSPEnum.LANGUAGE.getPath(), new ChangeLanguageAction());
 		
 		
 		

@@ -26,7 +26,8 @@ public enum JSPEnum {
 //	DOCUMENT_VIEW_AUTHOR("/document/my"),
 //	DOCUMENT_VIEW_EXECUTOR("/document/execute"),
 	DOCUMENT_VIEW("/document/view"),
-	DOCUMENT_VIEW_LIST("/document/viewList")
+	DOCUMENT_VIEW_LIST("/document/viewList"),
+	LANGUAGE("/language")
 	
 	;
 	

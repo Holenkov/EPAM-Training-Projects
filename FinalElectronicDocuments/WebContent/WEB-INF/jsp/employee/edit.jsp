@@ -19,6 +19,15 @@
 	<h3>Edit Employee</h3>
 
 	<p style="color: red;">${errorString}</p>
+<!-- 	
+	employeeID=Employee ID 
+firstName=First Name	
+lastName=Last Name	
+position=Position	
+role=Role	
+emplStatus=Employee Status	
+edit=Edit -->
+	
 
 	<c:if test="${not empty employee}">
 		<form action="${pageContext.request.contextPath}/employee/edit.html"
@@ -26,13 +35,13 @@
 
 			<table border="1" cellpadding="5" cellspacing="1">
 				<tr>
-					<th>Employee ID</th>
+					<th>${langBundle.employeeID}</th>
 					<th>e-mail</th>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Position</th>
-					<th>Role</th>
-					<th>Employee Status</th>
+					<th> ${langBundle.firstName}</th>
+					<th>${langBundle.lastName}</th>
+					<th>${langBundle.position}</th>
+					<th>${langBundle.role}</th>
+					<th>${langBundle.emplStatus}</th>
 				</tr>
 
 				<tr>

@@ -5,17 +5,17 @@
 <!-- <div style="padding: 5px;text-align: left " align="left"> -->
 <div class="container-fluid">
 
-		<a href="${pageContext.request.contextPath}/main.html">Home</a>
+		<a href="${pageContext.request.contextPath}/main.html">>${langBundle.home}</a>
 		<c:if test="${not empty loginedUser}">
 		 |
-      	 <a href="${pageContext.request.contextPath}/document/viewList.html?author=${loginedUser.employeeID}">My Documents</a>
+      	 <a href="${pageContext.request.contextPath}/document/viewList.html?author=${loginedUser.employeeID}">>${langBundle.myDoc}</a>
       	 |
-      	 <a href="${pageContext.request.contextPath}/document/viewList.html?executor=${loginedUser.employeeID}">Execute</a>
+      	 <a href="${pageContext.request.contextPath}/document/viewList.html?executor=${loginedUser.employeeID}">>${langBundle.execute}</a>
       	 |
-      	 <a href="${pageContext.request.contextPath}/document/choose.html">Create Document</a>
+      	 <a href="${pageContext.request.contextPath}/document/choose.html">>${langBundle.createDoc}</a>
 
 			<c:if test="${loginedUser.role.role == 'ADMIN' or loginedUser.role.role == 'MANAGER'}">    	 	|
-      	 	<a href="${pageContext.request.contextPath}/employee/viewAll.html">Employees</a>
+      	 	<a href="${pageContext.request.contextPath}/employee/viewAll.html">>${langBundle.employees}</a>
 			</c:if>
 
 		</c:if>

@@ -7,8 +7,10 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Map.Entry;
 
 import javax.servlet.Filter;
@@ -48,6 +50,15 @@ public class SecurityFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
+		
+		if (session.getAttribute("langBundle") == null) {
+			String country = "";
+			String language = "";
+			Locale current = new Locale(language, country);
+			ResourceBundle rb = ResourceBundle.getBundle("text", current);
+			session.setAttribute("langBundle", rb);
+		}
+		
 		Employee user = CookieUtil.getLoginedUser(session);
 		String path = req.getServletPath();
 		UserRole role;
