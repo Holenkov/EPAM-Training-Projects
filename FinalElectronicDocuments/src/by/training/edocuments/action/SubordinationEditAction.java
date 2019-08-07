@@ -15,6 +15,7 @@ import by.training.edocuments.service.implementation.SubordinationServiceImpl;
 
 public class SubordinationEditAction extends Action{
 	private static final Logger LOGGER = LogManager.getRootLogger();
+	
 
 	@Override
 	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
@@ -43,10 +44,19 @@ public class SubordinationEditAction extends Action{
 		
 		isRedirect = false;
 		if (errorString == null) {
-			request.setAttribute("subBySender", subBySender);
-			request.setAttribute("subByReceiver", subByReceiver);
+			List<Subordination> fullSubs = subBySender;
+			fullSubs.addAll(subByReceiver);
+			request.getSession().setAttribute("fullSubs", fullSubs);
+			List<Subordination> subs;
+			if (fullSubs.size() < 10) {
+				subs = fullSubs.subList(0, fullSubs.size()-1);
+			} else {
+				subs = fullSubs.subList(0, 9);
+			}
+			request.getSession().setAttribute("subs", subs);
 			path = JSPEnum.SUBORDINATION_EDIT.getPath();
 			request.setAttribute("employeeID", employeeID);
+			request.setAttribute("page", 1);
 		} else {
 			request.setAttribute("errorString", errorString);
 			path = JSPEnum.EMPLOYEE_EDIT.getPath();

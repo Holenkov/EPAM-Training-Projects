@@ -18,6 +18,7 @@ public class ActionFactory {
 		actions.put(JSPEnum.EMPLOYEE_EDIT.getPath(), new EmployeeEditAction());
 		actions.put(JSPEnum.EMPLOYEE_REGISTRATION_FORM.getPath(), new UserRegistrationAction());
 		actions.put(JSPEnum.SUBORDINATION_EDIT.getPath(), new SubordinationEditAction());
+		actions.put(JSPEnum.SUBORDINATION_VIEW.getPath(), new SubordinationViewAction());
 		actions.put(JSPEnum.SUBORDINATION_ADD_FORM.getPath(), new SubordinationAddAction());
 		actions.put(JSPEnum.SUBORDINATION_DELETE_CONFIRM.getPath(), new SubordinationDeleteAction());
 		actions.put(JSPEnum.SUBORDINATION_DELETE.getPath(), new SubordinationDeleteAction());

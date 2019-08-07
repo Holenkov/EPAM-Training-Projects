@@ -15,6 +15,7 @@ public enum JSPEnum {
 	EMPLOYEE_REGISTRATION_FORM("/employee/registration"),
 	EMPLOYEE_COMLETE_REGISTRATION("/employee/completeRegistration"),
 	SUBORDINATION_EDIT("/subordination/edit"),
+	SUBORDINATION_VIEW("/subordination/view"),
 	SUBORDINATION_DELETE("/subordination/delete"),
 	SUBORDINATION_ADD_FORM("/subordination/add"),
 	SUBORDINATION_DELETE_CONFIRM("/subordination/deleteConfirm"),
