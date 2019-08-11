@@ -30,19 +30,19 @@
 						onSubmit="return formValidation();">
 						<table>
 							<tr>
-								<td>User name</td>
-								<td><input type="text" name="email"
-									value="${loginedUser.email}"></td>
+								<td>${langBundle.userName}</td>
+								<td><input type="text" name="email" class="form-control"
+									value="${loginedUser.email}"  maxlength="255"></td>
 							</tr>
 							<tr>
-								<td>Password</td>
-								<td><input type="password" name="password"
-									value="${loginedUser.password}"></td>
+								<td>${langBundle.password}</td>
+								<td><input type="password" name="password" class="form-control"
+									value="${loginedUser.password}"  maxlength="32"></td>
 							</tr>
 							<tr>
-								<td><input type="submit" value="Login"></td>
+								<td><input type="submit" value="${langBundle.loginBtn}" class="btn btn-primary"></td>
 
-								<td>Remember me <input type="checkbox" name="rememberMe" value="Y"></td>
+								<td>${langBundle.rememberMe}<input type="checkbox" name="rememberMe" value="Y"></td>
 							</tr>
 						</table>
 					</form>
@@ -52,10 +52,10 @@
 				<td>
 					<table>
 						<tr>
-							<td>Not registered?</td>
+							<td>${langBundle.notRegistered}</td>
 							<td>
 								<form action="${pageContext.request.contextPath}/employee/registration.html" method="GET">
-									<input type="submit" value="Registration">
+									<input type="submit" class="btn btn-primary" value="${langBundle.registrationBtn}">
 								</form>
 							</td>
 						</tr>

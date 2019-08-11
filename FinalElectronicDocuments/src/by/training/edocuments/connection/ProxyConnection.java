@@ -23,7 +23,7 @@ public class ProxyConnection implements Connection{
 	private Connection connection;
 
 	public ProxyConnection(Connection connection) {
-		super();
+//		super();
 		this.connection = connection;
 	}
 

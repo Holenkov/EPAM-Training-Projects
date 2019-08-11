@@ -84,7 +84,8 @@ public class ConnectionPool {
 
 	public void closeConnection(ProxyConnection connection) {
 		try {
-			connection.getConnection().close();
+			//connection.getConnection().close();
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

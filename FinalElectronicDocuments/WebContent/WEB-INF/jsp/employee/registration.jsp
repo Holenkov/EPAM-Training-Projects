@@ -17,48 +17,57 @@
 	<h3>Registration Form</h3>
 
 	<p style="color: red;">${errorString}</p>
+	
 
 
-	<form 		
-		action="${pageContext.request.contextPath}/employee/registration.html"
+
+<form action="${pageContext.request.contextPath}/employee/registration.html"
 		method="POST" name="registration" enctype="multipart/form-data" onsubmit="return formValidation();">
-		
-
-		<table border="0">
-			<tr>
-				<td>E-mail</td>
-				<td><input type="text" name="email" value="${tempEmployee.email}"/></td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type="password" name="password1" value="${tempEmployee.password}"/></td>
-			</tr>
-			<tr>
-				<td>Repeat Password</td>
-				<td><input type="password" name="password2" value="${tempEmployee.password}"/></td>
-			</tr>
-			<tr>
-				<td>First Name</td>
-				<td><input type="text" name="firstName"
-					value="${tempEmployee.firstName}" /></td>
-			</tr>
-			<tr>
-				<td>Last Name</td>
-				<td><input type="text" name="lastName"
-					value="${tempEmployee.lastName}" /></td>
-			</tr>
-			
-			<tr>
-				<td>Select avatar.</td>
-				<td><input name="avatar" type="file" accept=".jpg"></td>
-			</tr>
-
-			<tr>
-				<td colspan="2"><input type="submit" value="Submit" /></td>
-			</tr>
-		</table>
-	</form>
-
+  <div class="form-group row">
+    <label for="text" class="col-sm-1 col-form-label">E-mail</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" name="email" placeholder="Enter email" value="${tempEmployee.email}" maxlength="255">
+    </div>
+  </div>
+   <div class="form-group row">
+    <label for="password1" class="col-sm-1 col-form-label">Password </label>
+    <div class="col-sm-3">
+      <input type="password" class="form-control" name="password1" placeholder="Enter password" value="${tempEmployee.password}"  maxlength="32">
+    </div>
+  </div>
+   <div class="form-group row">
+    <label for="password2" class="col-sm-1 col-form-label">Repeat Password</label>
+    <div class="col-sm-3">
+      <input type="password" class="form-control" name="password2" placeholder="Repeat password" value="${tempEmployee.password}" maxlength="32">
+    </div>
+  </div>
+  
+   <div class="form-group row">
+    <label for="firstName" class="col-sm-1 col-form-label">First name</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" name="firstName" placeholder="Enter first name" value="${tempEmployee.firstName}" maxlength="32">
+    </div>
+  </div>
+  
+   <div class="form-group row">
+    <label for="lastName" class="col-sm-1 col-form-label">Last name</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" name="lastName" placeholder="Enter last name" value="${tempEmployee.lastName}" maxlength="32">
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <label for="avatar" class="col-sm-1 col-form-label">Select avatar.</label>
+    <div class="col-sm-3">
+      <input type="file" accept=".jpg" class="form-control-file" id="avatar">
+    </div>
+  </div>
+  
+ <button type="submit" class="btn btn-primary">Submit</button>
+  
+ 
+</form>
+	
 
 	<jsp:include page="/WEB-INF/jsp/_footer.jsp"></jsp:include>
 
@@ -72,7 +81,6 @@
 		password2 = document.forms["registration"]["password2"].value;
 		firstName = document.forms["registration"]["firstName"].value;
 		lastName = document.forms["registration"]["lastName"].value;
-		
 	/* 	if (validateFile(file) == false) {
 			return false;
 		} */
@@ -133,14 +141,26 @@
 			alert("First name is empty");
 			return false;
 		}
+		 var reg = /^[a-zA-Z ]*$/;
+		if (!reg.test(String(firstName))) {
+			alert("First name should include letters only");
+			return false;
+		}  
+		
 		return true;
 	}
 
 	function validateLastName(lastName) {
-		if (firstName == "") {
+		if (lastName == "") {
 			alert("Last name is empty");
 			return false;
 		}
+		 var reg = /^[a-zA-Z ]*$/;
+		if (!reg.test(String(lastName))) {
+			alert("Last name should include letters only");
+			return false;
+		} 
+		
 		return true;
 	}
 	

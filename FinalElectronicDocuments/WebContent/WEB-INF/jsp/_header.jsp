@@ -13,18 +13,17 @@
 		   | <a href="${pageContext.request.contextPath}/employee/view.html?employeeID=${loginedUser.employeeID}">${langBundle.accountInfo}</a> 
 		   | <a href="${pageContext.request.contextPath}/logout.html">${langBundle.exit}</a>   
 		   <br>	
-		   <form action="${pageContext.request.contextPath}/language.html" method="get">
+		</c:if>
+		<form action="${pageContext.request.contextPath}/language.html" method="get" name="langSelect">
 		   ${langBundle.selectLang}
-		   		<select id="language" name="language">
-					<option value="EN" selected="EN">EN</option>
+		   		<select id="language" name="language" onchange="document.forms['langSelect'].submit()">
+					<option value="EN">EN</option>
 					<option value="SP">SP</option>
 					<option value="RU">RU</option>
+						<option value="${langBundle.currentLang}" selected disabled hidden>${langBundle.currentLang}</option>
 			 	</select>
-		   		<input type="submit" value="${langBundle.select}">
 		   </form>	  
-		</c:if>
 		<br/>
-		<!--     Search <input name="search"> -->
 
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

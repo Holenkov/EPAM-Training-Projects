@@ -19,17 +19,11 @@
 	<h3>Edit Employee</h3>
 
 	<p style="color: red;">${errorString}</p>
-<!-- 	
-	employeeID=Employee ID 
-firstName=First Name	
-lastName=Last Name	
-position=Position	
-role=Role	
-emplStatus=Employee Status	
-edit=Edit -->
-	
 
 	<c:if test="${not empty employee}">
+	
+
+		
 		<form action="${pageContext.request.contextPath}/employee/edit.html"
 			name="edit" method="POST" onSubmit="return formValidation();">
 
@@ -51,9 +45,9 @@ edit=Edit -->
 
 					<c:if test="${loginedUser.role.role == 'MANAGER'}">
 						<td><input type="text" name="firstName"
-							value="${employee.firstName}" /></td>
+							value="${employee.firstName}" maxlength="32"/></td>
 						<td><input type="text" name="lastName"
-							value="${employee.lastName}" /></td>
+							value="${employee.lastName}" maxlength="32"/></td>
 						<td><select id="employeePosition" name="employeePosition">
 								<option value="${employee.position.positionID}"
 									selected="${employee.position.positionID}">${employee.position.position}</option>
@@ -93,6 +87,7 @@ edit=Edit -->
 			</table>
 			<br> <input type="submit" value="Submit" /> <br>
 		</form>
+		
 		<form method="GET"
 			action="${pageContext.request.contextPath}/employee/viewAll.html">
 			<input type="submit" value="Cancel">
@@ -104,7 +99,7 @@ edit=Edit -->
 			<form method="GET"
 				action="${pageContext.request.contextPath}/subordination/edit.html">
 				<input type="hidden" name="employeeID"
-						value="${employee.employeeID}" /></td>
+						value="${employee.employeeID}" />
 				<input type="submit" value="Edit Subordination">
 			</form>
 		</c:if>
@@ -113,6 +108,50 @@ edit=Edit -->
 	</c:if>
 
 	<jsp:include page="/WEB-INF/jsp/_footer.jsp"></jsp:include>
+	
+
 
 </body>
+
+	<script>
+	function formValidation() {
+		firstName = document.forms["edit"]["firstName"].value;
+		lastName = document.forms["edit"]["lastName"].value;
+		alert("validation");
+	 	if (validateFirstName(firstName) == false) {
+			return false;
+		}
+		if (validateLastName(lastName) == false) {
+			return false;
+		} 
+		return true;
+	}
+ 	
+	function validateFirstName(firstName) {
+		if (firstName == "") {
+			alert("First name is empty");
+			return false;
+		}
+		 var reg = /^[a-zA-Z ]*$/;
+		if (!reg.test(String(firstName))) {
+			alert("First name should include letters only");
+			return false;
+		}  
+		return true;
+	}
+
+	function validateLastName(lastName) {
+		if (lastName == "") {
+			alert("Last name is empty");
+			return false;
+		}
+		 var reg = /^[a-zA-Z ]*$/;
+		if (!reg.test(String(lastName))) {
+			alert("Last name should include letters only");
+			return false;
+		} 
+		return true;
+	} 
+	
+</script>
 </html>

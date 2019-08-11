@@ -35,8 +35,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employee = ((EmployeeDAOImpl)dao).find(employee);
 		if (employee != null) {
 			setStatusPosition(employee);
-		}	
-		setStatusPosition(employee);
+		} else {
+			throw new DBOperationException("Employee not found");
+		}
+//		setStatusPosition(employee);
 		ConnectionPool.getConnectionPool().closeConnection((ProxyConnection)connection);
 		return employee;
 	}

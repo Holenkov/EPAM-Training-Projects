@@ -28,7 +28,7 @@ public class DocumentListViewAction extends Action{
 		/*if (author == null & executor == null) {
 			errorString = "No employee parameters";
 		}*/
-		System.out.println(author + "  "  + executor);
+		System.out.println("DocViewAction   " + author + "  "  + executor);
 		DocumentHistoryServiceImpl service = new DocumentHistoryServiceImpl();
 		List<DocumentHistory> historyList = null;
 		Employee employee = CookieUtil.getLoginedUser(request.getSession());

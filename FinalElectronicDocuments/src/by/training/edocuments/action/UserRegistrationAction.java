@@ -51,7 +51,8 @@ public class UserRegistrationAction extends Action {
 		InputStream avatarStream = null;
 		try {
 			partAvatar = request.getPart("avatar");
-			if (partAvatar.getSize() > 0) {
+	//		if (partAvatar.getSize() > 0) {
+			if (partAvatar != null) {
 			
 				avatarStream = partAvatar.getInputStream();
 			} else {

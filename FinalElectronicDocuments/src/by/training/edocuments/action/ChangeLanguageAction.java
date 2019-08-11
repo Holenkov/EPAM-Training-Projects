@@ -22,7 +22,6 @@ public class ChangeLanguageAction extends Action{
 	public void executeGet(HttpServletRequest request, HttpServletResponse response) {
 		String errorString = null;
 		String currentLanguage = request.getParameter("language");
-		System.out.println("currentLanguage  " + currentLanguage);
 		if (currentLanguage != null){
 			String country = "";
 			String language = "";
@@ -30,24 +29,18 @@ public class ChangeLanguageAction extends Action{
 			case "EN":
 				country = "US";
 				language = "EN";
-				System.out.println("US");
 				break;
 			case "RU":
 				country = "RU";
 				language = "RU";
-				System.out.println("RU");
 				break;
 			case "SP":
 				country = "ME";
 				language = "SP";
-				System.out.println("SP");
 				break;
 			}
-			System.out.println(country + "   " + language);
 			Locale current = new Locale(language, country);
-			System.out.println(current);
 			ResourceBundle rb = ResourceBundle.getBundle("text", current, new UTF8Control());
-	//		ResourceBundle rb = ResourceBundle.getBundle("text", current);
 			HttpSession session = request.getSession();
 			session.setAttribute("langBundle", rb);
 		} else {

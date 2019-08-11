@@ -81,7 +81,6 @@ public class DocumentCreateAction extends Action {
 	public void executePost(HttpServletRequest request, HttpServletResponse response) {
 		String errorString = null;
 		int subNumber = Integer.parseInt(request.getParameter("subNumber"));
-		System.out.println(subNumber);
 		int docTypeID = Integer.parseInt(request.getParameter("documentTypeID"));
 		int senderID = Integer.parseInt(request.getParameter("senderID"));
 		String description = request.getParameter("docDescription");

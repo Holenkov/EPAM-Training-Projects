@@ -15,7 +15,7 @@
       	 <a href="${pageContext.request.contextPath}/document/choose.html">>${langBundle.createDoc}</a>
 
 			<c:if test="${loginedUser.role.role == 'ADMIN' or loginedUser.role.role == 'MANAGER'}">    	 	|
-      	 	<a href="${pageContext.request.contextPath}/employee/viewAll.html">>${langBundle.employees}</a>
+      	 		<a href="${pageContext.request.contextPath}/employee/viewAll.html">>${langBundle.employees}</a>
 			</c:if>
 
 		</c:if>
